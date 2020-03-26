@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`allRecipesBadWords matches snapshot 1`] = `
+Array [
+  "decrease serving",
+  "increase serving",
+  "adjust",
+  "the ingredient list now reflects the servings specified",
+  "footnotes",
+]
+`;
+
+exports[`badWords matches snapshot 1`] = `
+Array [
+  "instructions",
+  "directions",
+  "procedure",
+  "method",
+  "you will need",
+  "how to make it",
+  "ingredients",
+  "total time",
+  "active time",
+  "prep time",
+  "time",
+  "yield",
+  "servings",
+  "notes",
+  "select all ingredients",
+  "select all",
+  "decrease serving",
+  "increase serving",
+  "adjust",
+  "the ingredient list now reflects the servings specified",
+  "footnotes",
+  "scale 1x2x3x",
+]
+`;
+
+exports[`generalBadWords matches snapshot 1`] = `
+Array [
+  "instructions",
+  "directions",
+  "procedure",
+  "method",
+  "you will need",
+  "how to make it",
+  "ingredients",
+  "total time",
+  "active time",
+  "prep time",
+  "time",
+  "yield",
+  "servings",
+  "notes",
+  "select all ingredients",
+  "select all",
+]
+`;
+
+exports[`tastyRecipesBadWords matches snapshot 1`] = `
+Array [
+  "scale 1x2x3x",
+]
+`;

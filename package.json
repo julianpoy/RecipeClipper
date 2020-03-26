@@ -1,0 +1,34 @@
+{
+  "name": "@julianpoy/recipe-clipper",
+  "version": "1.0.0",
+  "description": "Grab recipes from (almost) any website",
+  "main": "dist/recipe-clipper.cjs.js",
+  "module": "dist/recipe-clipper.esm.js",
+  "browser": "dist/recipe-clipper.umd.js",
+  "iife": "dist/recipe-clipper.iife.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c --watch",
+    "test": "jest"
+  },
+  "repository": "git://github.com/julianpoy/RecipeClipper.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "author": "Julian Poyourow",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "babel-jest": "^25.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "jest": "^25.2.0",
+    "rollup-plugin-babel": "^4.4.0"
+  }
+}

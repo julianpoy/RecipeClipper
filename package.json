@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c --watch",
-    "test": "jest"
+    "test": "jest --watch --coverage"
   },
   "repository": "git://github.com/julianpoy/RecipeClipper.git",
   "publishConfig": {

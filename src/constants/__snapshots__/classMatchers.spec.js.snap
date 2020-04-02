@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`classMatchers matches snapshot 1`] = `
+Object {
+  "activeTime": Array [
+    Array [
+      "activeTime",
+      "active-time",
+      "prep-time",
+      "time-active",
+      "time-prep",
+    ],
+    Array [
+      "activeTime",
+      "active-time",
+      "prep-time",
+      "time-active",
+      "time-prep",
+    ],
+  ],
+  "description": Array [
+    Array [
+      "wprm-recipe-summary",
+    ],
+    Array [],
+  ],
+  "imageURL": Array [
+    Array [
+      "wprm-recipe-image",
+      "tasty-recipes-image",
+      "hero-photo",
+      "o-RecipeLead__m-RecipeMedia",
+      "recipe-lede-image",
+      "recipe-body",
+      "recipe__hero",
+      "content",
+    ],
+    Array [
+      "recipe-image",
+      "hero",
+      "recipe-content",
+      "recipe-body",
+      "recipe-intro",
+      "recipe-",
+    ],
+  ],
+  "ingredients": Array [
+    Array [
+      "wprm-recipe-ingredients-container",
+      "wprm-recipe-ingredients",
+      "tasty-recipes-ingredients",
+      "o-Ingredients",
+      "recipe-ingredients",
+      "recipe-ingredients-section",
+    ],
+    Array [
+      "ingredients",
+    ],
+  ],
+  "instructions": Array [
+    Array [
+      "wprm-recipe-instructions",
+      "tasty-recipes-instructions",
+      "recipe-directions__list",
+      "o-Method",
+      "steps-area",
+      "recipe-method-section",
+      "instructions",
+      "recipe-steps",
+      "recipe-instructions",
+      "directions",
+    ],
+    Array [
+      "instructions",
+      "directions",
+      "recipe-method",
+    ],
+  ],
+  "notes": Array [
+    Array [
+      "notes",
+      "recipe-notes",
+      "recipe-footnotes",
+      "recipe__tips",
+      "wprm-recipe-notes-container",
+    ],
+    Array [
+      "recipe-notes",
+    ],
+  ],
+  "title": Array [
+    Array [
+      "wprm-recipe-name",
+    ],
+    Array [],
+  ],
+  "totalTime": Array [
+    Array [
+      "totalTime",
+      "total-time",
+      "time-total",
+    ],
+    Array [
+      "totalTime",
+      "total-time",
+      "time-total",
+    ],
+  ],
+  "yield": Array [
+    Array [
+      "recipe-yield",
+      "recipe-servings",
+      "yield",
+      "servings",
+    ],
+    Array [
+      "yield",
+      "servings",
+    ],
+  ],
+}
+`;

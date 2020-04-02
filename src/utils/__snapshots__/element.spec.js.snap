@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applyLIBlockStyling renders dom matching snapshot 1`] = `
+"
+      <ul id=\\"el\\">
+        <li style=\\"display: block;\\">Test1</li>
+        <li style=\\"display: block;\\">Test2</li>
+      </ul>
+      <ul id=\\"el2\\">
+        <li>Test1</li>
+        <li>Test2</li>
+      </ul>
+    "
+`;
+
+exports[`getImgElementsWithin matches child image elements 1`] = `
+Array [
+  <img
+    id="test"
+  />,
+  <img
+    id="test2"
+  />,
+]
+`;
+
+exports[`softMatchElementsByClass returns matched elements 1`] = `
+Array [
+  <a
+    class="example-element-1"
+  >
+    Test
+  </a>,
+  <a
+    class="example-element-2"
+  >
+    Test2
+  </a>,
+  <a
+    class="example-element-3"
+  >
+    Test3
+  </a>,
+]
+`;

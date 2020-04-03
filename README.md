@@ -1,7 +1,7 @@
 # :fork_and_knife: RecipeSage Recipe Clipper
-A utility for grabbing recipes from (almost) any website using some CSS selectors, and used to power RecipeSage (https://recipesage.com).
+A utility for grabbing recipes from (almost) any website using some CSS selectors, and used to power [RecipeSage](https://recipesage.com) (https://recipesage.com).
 
-The Recipe Clipper is quite useful within a headless Chromium instance (ex. puppeteer), for grabbing/scraping recipes from the web. 
+The Recipe Clipper is quite useful within a headless Chromium instance (ex. [Puppeteer](https://github.com/puppeteer/puppeteer)), for grabbing/scraping recipes from the web. 
 
 ## :rice: How it Works
 

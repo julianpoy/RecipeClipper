@@ -16,8 +16,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "author": "Julian Poyourow",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "AGPL-3.0-only",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",

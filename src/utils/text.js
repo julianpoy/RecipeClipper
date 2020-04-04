@@ -2,14 +2,25 @@ import { badWords } from '../constants/badWords';
 
 export const capitalizeEachWord = (textBlock) => textBlock.split(' ').map((word) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`).join(' ');
 
+// Undesired words
+export const isBadWord = (line) => badWords.contains(line.toLowerCase());
+
+// Digits and steps that sit on their own lines
+export const isStep = (line) => line.match(/^(step *)?\d+:?$/i);
+
+export const removeFieldTitles = (line) => line.replace(/^(total time|prep time|active time|yield|servings|serves):? ?/i, '').trim();
+
+// Format capitalized lines "HEADER:" as [Header]
+export const formatHeaders = (line) => (line.match(/^([A-Z] *)+:? *$/)
+  ? `[${capitalizeEachWord(line.toLowerCase()).replace(':', '')}]` : line);
+
 export const cleanKnownWords = (textBlock) => textBlock.split('\n')
   .map((line) => line.trim())
-  .filter((line) => line.length !== 0) // Remove whitespace-only lines
-  .filter((line) => badWords.indexOf(line.toLowerCase()) === -1) // Remove known undesired words/sentences
-  .filter((line) => !line.match(/^(step *)?\d+:?$/i)) // Remove digits and steps that sit on their own lines
-  .map((line) => line.replace(/^(total time|prep time|active time|yield|servings|serves):? ?/i, '')) // Remove direct field names for meta
-  .map((line) => line.trim())
-  .map((line) => (line.match(/^([A-Z] *)+:? *$/) ? `[${capitalizeEachWord(line.toLowerCase()).replace(':', '')}]` : line)) // Format capitalized lines "HEADER:" as [Header]
+  .filter((line) => line.length)
+  .filter((line) => !isBadWord(line))
+  .filter((line) => !isStep(line))
+  .map((line) => removeFieldTitles(line))
+  .map((line) => formatHeaders(line))
   .join('\n');
 
 export const format = {

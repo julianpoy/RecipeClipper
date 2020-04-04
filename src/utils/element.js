@@ -15,14 +15,20 @@ export const softMatchElementsByClass = (classNamePartial) => {
 };
 
 export const applyLIBlockStyling = (element) => {
-  [...element.querySelectorAll('li')].forEach((li) => li.style.display = 'block');
+  [...element.querySelectorAll('li')].forEach((li) => {
+    li.style.display = 'block';
+  });
 
   return element;
 };
 
 export const grabLongestMatchByClasses = (preferredClassNames, fuzzyClassNames) => {
-  const exactMatches = preferredClassNames.reduce((acc, className) => [...acc, ...document.getElementsByClassName(className)], []);
-  const fuzzyMatches = fuzzyClassNames.reduce((acc, className) => [...acc, ...softMatchElementsByClass(className)], []);
+  const exactMatches = preferredClassNames
+    .map((className) => document.getElementsByClassName(className))
+    .flat();
+  const fuzzyMatches = fuzzyClassNames
+    .map((className) => softMatchElementsByClass(className))
+    .flat();
 
   return (exactMatches.length > 0 ? exactMatches : fuzzyMatches)
     .map((element) => applyLIBlockStyling(element))
@@ -40,6 +46,18 @@ export const getImgElementsWithin = (element) => {
   return matchedImgElements;
 };
 
+export const getAttrIfExists = (el, attrName) => {
+  if (el.attributes[attrName]) return el.attributes[attrName].value;
+  return '';
+};
+
+export const getSrcFromImage = (img) => {
+  if (!img) return '';
+
+  const closestSrc = getAttrIfExists(img, 'data-src') || getAttrIfExists(img, 'data-lazy-src') || img.currentSrc || img.src;
+  return closestSrc || '';
+};
+
 export const isValidImage = (element) => isImg(element)
     && !!getSrcFromImage(element)
     && element.complete // Filter images that haven't completely loaded
@@ -49,8 +67,10 @@ export const isValidImage = (element) => isImg(element)
 export const getImageDimensions = (element) => {
   const parent = element.parentNode;
   const isParentPicture = parent && isPicture(parent);
-  const offsetHeight = isParentPicture ? Math.max(element.offsetHeight, parent.offsetHeight) : element.offsetHeight;
-  const offsetWidth = isParentPicture ? Math.max(element.offsetWidth, parent.offsetWidth) : element.offsetWidth;
+  const offsetHeight = isParentPicture
+    ? Math.max(element.offsetHeight, parent.offsetHeight) : element.offsetHeight;
+  const offsetWidth = isParentPicture
+    ? Math.max(element.offsetWidth, parent.offsetWidth) : element.offsetWidth;
 
   return {
     offsetHeight,
@@ -65,9 +85,14 @@ export const grabLargestImage = () => {
     .filter((element) => isValidImage(element))
     .reduce((max, element) => {
       const { offsetWidth, offsetHeight } = getImageDimensions(element);
-      if (offsetWidth < 200 && offsetHeight < 200) return max; // Do not use images smaller than 200x200
 
-      return (offsetHeight * offsetWidth) > (max ? (max.offsetHeight * max.offsetWidth) : 0) ? element : max;
+      // Do not use images smaller than 200x200
+      if (offsetWidth < 200 && offsetHeight < 200) return max;
+
+      const elTotalPx = offsetHeight * offsetWidth;
+      const maxTotalPx = max ? (max.offsetHeight * max.offsetWidth) : 0;
+
+      return elTotalPx > maxTotalPx ? element : max;
     }, null);
 };
 
@@ -75,18 +100,6 @@ export const closestToRegExp = (regExp) => {
   const match = document.body.innerText.match(regExp);
   if (!match) return '';
   return match[0];
-};
-
-export const getAttrIfExists = (el, attrName) => {
-  if (el.attributes[attrName]) return el.attributes[attrName].value;
-  return '';
-};
-
-export const getSrcFromImage = (img) => {
-  if (!img) return '';
-
-  const closestSrc = getAttrIfExists(img, 'data-src') || getAttrIfExists(img, 'data-lazy-src') || img.currentSrc || img.src;
-  return closestSrc || '';
 };
 
 export const grabRecipeTitleFromDocumentTitle = () => document.title.split(/ - |\|/)[0].trim();

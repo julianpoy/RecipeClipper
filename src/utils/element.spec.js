@@ -9,7 +9,6 @@ import {
   isValidImage,
   getImageDimensions,
   grabLargestImage,
-  grabClosestImageByClasses,
   closestToRegExp,
   getAttrIfExists,
   getSrcFromImage,

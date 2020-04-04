@@ -1,7 +1,6 @@
 import * as TextUtils from './text';
 import * as ElementUtils from './element';
 import * as ClipUtils from './clip';
-import * as ClassMatchers from '../constants/classMatchers';
 import {
   matchYield,
   matchActiveTime,
@@ -82,7 +81,6 @@ describe('clipTitle', () => {
   });
 
   describe('when title is not found within document', () => {
-    const classTitleMatch = 'example title';
     const documentTitleMatch = 'alternate title';
     const title = 'Example';
     let outputVal;
@@ -180,7 +178,6 @@ describe('clipSource', () => {
   });
 
   describe('when source is not found in the document title', () => {
-    const titleMatch = 'title source';
     const source = 'Example';
     let outputVal;
     let grabSourceFromDocumentTitleSpy, formatSourceSpy;

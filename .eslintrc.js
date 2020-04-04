@@ -17,6 +17,7 @@ module.exports = {
   },
   rules: {
     "one-var": 0,
-    "one-var-declaration-per-line": ["error", "initializations"]
+    "one-var-declaration-per-line": ["error", "initializations"],
+    "no-param-reassign": 0
   },
 };

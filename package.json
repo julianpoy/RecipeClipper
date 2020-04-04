@@ -1,6 +1,6 @@
 {
   "name": "@julianpoy/recipe-clipper",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Grab recipes from (almost) any website",
   "main": "dist/recipe-clipper.cjs.js",
   "module": "dist/recipe-clipper.esm.js",
@@ -9,12 +9,10 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c --watch",
-    "test": "jest --watch --coverage"
+    "test": "jest --watch --coverage",
+    "semantic-release": "semantic-release"
   },
   "repository": "git://github.com/julianpoy/RecipeClipper.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "author": "Julian Poyourow",
   "license": "AGPL-3.0-only",
   "dependencies": {},
@@ -30,6 +28,7 @@
     "jest": "^25.2.0",
     "rollup": "^2.3.2",
     "rollup-plugin-babel": "^4.4.0",
-    "sanitize-html": "^1.22.1"
+    "sanitize-html": "^1.22.1",
+    "semantic-release": "^17.0.4"
   }
 }

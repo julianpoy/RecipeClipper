@@ -16,5 +16,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    "one-var": 0,
+    "one-var-declaration-per-line": ["error", "initializations"]
   },
 };

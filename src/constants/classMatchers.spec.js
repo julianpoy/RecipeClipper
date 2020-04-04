@@ -1,8 +1,7 @@
-import ClassMatchers from './classMatchers'
+import ClassMatchers from './classMatchers';
 
 describe('classMatchers', () => {
   it('matches snapshot', () => {
-    expect(ClassMatchers).toMatchSnapshot()
-  })
-})
-
+    expect(ClassMatchers).toMatchSnapshot();
+  });
+});

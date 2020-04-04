@@ -7,25 +7,24 @@ import {
 
 describe('badWords', () => {
   it('matches snapshot', () => {
-    expect(badWords).toMatchSnapshot()
-  })
-})
+    expect(badWords).toMatchSnapshot();
+  });
+});
 
 describe('generalBadWords', () => {
   it('matches snapshot', () => {
-    expect(generalBadWords).toMatchSnapshot()
-  })
-})
+    expect(generalBadWords).toMatchSnapshot();
+  });
+});
 
 describe('allRecipesBadWords', () => {
   it('matches snapshot', () => {
-    expect(allRecipesBadWords).toMatchSnapshot()
-  })
-})
+    expect(allRecipesBadWords).toMatchSnapshot();
+  });
+});
 
 describe('tastyRecipesBadWords', () => {
   it('matches snapshot', () => {
-    expect(tastyRecipesBadWords).toMatchSnapshot()
-  })
-})
-
+    expect(tastyRecipesBadWords).toMatchSnapshot();
+  });
+});

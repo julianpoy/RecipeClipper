@@ -8,7 +8,7 @@ const classMatchers = {
       'recipe-lede-image', // Delish - https://www.delish.com/cooking/recipe-ideas/a25648042/crustless-quiche-recipe/
       'recipe-body', // Generic, idea from Delish - https://www.delish.com/cooking/recipe-ideas/a25648042/crustless-quiche-recipe/
       'recipe__hero', // Food52 - https://food52.com/recipes/81867-best-quiche-recipe
-      'content' // Generic, recognize content-body if matched directly
+      'content', // Generic, recognize content-body if matched directly
     ],
     [
       'recipe-image',
@@ -16,32 +16,32 @@ const classMatchers = {
       'recipe-content', // Generic, search for largest image within any recipe content block
       'recipe-body', // Generic, search for largest image within any recipe content block
       'recipe-intro', // Generic, search for largest image within any recipe content block
-      'recipe-' // Generic, search for largest image within any recipe content block
-    ]
+      'recipe-', // Generic, search for largest image within any recipe content block
+    ],
   ],
   title: [
     [
-      'wprm-recipe-name' // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
+      'wprm-recipe-name', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
     ],
-    []
+    [],
   ],
   description: [
     [
-      'wprm-recipe-summary' // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
+      'wprm-recipe-summary', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
     ],
-    []
+    [],
   ],
   yield: [
     ['recipe-yield', 'recipe-servings', 'yield', 'servings'],
-    ['yield', 'servings']
+    ['yield', 'servings'],
   ],
   activeTime: [
     ['activeTime', 'active-time', 'prep-time', 'time-active', 'time-prep'],
-    ['activeTime', 'active-time', 'prep-time', 'time-active', 'time-prep']
+    ['activeTime', 'active-time', 'prep-time', 'time-active', 'time-prep'],
   ],
   totalTime: [
     ['totalTime', 'total-time', 'time-total'],
-    ['totalTime', 'total-time', 'time-total']
+    ['totalTime', 'total-time', 'time-total'],
   ],
   ingredients: [
     [
@@ -52,7 +52,7 @@ const classMatchers = {
       'recipe-ingredients',
       'recipe-ingredients-section', // Taste.com.au - https://www.taste.com.au/recipes/healthy-feta-mint-beef-patties-griled-vegies-hummus-recipe/pxacqmfu?r=recipes/dinnerrecipesfortwo&c=1j53ce29/Dinner%20recipes%20for%20two
     ],
-    ['ingredients']
+    ['ingredients'],
   ],
   instructions: [
     [
@@ -65,9 +65,9 @@ const classMatchers = {
       'instructions', // Generic
       'recipe-steps', // Generic
       'recipe-instructions', // Generic
-      'directions' // Generic
+      'directions', // Generic
     ],
-    ['instructions', 'directions', 'recipe-method']
+    ['instructions', 'directions', 'recipe-method'],
   ],
   notes: [
     [
@@ -75,11 +75,10 @@ const classMatchers = {
       'recipe-notes',
       'recipe-footnotes',
       'recipe__tips', // King Arthur Flour - https://www.kingarthurflour.com/recipes/chocolate-cake-recipe
-      'wprm-recipe-notes-container' // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
+      'wprm-recipe-notes-container', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
     ],
-    ['recipe-notes']
-  ]
-}
+    ['recipe-notes'],
+  ],
+};
 
-export default classMatchers
-
+export default classMatchers;

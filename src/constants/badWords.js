@@ -14,22 +14,21 @@ export const generalBadWords = [
   'servings',
   'notes',
   'select all ingredients',
-  'select all'
+  'select all',
 ];
 export const allRecipesBadWords = [
   'decrease serving',
   'increase serving',
   'adjust',
   'the ingredient list now reflects the servings specified',
-  'footnotes'
+  'footnotes',
 ];
 export const tastyRecipesBadWords = [
-  'scale 1x2x3x'
+  'scale 1x2x3x',
 ];
 
 export const badWords = [
   generalBadWords,
   allRecipesBadWords,
-  tastyRecipesBadWords
+  tastyRecipesBadWords,
 ].flat();
-

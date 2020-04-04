@@ -9,6 +9,8 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c --watch",
+    "lint": "eslint ./src/*.js ./src/**/*.js",
+    "lint:fix": "npm run lint -- --fix",
     "test": "jest --watch --coverage",
     "test:ci": "jest --coverage",
     "semantic-release": "semantic-release"

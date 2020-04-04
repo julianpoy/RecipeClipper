@@ -12,7 +12,7 @@
     "test": "jest --watch --coverage",
     "semantic-release": "semantic-release"
   },
-  "repository": "git://github.com/julianpoy/RecipeClipper.git",
+  "repository": "github:julianpoy/RecipeClipper",
   "author": "Julian Poyourow",
   "license": "AGPL-3.0-only",
   "dependencies": {},

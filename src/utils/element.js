@@ -8,14 +8,11 @@ export const getClassNamesMatching = (classNamePartial) => {
 export const softMatchElementsByClass = (classNamePartial) => {
   const classNames = getClassNamesMatching(classNamePartial);
 
-  return classNames.reduce((acc, className) => [
-    ...acc,
-    ...document.getElementsByClassName(className),
-  ], []);
+  return classNames.map((className) => Array.from(document.getElementsByClassName(className))).flat()
 };
 
 export const applyLIBlockStyling = (element) => {
-  [...element.querySelectorAll('li')].forEach((li) => {
+  Array.from(element.querySelectorAll('li')).forEach((li) => {
     li.style.display = 'block';
   });
 
@@ -24,7 +21,7 @@ export const applyLIBlockStyling = (element) => {
 
 export const grabLongestMatchByClasses = (preferredClassNames, fuzzyClassNames) => {
   const exactMatches = preferredClassNames
-    .map((className) => document.getElementsByClassName(className))
+    .map((className) => Array.from(document.getElementsByClassName(className)))
     .flat();
   const fuzzyMatches = fuzzyClassNames
     .map((className) => softMatchElementsByClass(className))

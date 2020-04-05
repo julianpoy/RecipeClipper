@@ -8,7 +8,9 @@ export const getClassNamesMatching = (classNamePartial) => {
 export const softMatchElementsByClass = (classNamePartial) => {
   const classNames = getClassNamesMatching(classNamePartial);
 
-  return classNames.map((className) => Array.from(document.getElementsByClassName(className))).flat()
+  return classNames
+    .map((className) => Array.from(document.getElementsByClassName(className)))
+    .flat();
 };
 
 export const applyLIBlockStyling = (element) => {

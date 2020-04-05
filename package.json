@@ -18,6 +18,9 @@
   "repository": "github:julianpoy/RecipeClipper",
   "author": "Julian Poyourow",
   "license": "AGPL-3.0-only",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",

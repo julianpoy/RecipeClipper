@@ -3,7 +3,7 @@ import { badWords } from '../constants/badWords';
 export const capitalizeEachWord = (textBlock) => textBlock.split(' ').map((word) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`).join(' ');
 
 // Undesired words
-export const isBadWord = (line) => badWords.contains(line.toLowerCase());
+export const isBadWord = (line) => badWords.includes(line.toLowerCase());
 
 // Digits and steps that sit on their own lines
 export const isStep = (line) => line.match(/^(step *)?\d+:?$/i);

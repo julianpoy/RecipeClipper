@@ -1,8 +1,12 @@
 version: 2
 jobs:
-  build:
+  build_test_release:
     docker:
       - image: 'circleci/node:latest'
+      - image: browserless/chrome:1.28.0-chrome-stable
+        environment:
+          MAX_CONCURRENT_SESSIONS: 4
+          MAX_QUEUE_LENGTH: 300
     steps:
       - checkout
       - run:
@@ -14,6 +18,11 @@ jobs:
       - run:
           name: test
           command: npm run test:ci
+      - run:
+          name: intergration
+          command: npm run integration
+          environment:
+            BROWSERLESS_WS: "ws://localhost:3000"
       - run:
           name: build
           command: npm run build

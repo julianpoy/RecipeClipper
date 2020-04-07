@@ -62,6 +62,8 @@ const classMatchers = {
       'o-Method', // FoodNetwork - https://www.foodnetwork.com/recipes/paula-deen/spinach-and-bacon-quiche-recipe-2131172
       'steps-area', // Bon Appetit - https://www.bonappetit.com/recipe/chocolate-babka
       'recipe-method-section', // Taste.com.au - https://www.taste.com.au/recipes/healthy-feta-mint-beef-patties-griled-vegies-hummus-recipe/pxacqmfu?r=recipes/dinnerrecipesfortwo&c=1j53ce29/Dinner%20recipes%20for%20two
+
+      'recipe__list--steps', // Food52.com - https://food52.com/recipes/81867-best-quiche-recipe
       'instructions', // Generic
       'recipe-steps', // Generic
       'recipe-instructions', // Generic

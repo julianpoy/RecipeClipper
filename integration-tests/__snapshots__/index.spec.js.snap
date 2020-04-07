@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing clips recipe matching snapshot from https://www.bettycrocker.com/recipes/ultimate-chocolate-chip-cookies/77c14e03-d8b0-4844-846d-f19304f61c57 1`] = `
+Object {
+  "activeTime": "",
+  "description": "",
+  "imageURL": "https://images-gmi-pmc.edge-generalmills.com/087d17eb-500e-4b26-abd1-4f9ffa96a2c6.jpg",
+  "ingredients": "2 1/4
+cups Gold Medal™ all-purpose flour
+teaspoon baking soda
+1/2
+teaspoon salt
+cup butter, softened
+3/4
+cup granulated sugar
+3/4
+cup packed brown sugar
+egg
+teaspoon vanilla
+cups semisweet chocolate chips
+cup coarsely chopped nuts, if desired",
+  "instructions": "",
+  "notes": "",
+  "source": "BettyCrocker.com",
+  "title": "Ultimate Chocolate Chip Cookies Recipe",
+  "totalTime": "",
+  "yield": "48",
+}
+`;

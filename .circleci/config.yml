@@ -5,7 +5,7 @@ jobs:
       - image: 'circleci/node:latest'
       - image: browserless/chrome:1.28.0-chrome-stable
         environment:
-          MAX_CONCURRENT_SESSIONS: 4
+          MAX_CONCURRENT_SESSIONS: 5
           MAX_QUEUE_LENGTH: 300
     steps:
       - checkout

@@ -16,7 +16,7 @@ if [ -z "$BROWSERLESS_WS" ]; then
     browserless/chrome:1.28.0-chrome-stable
 fi
 
-npx jest integration-tests/*.spec.js
+npx jest integration-tests/*.spec.js --runInBand --testTimeout=30000
 
 if ! [ -z "$CLEANUP" ]; then
   docker stop recipe-clipper-browserless || true

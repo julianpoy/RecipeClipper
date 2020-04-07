@@ -12,5 +12,3 @@ export const clipRecipe = () => ({
   instructions: ClipUtils.clipInstructions(),
   notes: ClipUtils.clipNotes(),
 });
-
-export default clipRecipe;

@@ -11,8 +11,9 @@
     "watch": "rollup -c --watch",
     "lint": "eslint ./src/*.js ./src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest --watch --coverage",
-    "test:ci": "jest --coverage",
+    "test": "jest ./src --watch --coverage",
+    "test:ci": "jest ./src --coverage",
+    "integration": "./integration-tests/run.sh",
     "semantic-release": "semantic-release"
   },
   "repository": "github:julianpoy/RecipeClipper",
@@ -21,7 +22,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "regenerator-runtime": "^0.13.5"
+  },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
@@ -32,6 +35,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
     "jest": "^25.2.0",
+    "puppeteer-core": "^2.1.1",
     "rollup": "^2.3.2",
     "rollup-plugin-babel": "^4.4.0",
     "sanitize-html": "^1.22.1",

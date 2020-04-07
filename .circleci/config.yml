@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build_test_release:
+  build:
     docker:
       - image: 'circleci/node:latest'
       - image: browserless/chrome:1.28.0-chrome-stable

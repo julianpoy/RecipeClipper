@@ -24,6 +24,16 @@ Array [
 ]
 `;
 
+exports[`matchElementsByClass returns matched elements 1`] = `
+Array [
+  <a
+    class="example-element-1"
+  >
+    Test
+  </a>,
+]
+`;
+
 exports[`softMatchElementsByClass returns matched elements 1`] = `
 Array [
   <a

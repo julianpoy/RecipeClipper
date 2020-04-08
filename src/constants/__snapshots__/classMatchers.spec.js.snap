@@ -65,6 +65,8 @@ Object {
       "o-Method",
       "steps-area",
       "recipe-method-section",
+      "recipe__list--steps",
+      "recipesteps",
       "instructions",
       "recipe-steps",
       "recipe-instructions",

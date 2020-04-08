@@ -20,8 +20,8 @@ export const softMatchElementsByClass = (classNamePartial) => {
     .flat();
 };
 
-export const matchElementsByClass = (className) => {
-  const classNames = getClassNamesContaining(className);
+export const matchElementsByClass = (classNameFull) => {
+  const classNames = getClassNamesContaining(classNameFull);
 
   return classNames
     .map((className) => Array.from(document.getElementsByClassName(className)))

@@ -5,8 +5,23 @@ export const getClassNamesMatching = (classNamePartial) => {
   return Array.from(new Set(Array.from(matches, (match) => match[1])));
 };
 
+export const getClassNamesContaining = (className) => {
+  const classRegExp = new RegExp(`class="(([\\w-\\s]*\\s)?${className}(\\s[\\w-\\s]*)?)"`, 'gi');
+  const matches = document.body.innerHTML.matchAll(classRegExp);
+
+  return Array.from(new Set(Array.from(matches, (match) => match[1])));
+};
+
 export const softMatchElementsByClass = (classNamePartial) => {
   const classNames = getClassNamesMatching(classNamePartial);
+
+  return classNames
+    .map((className) => Array.from(document.getElementsByClassName(className)))
+    .flat();
+};
+
+export const matchElementsByClass = (classNameFull) => {
+  const classNames = getClassNamesContaining(classNameFull);
 
   return classNames
     .map((className) => Array.from(document.getElementsByClassName(className)))
@@ -23,7 +38,7 @@ export const applyLIBlockStyling = (element) => {
 
 export const grabLongestMatchByClasses = (preferredClassNames, fuzzyClassNames) => {
   const exactMatches = preferredClassNames
-    .map((className) => Array.from(document.getElementsByClassName(className)))
+    .map((className) => matchElementsByClass(className))
     .flat();
   const fuzzyMatches = fuzzyClassNames
     .map((className) => softMatchElementsByClass(className))

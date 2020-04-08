@@ -1,6 +1,8 @@
 import {
   getClassNamesMatching,
+  getClassNamesContaining,
   softMatchElementsByClass,
+  matchElementsByClass,
   applyLIBlockStyling,
   grabLongestMatchByClasses,
   isImg,
@@ -16,7 +18,7 @@ import {
   grabSourceFromDocumentTitle,
 } from './element';
 
-describe('getClassRegExp', () => {
+describe('getClassNamesMatching', () => {
   beforeAll(() => {
     document.body.innerHTML = `
       <a class="single-example"></a>
@@ -53,6 +55,36 @@ describe('getClassRegExp', () => {
   });
 });
 
+describe('getClassNamesContaining', () => {
+  beforeAll(() => {
+    document.body.innerHTML = `
+      <a class="single-example"></a>
+      <a class=" filler example "></a>
+      <a class="example with multiple-classes"></a>
+    `;
+  });
+
+  afterAll(() => {
+    document.body.innerHTML = '';
+  });
+
+  it('matches single classname', () => {
+    expect(getClassNamesContaining('single-example')).toEqual(['single-example']);
+  });
+
+  it('only matches exact', () => {
+    expect(getClassNamesContaining('single-exam')).toEqual([]);
+  });
+
+  it('matches elements with multiple classnames', () => {
+    expect(getClassNamesContaining('multiple-classes')).toEqual(['example with multiple-classes']);
+  });
+
+  it('returns empty array for no matches', () => {
+    expect(getClassNamesContaining('shouldnotmatch')).toEqual([]);
+  });
+});
+
 describe('softMatchElementsByClass', () => {
   beforeAll(() => {
     document.body.innerHTML = `
@@ -72,6 +104,32 @@ describe('softMatchElementsByClass', () => {
 
   it('returns empty array when elements not found', () => {
     expect(softMatchElementsByClass('does-not-exist')).toEqual([]);
+  });
+});
+
+describe('matchElementsByClass', () => {
+  beforeAll(() => {
+    document.body.innerHTML = `
+      <a class="example-element-1">Test</a>
+      <a class="example-element-2">Test2</a>
+      <a class="example-element-3">Test3</a>
+    `;
+  });
+
+  afterAll(() => {
+    document.body.innerHTML = '';
+  });
+
+  it('returns matched elements', () => {
+    expect(matchElementsByClass('example-element-1')).toMatchSnapshot();
+  });
+
+  it('only matches exact', () => {
+    expect(matchElementsByClass('example-element')).toEqual([]);
+  });
+
+  it('returns empty array when elements not found', () => {
+    expect(matchElementsByClass('does-not-exist')).toEqual([]);
   });
 });
 

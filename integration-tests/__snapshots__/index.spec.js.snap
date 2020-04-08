@@ -27,7 +27,13 @@ Filling
 3/4 teaspoon freshly ground black pepper
 1 to 1 1/4 cups mix-ins, depending on mix-in (see headnote)
 1 cup grated cheese (see headnote)",
-  "instructions": "",
+  "instructions": "Make the crust: Combine the flours, sugar, salt, and baking powder in the bowl of a stand mixer fitted with a paddle attachment. Mix on low just to combine. Add the cream cheese and mix on low until them cream cheese is mostly broken-down. Add the butter and mix on low until mostly incorporated and none of the pieces are bigger than a chickpea; this should take 30 seconds to 1 minute (if there are any stragglers, just stop the machine and smush the piece with your fingertips—don’t overmix). Combine the water and vinegar in a small glass and, with the machine running, pour in. As soon as the sides of the bowl are no longer dusty and clumps and curds begin to form (it should not form a cohesive ball—that’s too far), turn the mixer off; better to undermix versus overmix at this point. Remove the bowl and bring the dough into a ball with your hands. Wrap well in plastic wrap and form into a flat disc. Refrigerate for at least 1 hour or up to a couple days. (You can also freeze the dough for future quiches; just thaw in the fridge overnight.)
+Roll out and crimp the crust: On a floured work surface, roll out the dough into a 12-inch or so circle, then transfer to a 9-inch pie pan (not deep-dish), making sure the bottom corners are tightly pressed against the pan. Use scissors to trim the dough to an even 1-inch overhang. Fold the edge under itself. Use your fingers to press and even out the sides, making sure the bottom corners are tightly pressed against the pan. Crimp the edges however you’d like (I like using my left hand’s thumb and pointer finger as a guide, then crimping with my right hand’s pointer finger, to form ruffles). Stick in the freezer for at least 15 minutes or up to 2 days.
+Parbake the crust: Heat the oven to 400°F. Line the frozen crust with a square of parchment, fill with dried beans (or another pie weight), then set on a sheet pan. Bake on the lower rack for about 40 minutes, rotating halfway through, until the crust is starting to brown along the edges and the bottom no longer looks raw and doughy. While the crust is baking, use a fork to whisk the egg white with a pinch of salt until it’s very loose. When the crust is done, remove the parchment and beans and prick the bottom and sides of the crust a few times with a fork. Brush the inside of the crust with the salted egg white, then return to the oven to bake for another minute to set.
+Remove the parbaked crust from the oven to cool, then lower the oven to 325°F and turn your attention to the custard.
+Make the custard: Combine the cream and milk in a bowl. Add the flour to another, smaller bowl, and add a splash (figure, 1 tablespoon or so) of the liquid. Stir with a fork or whisk until smooth. Repeat this (splash, stir, splash, stir) until the flour mixture is completely smooth and pourable. Pour into the bigger bowl of cream and milk and stir. Add the eggs, egg yolk, salt, and pepper, and whisk until smooth.
+Fill the quiche: Sprinkle half of the cheese evenly over the bottom of the crust. Sprinkle the mix-ins on top, spreading them out as much as possible (even scooching up the sides is fine), so that you can see the cheese and crust below. There should not be a packed-solid layer of mix-ins; the custard filling needs to be able to get through. Sprinkle the remaining cheese on top. Slowly and evenly pour in the custard, taking it as high to the brim as possible. It should be on the verge of overflowing. If you have any leftover custard, bake it in a ramekin or microwave it as a snack.
+Bake the quiche for 55 to 65 minutes, or until it no longer shimmies when shook. (If the crust starts to brown too much mid-bake, you can carefully tent it with foil.) Let cool until warm before serving. It’s also great at room temperature and cold.",
   "notes": "",
   "source": "How to Make Any Type of Quiche Perfectly",
   "title": "Best Quiche Recipe",
@@ -144,7 +150,7 @@ I Made It  Print",
 Reynolds® Aluminum foil can be used to keep food moist, cook it evenly, and make clean-up easier.",
   "source": "Allrecipes.com",
   "title": "Asparagus Mushroom Bacon Crustless Quiche Recipe",
-  "totalTime": "",
+  "totalTime": "1 Hr",
   "yield": "",
 }
 `;
@@ -168,7 +174,13 @@ egg
 teaspoon vanilla
 cups semisweet chocolate chips
 cup coarsely chopped nuts, if desired",
-  "instructions": "",
+  "instructions": "Steps
+Hide Images
+Heat oven to 375°F. In small bowl, mix flour, baking soda and salt; set aside.
+In large bowl, beat softened butter and sugars with electric mixer on medium speed, or mix with spoon about 1 minute or until fluffy, scraping side of bowl occasionally.
+Beat in egg and vanilla until smooth. Stir in flour mixture just until blended (dough will be stiff). Stir in chocolate chips and nuts.
+Onto ungreased cookie sheets, drop dough by rounded tablespoonfuls 2 inches apart.
+Bake 8 to 10 minutes or until light brown (centers will be soft). Cool 2 minutes; remove from cookie sheet to cooling rack. Cool completely, about 30 minutes. Store covered in airtight container.",
   "notes": "",
   "source": "BettyCrocker.com",
   "title": "Ultimate Chocolate Chip Cookies Recipe",
@@ -277,62 +289,6 @@ Combine the eggs, cream, salt, and pepper in a food processor or blender. Layer 
 `;
 
 exports[`testing clips recipe matching snapshot from https://www.kingarthurflour.com/recipes/chocolate-cake-recipe 1`] = `
-Object {
-  "activeTime": "",
-  "description": "",
-  "imageURL": "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/47-3-large.jpg?itok=CfPiwrEc",
-  "ingredients": "2 1/4 cups (269g) King Arthur Unbleached All-Purpose Flour
-1 1/2 teaspoons baking powder
-1/2 teaspoon baking soda
-1/2 teaspoon salt
-3/4 cup (64g) unsweetened cocoa, natural or Dutch-process cocoa
-1 3/4 cups (354g) granulated sugar
-1/2 cup (8 tablespoons, 113g) unsalted butter, at room temperature
-1/3 cup (64g) vegetable oil
-2 teaspoons vanilla extract
-1 cup (227g) milk
-1/2 cup (113g) coffee or water
-4 large eggs
-[Nutrition Information]",
-  "instructions": "Preheat the oven to 350°F. Lightly grease and flour your choice of pans: one 9\\" x 13\\" pan, two 9\\" round pans, or three 8\\" round pans.
-Sift together the flour, baking powder, baking soda, salt, cocoa, and sugar into a large mixing bowl.
-Add the butter and mix at low speed for 1 minute. With the mixer running, add the oil and continue mixing until the mixture looks sandy, about 30 seconds more.
-In a large measuring cup, combine the vanilla with the milk and coffee(or water), and add all at once to the dry ingredients. Mix for 1 minute at low speed, stop and scrape the sides and bottom of the bowl, then mix for 30 seconds more.
-Take it a step further
-[Blog]
-How to tell when cake is done
-[By Kye Ameden]
-Add the eggs one at a time, beating well at medium-high speed between additions.
-Scrape the sides and bottom of the mixing bowl, and mix for 30 seconds more. The batter will be thin.
-Transfer the batter to the prepared pan(s) of your choice. Smooth out the tops of the layers with an offset spatula.
-Bake for 34 minutes for a 9\\" x 13\\" pan, 28 to 30 minutes for 9\\" layers, and 24 to 26 minutes for 8\\" layers.
-The cake is done when the top springs back when very lightly touched in the center, and the edges just begin to pull away from the edge of the pan. A cake tester inserted in the center will come out clean.
-Remove the cake from the oven and let cool completely in the pan(s) on a rack before turning out of the pans to frost.
-Cake layers can be wrapped and frozen for up to a month before frosting.
-Tips from our Bakers
-The volume of this batter is 5 3/4 cups. It will rise quite a bit during baking. The weight of the batter is 3 pounds, 1 ounce. If you're weighing out layers, put 1 pound, 8 1/2 ounces in each 9\\" layer, or 1 pound in each 8\\" layer.
-We've tested this cake with natural unsweetened cocoa, and with Dutch-process; both work well. The Dutch-process cake will be darker in color and slightly less sweet.
-Try frosting this cake with Seven-Minute Frosting as shown here.
-The butter in this recipe needs to be very soft. If you can leave a dent in the butter with a gentle touch, it's ready to use.
-[Shares]
-5.8k
-Share on Facebook
-Share by Email
-Share on Pinterest
-Share on Twitter",
-  "notes": "Tips from our Bakers
-The volume of this batter is 5 3/4 cups. It will rise quite a bit during baking. The weight of the batter is 3 pounds, 1 ounce. If you're weighing out layers, put 1 pound, 8 1/2 ounces in each 9\\" layer, or 1 pound in each 8\\" layer.
-We've tested this cake with natural unsweetened cocoa, and with Dutch-process; both work well. The Dutch-process cake will be darker in color and slightly less sweet.
-Try frosting this cake with Seven-Minute Frosting as shown here.
-The butter in this recipe needs to be very soft. If you can leave a dent in the butter with a gentle touch, it's ready to use.",
-  "source": "King Arthur Flour",
-  "title": "Chocolate Cake",
-  "totalTime": "",
-  "yield": "",
-}
-`;
-
-exports[`testing clips recipe matching snapshot from https://www.kingarthurflour.com/recipes/chocolate-cake-recipe 2`] = `
 Object {
   "activeTime": "",
   "description": "",

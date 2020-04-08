@@ -6,7 +6,7 @@ export const getClassNamesMatching = (classNamePartial) => {
 };
 
 export const getClassNamesContaining = (className) => {
-  const classRegExp = new RegExp(`class="((.*\\s)?${className}(\\s.*)?)"`, 'gi');
+  const classRegExp = new RegExp(`class="(([\\w-\\s]*\\s)?${className}(\\s[\\w-\\s]*)?)"`, 'gi');
   const matches = document.body.innerHTML.matchAll(classRegExp);
 
   return Array.from(new Set(Array.from(matches, (match) => match[1])));

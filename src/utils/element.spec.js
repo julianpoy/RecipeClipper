@@ -59,6 +59,7 @@ describe('getClassNamesContaining', () => {
   beforeAll(() => {
     document.body.innerHTML = `
       <a class="single-example"></a>
+      <a class=" filler example "></a>
       <a class="example with multiple-classes"></a>
     `;
   });

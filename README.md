@@ -40,5 +40,19 @@ The Recipe Clipper uses Rollup and Jest.
 
 `npm run test` to run tests.
 
+`npm run lint` to run a lint check.
+
+`npm run lint:fix` to run a lint check and fix syntax errors via eslint.
+
+`npm run integration` to run a integration checks defined in `integration-tests/index.spec.js` within a puppeteer browser instance.
+
 `npm run build` to build to the `dist` folder.
 
+## :bread: Contributing
+
+You're welcome to open a PR to the repository. Here are some contributing guidelines:
+
+- All pull requests should be titled with `fix(...):` or `feat(...):`
+- All code changes should be tested if possible
+- Maintain modularity and break logic into smaller functions whenever possible
+- Site-specific code should be kept to a minimum, and should be separate from generic matching logic

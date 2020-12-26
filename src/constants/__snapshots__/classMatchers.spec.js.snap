@@ -52,6 +52,8 @@ Object {
       "o-Ingredients",
       "recipe-ingredients",
       "recipe-ingredients-section",
+      "ingredient-list",
+      "ingredientlist",
     ],
     Array [
       "ingredients",
@@ -67,6 +69,8 @@ Object {
       "recipe-method-section",
       "recipe__list--steps",
       "recipesteps",
+      "instruction-list",
+      "instructionlist",
       "instructions",
       "recipe-steps",
       "recipe-instructions",

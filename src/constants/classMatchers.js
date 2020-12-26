@@ -51,6 +51,8 @@ const classMatchers = {
       'o-Ingredients', // FoodNetwork - https://www.foodnetwork.com/recipes/paula-deen/spinach-and-bacon-quiche-recipe-2131172
       'recipe-ingredients',
       'recipe-ingredients-section', // Taste.com.au - https://www.taste.com.au/recipes/healthy-feta-mint-beef-patties-griled-vegies-hummus-recipe/pxacqmfu?r=recipes/dinnerrecipesfortwo&c=1j53ce29/Dinner%20recipes%20for%20two
+      'ingredient-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
+      'ingredientlist', // Generic
     ],
     ['ingredients'],
   ],
@@ -65,6 +67,8 @@ const classMatchers = {
 
       'recipe__list--steps', // Food52.com - https://food52.com/recipes/81867-best-quiche-recipe
       'recipesteps', // BettyCrocker.com - https://www.bettycrocker.com/recipes/ultimate-chocolate-chip-cookies/77c14e03-d8b0-4844-846d-f19304f61c57
+      'instruction-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
+      'instructionlist', // Generic
       'instructions', // Generic
       'recipe-steps', // Generic
       'recipe-instructions', // Generic

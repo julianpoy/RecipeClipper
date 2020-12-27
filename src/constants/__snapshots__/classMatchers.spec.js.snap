@@ -76,6 +76,8 @@ Object {
       "instruction-list",
       "preparationsteps",
       "preparation-steps",
+      "prepsteps",
+      "prep-steps",
       "recipeinstructions",
       "recipe-instructions",
       "recipemethod",

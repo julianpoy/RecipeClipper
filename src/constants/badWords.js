@@ -2,6 +2,7 @@ export const generalBadWords = [
   'instructions',
   'directions',
   'procedure',
+  'preparation',
   'method',
   'you will need',
   'how to make it',

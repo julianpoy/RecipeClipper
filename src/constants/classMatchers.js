@@ -1,3 +1,9 @@
+// Class matchers are sorted by field. Each field contains a set of exact matchers, and a set of fuzzy fallback matchers
+// For example:
+// imageURL: [ [exact], [fuzzy fallback] ]
+// Clipper will search for exact matchers _exactly_ as they are within the classnames in the document
+// Clipper will search for any element that has a class that contains the fuzzy name
+
 const classMatchers = {
   imageURL: [
     [
@@ -23,7 +29,12 @@ const classMatchers = {
     [
       'wprm-recipe-name', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
     ],
-    [],
+    [
+      'recipename',
+      'recipe-name',
+      'recipetitle',
+      'recipe-title',
+    ],
   ],
   description: [
     [
@@ -51,10 +62,14 @@ const classMatchers = {
       'o-Ingredients', // FoodNetwork - https://www.foodnetwork.com/recipes/paula-deen/spinach-and-bacon-quiche-recipe-2131172
       'recipe-ingredients',
       'recipe-ingredients-section', // Taste.com.au - https://www.taste.com.au/recipes/healthy-feta-mint-beef-patties-griled-vegies-hummus-recipe/pxacqmfu?r=recipes/dinnerrecipesfortwo&c=1j53ce29/Dinner%20recipes%20for%20two
-      'ingredient-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
-      'ingredientlist', // Generic
+      'ingredientlist',
+      'ingredient-list',
     ],
-    ['ingredients'],
+    [
+      'ingredients',
+      'ingredientlist',
+      'ingredient-list',
+    ],
   ],
   instructions: [
     [
@@ -67,26 +82,47 @@ const classMatchers = {
 
       'recipe__list--steps', // Food52.com - https://food52.com/recipes/81867-best-quiche-recipe
       'recipesteps', // BettyCrocker.com - https://www.bettycrocker.com/recipes/ultimate-chocolate-chip-cookies/77c14e03-d8b0-4844-846d-f19304f61c57
-      'instruction-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
-      'instructionlist', // Generic
-      'preparation-steps', // https://www.maangchi.com/recipe/kimchi-bokkeumbap
-      'preparationsteps', // Generic
-      'instructions', // Generic
       'recipe-steps', // Generic
+      'instructionlist', // Generic
+      'instruction-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
+      'preparationsteps', // Generic
+      'preparation-steps', // https://www.maangchi.com/recipe/kimchi-bokkeumbap
+      'recipeinstructions', // Generic
       'recipe-instructions', // Generic
+      'recipemethod', // Generic
+      'recipe-method', // Generic
       'directions', // Generic
+      'instructions', // Generic
     ],
-    ['instructions', 'directions', 'recipe-method'],
+    [
+      'instructionlist',
+      'instruction-list',
+      'preparationsteps',
+      'preparation-steps',
+      'recipesteps',
+      'recipe-steps',
+      'recipemethod',
+      'recipe-method',
+      'directions',
+      'instructions',
+    ],
   ],
   notes: [
     [
-      'notes',
-      'recipe-notes',
-      'recipe-footnotes',
+      'notes', // Generic
+      'recipenotes', // Generic
+      'recipe-notes', // Generic
+      'recipefootnotes', // Generic
+      'recipe-footnotes', // Generic
       'recipe__tips', // King Arthur Flour - https://www.kingarthurflour.com/recipes/chocolate-cake-recipe
       'wprm-recipe-notes-container', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
     ],
-    ['recipe-notes'],
+    [
+      'recipenotes',
+      'recipe-notes',
+      'recipefootnotes',
+      'recipe-footnotes',
+    ],
   ],
 };
 

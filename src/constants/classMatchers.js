@@ -1,7 +1,8 @@
-// Class matchers are sorted by field. Each field contains a set of exact matchers, and a set of fuzzy fallback matchers
+// Class matchers are sorted by field. Each field contains a set of exact matchers,
+// and a set of fuzzy fallback matchers
 // For example:
 // imageURL: [ [exact], [fuzzy fallback] ]
-// Clipper will search for exact matchers _exactly_ as they are within the classnames in the document
+// Clipper will search for exact matchers _exactly_ within the document
 // Clipper will search for any element that has a class that contains the fuzzy name
 
 const classMatchers = {

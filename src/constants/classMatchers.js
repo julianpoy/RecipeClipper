@@ -69,6 +69,8 @@ const classMatchers = {
       'recipesteps', // BettyCrocker.com - https://www.bettycrocker.com/recipes/ultimate-chocolate-chip-cookies/77c14e03-d8b0-4844-846d-f19304f61c57
       'instruction-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
       'instructionlist', // Generic
+      'preparation-steps', // https://www.maangchi.com/recipe/kimchi-bokkeumbap
+      'preparationsteps', // Generic
       'instructions', // Generic
       'recipe-steps', // Generic
       'recipe-instructions', // Generic

@@ -10,7 +10,6 @@ Array [
   "the ingredient list now reflects the servings specified",
   "footnotes",
   "i made it  print",
-  "portionenumrechnen",
   "[add all ingredients to shopping list]",
 ]
 `;
@@ -42,7 +41,6 @@ Array [
   "the ingredient list now reflects the servings specified",
   "footnotes",
   "i made it  print",
-  "portionenumrechnen",
   "[add all ingredients to shopping list]",
   "scale 1x2x3x",
 ]

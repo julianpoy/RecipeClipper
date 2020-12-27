@@ -27,6 +27,7 @@ export const allRecipesBadWords = [
   'footnotes',
   'i made it  print',
   '\ue863portionenumrechnen',
+  '[add all ingredients to shopping list]',
 ];
 export const tastyRecipesBadWords = [
   'scale 1x2x3x',

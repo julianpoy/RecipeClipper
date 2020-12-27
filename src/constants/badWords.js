@@ -18,11 +18,15 @@ export const generalBadWords = [
   'select all',
 ];
 export const allRecipesBadWords = [
+  'ingredient checklist',
+  'instructions checklist',
   'decrease serving',
   'increase serving',
   'adjust',
   'the ingredient list now reflects the servings specified',
   'footnotes',
+  'i made it  print',
+  '\ue863portionenumrechnen',
 ];
 export const tastyRecipesBadWords = [
   'scale 1x2x3x',

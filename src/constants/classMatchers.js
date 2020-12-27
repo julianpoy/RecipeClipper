@@ -88,6 +88,8 @@ const classMatchers = {
       'instruction-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
       'preparationsteps', // Generic
       'preparation-steps', // https://www.maangchi.com/recipe/kimchi-bokkeumbap
+      'prepsteps', // Generic
+      'prep-steps', // https://tasty.co/recipe/one-pan-baby-back-ribs
       'recipeinstructions', // Generic
       'recipe-instructions', // Generic
       'recipemethod', // Generic

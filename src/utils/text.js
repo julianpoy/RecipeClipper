@@ -1,14 +1,22 @@
 import { badWords } from '../constants/badWords';
+import {
+  matchStep, matchFieldTitles, matchScale, matchSpecialChracters,
+} from '../constants/regex';
 
 export const capitalizeEachWord = (textBlock) => textBlock.split(' ').map((word) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`).join(' ');
 
+export const removeSpecialCharacters = (line) => line.replace(matchSpecialChracters, '').trim();
+
 // Undesired words
-export const isBadWord = (line) => badWords.includes(line.toLowerCase());
+export const isBadWord = (line) => badWords.includes(removeSpecialCharacters(line).toLowerCase());
 
 // Digits and steps that sit on their own lines
-export const isStep = (line) => line.match(/^(step *)?\d+:?$/i);
+export const isStep = (line) => removeSpecialCharacters(line).match(matchStep);
 
-export const removeFieldTitles = (line) => line.replace(/^(total time|prep time|active time|yield|servings|serves):? ?/i, '').trim();
+// Scale buttons/interface that was picked up accidentally (4x)
+export const isScale = (line) => removeSpecialCharacters(line).match(matchScale);
+
+export const removeFieldTitles = (line) => line.replace(matchFieldTitles, '').trim();
 
 // Format capitalized lines "HEADER:" as [Header]
 export const formatHeaders = (line) => (line.match(/^([A-Z] *)+:? *$/)
@@ -16,9 +24,10 @@ export const formatHeaders = (line) => (line.match(/^([A-Z] *)+:? *$/)
 
 export const cleanKnownWords = (textBlock) => textBlock.split('\n')
   .map((line) => line.trim())
-  .filter((line) => line.length)
+  .filter((line) => removeSpecialCharacters(line).length)
   .filter((line) => !isBadWord(line))
   .filter((line) => !isStep(line))
+  .filter((line) => !isScale(line))
   .map((line) => removeFieldTitles(line))
   .map((line) => formatHeaders(line))
   .join('\n');

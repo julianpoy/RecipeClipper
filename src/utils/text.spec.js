@@ -1,5 +1,6 @@
 import {
   capitalizeEachWord,
+  removeSpecialCharacters,
   cleanKnownWords,
   format,
 } from './text';
@@ -20,6 +21,17 @@ describe('capitalizeEachWord', () => {
   });
 });
 
+describe('removeSpecialCharacters', () => {
+  it('removes special characters', () => {
+    // Note: not comprehensive
+    expect(removeSpecialCharacters('./"\'+_-[](),')).toEqual('');
+  });
+
+  it('leaves normal characters alone', () => {
+    expect(removeSpecialCharacters('normal characters 9')).toEqual('normal characters 9');
+  });
+});
+
 describe('cleanKnownWords', () => {
   it('removes excess spacing around lines', () => {
     expect(cleanKnownWords(' test ')).toEqual('test');
@@ -33,10 +45,21 @@ describe('cleanKnownWords', () => {
     badWords.forEach((badWord) => expect(cleanKnownWords(badWord)).toEqual(''));
   });
 
+  it('removes special characters on their own line', () => {
+    expect(cleanKnownWords('_ +')).toEqual('');
+  });
+
+  it('removes scale multipliers on their own line', () => {
+    expect(cleanKnownWords('1x')).toEqual('');
+    expect(cleanKnownWords('1 x')).toEqual('');
+    expect(cleanKnownWords('[1x]')).toEqual('');
+  });
+
   it('removes step titles', () => {
     expect(cleanKnownWords('Step 3:')).toEqual('');
     expect(cleanKnownWords('Step 3')).toEqual('');
     expect(cleanKnownWords('step 3')).toEqual('');
+    expect(cleanKnownWords('- Step 3:')).toEqual('');
     expect(cleanKnownWords('3')).toEqual('');
     expect(cleanKnownWords('3:')).toEqual('');
   });

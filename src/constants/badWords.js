@@ -26,7 +26,7 @@ export const allRecipesBadWords = [
   'the ingredient list now reflects the servings specified',
   'footnotes',
   'i made it  print',
-  '[add all ingredients to shopping list]',
+  'add all ingredients to shopping list',
 ];
 export const tastyRecipesBadWords = [
   'scale 1x2x3x',

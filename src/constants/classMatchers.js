@@ -86,6 +86,8 @@ const classMatchers = {
       'recipe-steps', // Generic
       'instructionlist', // Generic
       'instruction-list', // Bon Appetit - https://www.bonappetit.com/recipe/extra-corny-cornbread-muffins
+      'directionlist', // Generic
+      'direction-list', // https://leitesculinaria.com/10114/recipes-portuguese_sausage_frittata.html
       'preparationsteps', // Generic
       'preparation-steps', // https://www.maangchi.com/recipe/kimchi-bokkeumbap
       'prepsteps', // Generic
@@ -102,6 +104,8 @@ const classMatchers = {
       'instruction-list',
       'preparationsteps',
       'preparation-steps',
+      'directionlist',
+      'direction-list',
       'recipesteps',
       'recipe-steps',
       'recipemethod',

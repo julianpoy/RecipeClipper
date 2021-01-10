@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ml mlClassifyRemote when RC_ML_CLASSIFY_ENDPOINT is set sends fetch request 1`] = `
+Array [
+  Array [
+    "https://example.com/test",
+    Object {
+      "body": "{\\"sentences\\":[\\"line 1\\",\\"line 2\\"]}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;

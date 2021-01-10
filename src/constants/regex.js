@@ -14,3 +14,7 @@ export const matchScale = /^\d+ *x?$/i;
 export const matchFieldTitles = /^(total time|prep time|active time|yield|servings|serves):? ?/i;
 
 export const matchSpecialChracters = /[^a-zA-Z0-9 ]/g;
+
+export const ingredientSectionHeader = /^(ingredients|you will need|ingredient checklist|ingredient list)\s*:?/gi;
+
+export const instructionSectionHeader = /^(instructions|instructions checklist|instruction list|how to make it|preparation|steps|method|procedure|directions)\s*:?/gi;

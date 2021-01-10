@@ -13,6 +13,9 @@ import {
   matchActiveTime,
   matchTotalTime,
 } from '../constants/regex';
+import {
+  grabByMl
+} from './ml';
 
 export const clipImageURL = () => format.imageURL(
   getSrcFromImage(grabLargestImage()),
@@ -45,12 +48,14 @@ export const clipTotalTime = () => format.totalTime(
   || closestToRegExp(matchTotalTime).replace('\n', ''),
 );
 
-export const clipIngredients = () => format.ingredients(
-  grabLongestMatchByClasses(...ClassMatchers.ingredients),
+export const clipIngredients = async () => format.ingredients(
+  grabLongestMatchByClasses(...ClassMatchers.ingredients)
+  || await grabByMl(1),
 );
 
-export const clipInstructions = () => format.instructions(
-  grabLongestMatchByClasses(...ClassMatchers.instructions),
+export const clipInstructions = async () => format.instructions(
+  grabLongestMatchByClasses(...ClassMatchers.instructions)
+  || await grabByMl(2),
 );
 
 export const clipNotes = () => format.notes(

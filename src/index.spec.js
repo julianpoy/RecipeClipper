@@ -6,7 +6,7 @@ describe('clip', () => {
   let clipTotalTimeSpy, clipIngredientsSpy, clipInstructionsSpy, clipNotesSpy, clipActiveTimeSpy;
   let outputVal;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     clipImageURLSpy = jest.spyOn(ClipUtils, 'clipImageURL').mockReturnValue('imageURL');
     clipTitleSpy = jest.spyOn(ClipUtils, 'clipTitle').mockReturnValue('title');
     clipDescriptionSpy = jest.spyOn(ClipUtils, 'clipDescription').mockReturnValue('description');
@@ -14,11 +14,11 @@ describe('clip', () => {
     clipYieldSpy = jest.spyOn(ClipUtils, 'clipYield').mockReturnValue('yield');
     clipActiveTimeSpy = jest.spyOn(ClipUtils, 'clipActiveTime').mockReturnValue('activeTime');
     clipTotalTimeSpy = jest.spyOn(ClipUtils, 'clipTotalTime').mockReturnValue('totalTime');
-    clipIngredientsSpy = jest.spyOn(ClipUtils, 'clipIngredients').mockReturnValue('ingredients');
-    clipInstructionsSpy = jest.spyOn(ClipUtils, 'clipInstructions').mockReturnValue('instructions');
+    clipIngredientsSpy = jest.spyOn(ClipUtils, 'clipIngredients').mockResolvedValue('ingredients');
+    clipInstructionsSpy = jest.spyOn(ClipUtils, 'clipInstructions').mockResolvedValue('instructions');
     clipNotesSpy = jest.spyOn(ClipUtils, 'clipNotes').mockReturnValue('notes');
 
-    outputVal = clipRecipe();
+    outputVal = await clipRecipe();
   });
 
   afterAll(() => {

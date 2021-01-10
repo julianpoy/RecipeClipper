@@ -1,13 +1,17 @@
 # :fork_and_knife: RecipeSage Recipe Clipper
-A utility for grabbing recipes from (almost) any website using some CSS selectors, and used to power [RecipeSage](https://recipesage.com) (https://recipesage.com).
+A utility for grabbing recipes from (almost) any website using some CSS selectors plus machine learning, and is used to power [RecipeSage](https://recipesage.com) (https://recipesage.com).
 
 The Recipe Clipper is quite useful within a headless Chromium instance (ex. [Puppeteer](https://github.com/puppeteer/puppeteer)), for grabbing/scraping recipes from the web. 
 
 ## :rice: How it Works
 
-The Recipe Clipper works by looking for common CSS selectors present on cooking sites, and grabbing the text within. There's some smarts around picking matches, such as what CSS selectors are preferred.
+The Recipe Clipper has two methods of grabbing content from sites.
 
-This approach is different than many importers that rely on specific site format to grab recipe details. I chose this approach due to it's flexibility and ability to support a large number of sites without a tremendous amount of tweaking.
+First, it works by looking for common CSS selectors present on cooking sites, and grabbing the text within. There's some smarts around picking matches, such as what CSS selectors are preferred.
+
+Second, it uses machine learning to look at the content of the page and grab sections that it thinks are ingredients or instructions. This is currently new, and is used as a fallback method if it can't find content via CSS selectors.
+
+These approaches are very different than many importers that rely on specific site format to grab recipe details. I chose this approach due to it's flexibility and ability to support a large number of sites without a tremendous amount of tweaking.
 
 ## :hamburger: Site Support
 
@@ -43,10 +47,11 @@ RecipeClipper.clipRecipe().then(recipeData => {
 
 The RecipeClipper can use TensorFlow.js for recognition in many scenarios, greatly improving the overall results.
 
-There are two options here.
+There are three options here.
 
 1. Run TensorFlow.js in the browser
 2. Send strings to an external server for prediction
+3. Disable the machine learning portion of this project (not recommended)
 
 #### TensorFlow Option #1
 Running TensorFlow.js in the browser
@@ -80,9 +85,17 @@ loadScript("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs", () => {
 Running a dedicated server for TensorFlow
 
 You can run a server instance here:
-https://github.com/julianpoy/recipe-ml
+https://github.com/julianpoy/ingredient-instruction-classifier
 
 Then, specify the endpoint of your hosted instance by setting `window.RC_ML_CLASSIFY_ENDPOINT = http://example.com`.
+
+#### TensorFlow Option #3
+Disabling the TensorFlow part of this project.
+
+This project can still recognize ingredients/instructions without TensorFlow by looking at the classes on elements within the document.
+This functionality is limited, however.
+
+To disable machine learning, specify `window.RC_ML_DISABLE = true`.
 
 ## :ramen: Setup, Testing & Building
 
@@ -108,3 +121,6 @@ You're welcome to open a PR to the repository. Here are some contributing guidel
 - All code changes should be tested if possible
 - Maintain modularity and break logic into smaller functions whenever possible
 - Site-specific code should be kept to a minimum, and should be separate from generic matching logic
+
+The model for the machine learning part of this project is located at:
+https://github.com/julianpoy/ingredient-instruction-classifier

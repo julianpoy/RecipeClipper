@@ -14,7 +14,7 @@ import {
   matchTotalTime,
 } from '../constants/regex';
 import {
-  grabByMl
+  grabByMl,
 } from './ml';
 
 export const clipImageURL = () => format.imageURL(

@@ -1,5 +1,5 @@
-import * as element from './element.js';
-import * as ml from './ml.js';
+import * as element from './element';
+import * as ml from './ml';
 import {
   grabByMl,
   findByHeader,
@@ -11,11 +11,11 @@ import {
   loadModel,
   findPotentialSetsByHeader,
   getDocumentContent,
-} from './ml.js';
+} from './ml';
 import {
   ingredientSectionHeader,
   instructionSectionHeader,
-} from '../constants/regex.js';
+} from '../constants/regex';
 
 describe('ml', () => {
   afterEach(() => {
@@ -38,11 +38,11 @@ describe('ml', () => {
       beforeEach(async () => {
         window.RC_ML_DISABLE = true;
 
-        result = await ml.grabByMl(1);
+        result = await grabByMl(1);
       });
 
       it('returns empty string', () => {
-        expect(result).toEqual("");
+        expect(result).toEqual('');
       });
 
       it('does not call findByHeader', () => {
@@ -56,12 +56,12 @@ describe('ml', () => {
 
     describe('when findByHeader finds a match', () => {
       let result;
-      let mockHeaderResult = "headerExample";
+      const mockHeaderResult = 'headerExample';
 
       beforeEach(async () => {
         findByHeaderMock.mockResolvedValue(mockHeaderResult);
 
-        result = await ml.grabByMl(1);
+        result = await grabByMl(1);
       });
 
       it('returns match from findByHeader', () => {
@@ -79,13 +79,13 @@ describe('ml', () => {
 
     describe('when findByHeader does not find a match', () => {
       let result;
-      let mockFullTextResult = "fullTextExample";
+      const mockFullTextResult = 'fullTextExample';
 
       beforeEach(async () => {
         findByHeaderMock.mockReturnValue(null);
         findFullSearchMock.mockReturnValue(mockFullTextResult);
 
-        result = await ml.grabByMl(1);
+        result = await grabByMl(1);
       });
 
       it('returns match from findFullSearch', () => {
@@ -105,8 +105,8 @@ describe('ml', () => {
   describe('findByHeader', () => {
     let findPotentialSetsByHeaderMock;
     const findPotentialSetsByHeaderMockReturn = [
-      ["example line", "example line 2"],
-      ["example 2 line", "example 2 line 2"]
+      ['example line', 'example line 2'],
+      ['example 2 line', 'example 2 line 2'],
     ];
     let mlFilterMock;
     let result;
@@ -165,7 +165,7 @@ describe('ml', () => {
       });
 
       it('returns the longest length result as a string', () => {
-        expect(result).toEqual(findPotentialSetsByHeaderMockReturn[1].join('\n'))
+        expect(result).toEqual(findPotentialSetsByHeaderMockReturn[1].join('\n'));
       });
     });
 
@@ -174,12 +174,13 @@ describe('ml', () => {
         mlFilterMock
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[1])
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[0]);
-        findPotentialSetsByHeaderMock.mockReturnValue(findPotentialSetsByHeaderMockReturn.slice().reverse());
+        findPotentialSetsByHeaderMock
+          .mockReturnValue(findPotentialSetsByHeaderMockReturn.slice().reverse());
         result = await findByHeader(2);
       });
 
       it('returns the longest length result as a string', () => {
-        expect(result).toEqual(findPotentialSetsByHeaderMockReturn[1].join('\n'))
+        expect(result).toEqual(findPotentialSetsByHeaderMockReturn[1].join('\n'));
       });
     });
 
@@ -198,37 +199,37 @@ describe('ml', () => {
   describe('findFullSearch', () => {
     let getDocumentContentMock;
     const getDocumentContentMockReturn = [
-      "1 tbsp butter", // Normal ingredient
-      "buy now", // Button in the middle of the group - should be forgiven
-      "1 cup milk",
-      "1 cup flour",
+      '1 tbsp butter', // Normal ingredient
+      'buy now', // Button in the middle of the group - should be forgiven
+      '1 cup milk',
+      '1 cup flour',
 
-      "my life story...", // Some non-ingredient and non-instruction text
-      "more life story...",
-      "even more life story...",
+      'my life story...', // Some non-ingredient and non-instruction text
+      'more life story...',
+      'even more life story...',
 
-      "Flour 50% off!", // A lone line that, say, is interpereted as an ingredient
+      'Flour 50% off!', // A lone line that, say, is interpereted as an ingredient
 
-      "Add butter to the mixing bowl", // Normal instruction
-      "Add milk to the mixing bowl",
-      "Add flour to the mixing bowl",
+      'Add butter to the mixing bowl', // Normal instruction
+      'Add milk to the mixing bowl',
+      'Add flour to the mixing bowl',
     ];
     let mlClassifyMock;
     const mlClassifyMockReturn = [
-      [1,0,0], // Ingredient
-      [0,0,1], // Non-ingredient
-      [1,0,0], // Ingredient
-      [1,0,0],
+      [1, 0, 0], // Ingredient
+      [0, 0, 1], // Non-ingredient
+      [1, 0, 0], // Ingredient
+      [1, 0, 0],
 
-      [0,0,1], // Non-recipe
-      [0,0,1],
-      [0,0,1],
+      [0, 0, 1], // Non-recipe
+      [0, 0, 1],
+      [0, 0, 1],
 
-      [1,0,0], // Ingredient
+      [1, 0, 0], // Ingredient
 
-      [0,1,0], // Instruction
-      [0,1,0],
-      [0,1,0],
+      [0, 1, 0], // Instruction
+      [0, 1, 0],
+      [0, 1, 0],
     ];
 
     beforeEach(() => {
@@ -238,6 +239,16 @@ describe('ml', () => {
 
     it('sanity/setup test - test arrays equal length', () => {
       expect(getDocumentContentMockReturn.length).toEqual(mlClassifyMockReturn.length);
+    });
+
+    it('calls getDocumentContent', async () => {
+      await findFullSearch(1);
+      expect(getDocumentContentMock).toHaveBeenCalled();
+    });
+
+    it('calls mlClassify', async () => {
+      await findFullSearch(1);
+      expect(mlClassifyMock).toHaveBeenCalled();
     });
 
     it('returns largest group of ingredients', async () => {
@@ -262,36 +273,36 @@ describe('ml', () => {
 
     describe('ingredients', () => {
       const content = [
-        "1 tbsp butter", // Normal ingredient
-        "buy now", // Button in the middle of the group - should be forgiven
-        "1 cup milk",
-        "1 cup flour",
+        '1 tbsp butter', // Normal ingredient
+        'buy now', // Button in the middle of the group - should be forgiven
+        '1 cup milk',
+        '1 cup flour',
 
-        "my life story...", // Some non-ingredient and non-instruction text
-        "more life story...",
-        "even more life story...",
+        'my life story...', // Some non-ingredient and non-instruction text
+        'more life story...',
+        'even more life story...',
 
-        "Add butter to the mixing bowl", // Normal instruction
-        "Add milk to the mixing bowl",
-        "Add flour to the mixing bowl",
+        'Add butter to the mixing bowl', // Normal instruction
+        'Add milk to the mixing bowl',
+        'Add flour to the mixing bowl',
 
-        "Flour 50% off!", // A lone line that, say, is interpereted as an ingredient
+        'Flour 50% off!', // A lone line that, say, is interpereted as an ingredient
       ];
       const mlClassifyMockReturn = [
-        [1,0,0], // Ingredient
-        [0,0,1], // Non-ingredient
-        [1,0,0], // Ingredient
-        [1,0,0],
+        [1, 0, 0], // Ingredient
+        [0, 0, 1], // Non-ingredient
+        [1, 0, 0], // Ingredient
+        [1, 0, 0],
 
-        [0,0,1], // Non-recipe
-        [0,0,1],
-        [0,0,1],
+        [0, 0, 1], // Non-recipe
+        [0, 0, 1],
+        [0, 0, 1],
 
-        [0,1,0], // Instruction
-        [0,1,0],
-        [0,1,0],
+        [0, 1, 0], // Instruction
+        [0, 1, 0],
+        [0, 1, 0],
 
-        [1,0,0], // Ingredient
+        [1, 0, 0], // Ingredient
       ];
 
       beforeEach(() => {
@@ -307,36 +318,36 @@ describe('ml', () => {
 
     describe('instructions', () => {
       const content = [
-        "Add butter to the mixing bowl", // Normal instruction
-        "Add milk to the mixing bowl",
-        "Add flour to the mixing bowl",
+        'Add butter to the mixing bowl', // Normal instruction
+        'Add milk to the mixing bowl',
+        'Add flour to the mixing bowl',
 
-        "1 tbsp butter", // Normal ingredient
-        "buy now", // Button in the middle of the group - should be forgiven
-        "1 cup milk",
-        "1 cup flour",
+        '1 tbsp butter', // Normal ingredient
+        'buy now', // Button in the middle of the group - should be forgiven
+        '1 cup milk',
+        '1 cup flour',
 
-        "my life story...", // Some non-ingredient and non-instruction text
-        "more life story...",
-        "even more life story...",
+        'my life story...', // Some non-ingredient and non-instruction text
+        'more life story...',
+        'even more life story...',
 
-        "Flour 50% off!", // A lone line that, say, is interpereted as an ingredient
+        'Flour 50% off!', // A lone line that, say, is interpereted as an ingredient
       ];
       const mlClassifyMockReturn = [
-        [0,1,0], // Instruction
-        [0,1,0],
-        [0,1,0],
+        [0, 1, 0], // Instruction
+        [0, 1, 0],
+        [0, 1, 0],
 
-        [1,0,0], // Ingredient
-        [0,0,1], // Non-ingredient
-        [1,0,0], // Ingredient
-        [1,0,0],
+        [1, 0, 0], // Ingredient
+        [0, 0, 1], // Non-ingredient
+        [1, 0, 0], // Ingredient
+        [1, 0, 0],
 
-        [0,0,1], // Non-recipe
-        [0,0,1],
-        [0,0,1],
+        [0, 0, 1], // Non-recipe
+        [0, 0, 1],
+        [0, 0, 1],
 
-        [1,0,0], // Ingredient
+        [1, 0, 0], // Ingredient
       ];
 
       beforeEach(() => {
@@ -352,36 +363,36 @@ describe('ml', () => {
 
     describe('neither instructions nor ingredients', () => {
       const content = [
-        "my life story...", // Some non-ingredient and non-instruction text
-        "more life story...",
-        "even more life story...",
-        
-        "Add butter to the mixing bowl", // Normal instruction
-        "Add milk to the mixing bowl",
-        "Add flour to the mixing bowl",
+        'my life story...', // Some non-ingredient and non-instruction text
+        'more life story...',
+        'even more life story...',
 
-        "1 tbsp butter", // Normal ingredient
-        "buy now", // Button in the middle of the group - should be forgiven
-        "1 cup milk",
-        "1 cup flour",
+        'Add butter to the mixing bowl', // Normal instruction
+        'Add milk to the mixing bowl',
+        'Add flour to the mixing bowl',
 
-        "Flour 50% off!", // A lone line that, say, is interpereted as an ingredient
+        '1 tbsp butter', // Normal ingredient
+        'buy now', // Button in the middle of the group - should be forgiven
+        '1 cup milk',
+        '1 cup flour',
+
+        'Flour 50% off!', // A lone line that, say, is interpereted as an ingredient
       ];
       const mlClassifyMockReturn = [
-        [0,0,1], // Non-recipe
-        [0,0,1],
-        [0,0,1],
+        [0, 0, 1], // Non-recipe
+        [0, 0, 1],
+        [0, 0, 1],
 
-        [0,1,0], // Instruction
-        [0,1,0],
-        [0,1,0],
+        [0, 1, 0], // Instruction
+        [0, 1, 0],
+        [0, 1, 0],
 
-        [1,0,0], // Ingredient
-        [0,0,1], // Non-ingredient
-        [1,0,0], // Ingredient
-        [1,0,0],
+        [1, 0, 0], // Ingredient
+        [0, 0, 1], // Non-ingredient
+        [1, 0, 0], // Ingredient
+        [1, 0, 0],
 
-        [1,0,0], // Ingredient
+        [1, 0, 0], // Ingredient
       ];
 
       beforeEach(() => {
@@ -413,16 +424,16 @@ describe('ml', () => {
 
   describe('mlClassify', () => {
     const input = [
-      "line 1",
-      "line 2",
+      'line 1',
+      'line 2',
     ];
     let mlClassifyRemoteMock;
     const mlClassifyRemoteMockReturn = [
-      [1,0,0]
+      [1, 0, 0],
     ];
     let mlClassifyLocalMock;
     const mlClassifyLocalMockReturn = [
-      [0,0,1]
+      [0, 0, 1],
     ];
 
     beforeEach(() => {
@@ -438,21 +449,21 @@ describe('ml', () => {
 
         beforeEach(async () => {
           window.tf = {
-            loadLayersModel: () => {}
+            loadLayersModel: () => {},
           };
           window.use = {
-            load: () => {}
+            load: () => {},
           };
 
           result = await mlClassify(input);
         });
 
         it('calls local classify', () => {
-          expect(mlClassifyLocalMock).toHaveBeenCalledWith(input); 
+          expect(mlClassifyLocalMock).toHaveBeenCalledWith(input);
         });
 
         it('does not call remote classify', () => {
-          expect(mlClassifyRemoteMock).not.toHaveBeenCalled(); 
+          expect(mlClassifyRemoteMock).not.toHaveBeenCalled();
         });
 
         it('returns results', () => {
@@ -466,18 +477,18 @@ describe('ml', () => {
         beforeEach(async () => {
           window.tf = {};
           window.use = {
-            load: () => {}
+            load: () => {},
           };
 
           result = await mlClassify(input);
         });
 
         it('calls remote classify', () => {
-          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input); 
+          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
         });
 
         it('does not call local classify', () => {
-          expect(mlClassifyLocalMock).not.toHaveBeenCalled(); 
+          expect(mlClassifyLocalMock).not.toHaveBeenCalled();
         });
 
         it('returns results', () => {
@@ -490,18 +501,18 @@ describe('ml', () => {
 
         beforeEach(async () => {
           window.use = {
-            load: () => {}
+            load: () => {},
           };
 
           result = await mlClassify(input);
         });
 
         it('calls remote classify', () => {
-          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input); 
+          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
         });
 
         it('does not call local classify', () => {
-          expect(mlClassifyLocalMock).not.toHaveBeenCalled(); 
+          expect(mlClassifyLocalMock).not.toHaveBeenCalled();
         });
 
         it('returns results', () => {
@@ -515,7 +526,7 @@ describe('ml', () => {
 
       beforeEach(async () => {
         window.tf = {
-          loadLayersModel: () => {}
+          loadLayersModel: () => {},
         };
         window.use = {};
 
@@ -523,11 +534,11 @@ describe('ml', () => {
       });
 
       it('calls remote classify', () => {
-        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input); 
+        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
       });
 
       it('does not call local classify', () => {
-        expect(mlClassifyLocalMock).not.toHaveBeenCalled(); 
+        expect(mlClassifyLocalMock).not.toHaveBeenCalled();
       });
 
       it('returns results', () => {
@@ -540,18 +551,18 @@ describe('ml', () => {
 
       beforeEach(async () => {
         window.tf = {
-          loadLayersModel: () => {}
+          loadLayersModel: () => {},
         };
 
         result = await mlClassify(input);
       });
 
       it('calls remote classify', () => {
-        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input); 
+        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
       });
 
       it('does not call local classify', () => {
-        expect(mlClassifyLocalMock).not.toHaveBeenCalled(); 
+        expect(mlClassifyLocalMock).not.toHaveBeenCalled();
       });
 
       it('returns results', () => {
@@ -562,21 +573,22 @@ describe('ml', () => {
 
   describe('mlClassifyRemote', () => {
     const input = [
-      "line 1",
-      "line 2",
+      'line 1',
+      'line 2',
     ];
     const jsonReturn = [
-      [0,0,1],
-      [1,0,0],
+      [0, 0, 1],
+      [1, 0, 0],
     ];
     let fetchMock;
     const fetchMockReturn = {
-      json: () => Promise.resolve(jsonReturn)
+      json: () => Promise.resolve(jsonReturn),
     };
     let result;
 
     beforeEach(() => {
-      fetchMock = window.fetch = jest.fn().mockResolvedValue(fetchMockReturn);
+      fetchMock = jest.fn().mockResolvedValue(fetchMockReturn);
+      window.fetch = fetchMock;
     });
 
     afterEach(() => {
@@ -609,11 +621,11 @@ describe('ml', () => {
 
   describe('mlClassifyLocal', () => {
     const input = [
-      "line 1",
-      "line 2",
+      'line 1',
+      'line 2',
     ];
-    const mockEmbeddedSentence = [131,1551,156]; // Some vector
-    const predictionValue = [0,0,1];
+    const mockEmbeddedSentence = [131, 1551, 156]; // Some vector
+    const predictionValue = [0, 0, 1];
     // TF
     let loadModelMock;
     let predictMock;
@@ -629,21 +641,21 @@ describe('ml', () => {
       dataSyncMock = jest.fn().mockReturnValue(predictionValue);
 
       predictMock = jest.fn().mockReturnValue({
-        dataSync: dataSyncMock
+        dataSync: dataSyncMock,
       });
 
       loadModelMock = jest.spyOn(ml, 'loadModel').mockResolvedValue({
-        predict: predictMock
+        predict: predictMock,
       });
 
       embedMock = jest.fn().mockResolvedValue(mockEmbeddedSentence);
 
       loadUseMock = jest.fn().mockResolvedValue({
-        embed: embedMock
+        embed: embedMock,
       });
 
       window.use = {
-        load: loadUseMock
+        load: loadUseMock,
       };
 
       result = await mlClassifyLocal(input);
@@ -680,14 +692,14 @@ describe('ml', () => {
 
   describe('loadModel', () => {
     let loadLayersModelMock;
-    let exampleModelEndpoint = "https://example.com/test.json";
+    const exampleModelEndpoint = 'https://example.com/test.json';
 
     beforeEach(() => {
       loadLayersModelMock = jest.fn();
 
       window.tf = {
-        loadLayersModel: loadLayersModelMock
-      }
+        loadLayersModel: loadLayersModelMock,
+      };
     });
 
     afterEach(() => {
@@ -702,7 +714,9 @@ describe('ml', () => {
       it('does not call loadLayersModel', async () => {
         try {
           await loadModel();
-        } catch(e){}
+        } catch (e) {
+          // Do nothing
+        }
 
         expect(loadLayersModelMock).not.toHaveBeenCalled();
       });
@@ -723,26 +737,31 @@ describe('ml', () => {
 
   describe('findPotentialSetsByHeader', () => {
     let getDocumentContentMock;
-    let exampleDocumentContent = [
-      "example 1",
-      "example 2",
-      "example 3",
-      "example 4",
-      "example 5",
+    const exampleDocumentContent = [
+      'example 1',
+      'example 2',
+      'example 3',
+      'example 4',
+      'example 5',
     ];
 
     beforeEach(() => {
       getDocumentContentMock = jest.spyOn(ml, 'getDocumentContent').mockReturnValue(exampleDocumentContent);
     });
 
+    it('calls getDocumentContent', () => {
+      findPotentialSetsByHeader(/example 1/);
+      expect(getDocumentContentMock).toHaveBeenCalled();
+    });
+
     it('returns content found after regex', () => {
       const result = findPotentialSetsByHeader(/example 2/);
       expect(result).toEqual([
         [
-          "example 3",
-          "example 4",
-          "example 5",
-        ]
+          'example 3',
+          'example 4',
+          'example 5',
+        ],
       ]);
     });
 
@@ -750,23 +769,23 @@ describe('ml', () => {
       const result = findPotentialSetsByHeader(/example 2|example 4/);
       expect(result).toEqual([
         [
-          "example 3",
-          "example 4",
-          "example 5",
+          'example 3',
+          'example 4',
+          'example 5',
         ],
         [
-          "example 5",
-        ]
+          'example 5',
+        ],
       ]);
     });
   });
 
   describe('getDocumentContent', () => {
     let applyLIBlockStylingMock;
-    const documentHtml = "<div>example 1\nexample 2</div>";
+    const documentHtml = '<div>example 1\nexample 2</div>';
     const documentContent = [
-      "example 1",
-      "example 2"
+      'example 1',
+      'example 2',
     ];
     let result;
 

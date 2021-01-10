@@ -19,6 +19,7 @@ module.exports = {
     "one-var": 0,
     "one-var-declaration-per-line": ["error", "initializations"],
     "no-param-reassign": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "import/no-self-import": 0,
   },
 };

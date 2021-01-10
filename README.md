@@ -32,6 +32,58 @@ Or:
 <script src="/path/to/recipe-clipper.umd.js"></script>
 ```
 
+To grab recipe text within the page and print it out:
+```
+RecipeClipper.clipRecipe().then(recipeData => {
+  console.log("Done", recipeData);
+});
+```
+
+### Tensorflow & Advanced Recognition
+
+The RecipeClipper can use TensorFlow.js for recognition in many scenarios, greatly improving the overall results.
+
+There are two options here.
+
+1. Run TensorFlow.js in the browser
+2. Send strings to an external server for prediction
+
+#### TensorFlow Option #1
+Running TensorFlow.js in the browser
+
+The advantage of this option is that you don't have any external service dependencies. Everything runs only within the browser.
+This route is quite slow, however. On an average webpage, you can expect it to take roughly ~30 seconds.
+
+I highly recommend going with option #2 if you can, or disabling the ML part of this project completely (`window.RC_ML_DISABLE = true`).
+
+```
+const loadScript = (src, cb) => {
+  const script = document.createElement('script');
+  script.src = src;
+  script.onload = cb;
+  document.head.appendChild(script);
+}
+
+loadScript("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs", () => {
+  loadScript("https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder", () => {
+    loadScript("/path/to/recipe-clipper.umd.js", () => {
+      window.RecipeClipper.clipRecipe().then(recipeData => {
+        console.log("Done", recipeData);
+      });
+    });
+  });
+})
+
+```
+
+#### TensorFlow Option #2
+Running a dedicated server for TensorFlow
+
+You can run a server instance here:
+https://github.com/julianpoy/recipe-ml
+
+Then, specify the endpoint of your hosted instance by setting `window.RC_ML_CLASSIFY_ENDPOINT = http://example.com`.
+
 ## :ramen: Setup, Testing & Building
 
 The Recipe Clipper uses Rollup and Jest.

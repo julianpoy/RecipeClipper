@@ -1,6 +1,6 @@
 import * as ClipUtils from './utils/clip';
 
-export const clipRecipe = () => ({
+export const clipRecipe = async () => ({
   imageURL: ClipUtils.clipImageURL(),
   title: ClipUtils.clipTitle(),
   description: ClipUtils.clipDescription(),
@@ -8,7 +8,7 @@ export const clipRecipe = () => ({
   yield: ClipUtils.clipYield(),
   activeTime: ClipUtils.clipActiveTime(),
   totalTime: ClipUtils.clipTotalTime(),
-  ingredients: ClipUtils.clipIngredients(),
-  instructions: ClipUtils.clipInstructions(),
+  ingredients: await ClipUtils.clipIngredients(),
+  instructions: await ClipUtils.clipInstructions(),
   notes: ClipUtils.clipNotes(),
 });

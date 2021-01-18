@@ -467,7 +467,9 @@ describe('clipIngredients', () => {
     beforeEach(async () => {
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue('');
       grabByMlSpy = jest.spyOn(ML, 'grabByMl').mockResolvedValue(ingredientsMatch);
-      formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
+      formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients')
+        .mockReturnValueOnce('')
+        .mockReturnValueOnce(ingredients);
 
       outputVal = await ClipUtils.clipIngredients();
     });
@@ -480,7 +482,11 @@ describe('clipIngredients', () => {
       expect(grabByMlSpy).toHaveBeenCalledWith(1);
     });
 
-    it('calls formatIngredients()', () => {
+    it('calls formatIngredients() for class match', () => {
+      expect(formatIngredientsSpy).toBeCalledWith('');
+    });
+
+    it('calls formatIngredients() for ml match', () => {
       expect(formatIngredientsSpy).toBeCalledWith(ingredientsMatch);
     });
 
@@ -530,7 +536,9 @@ describe('clipInstructions', () => {
     beforeEach(async () => {
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue('');
       grabByMlSpy = jest.spyOn(ML, 'grabByMl').mockResolvedValue(instructionsMatch);
-      formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
+      formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions')
+        .mockReturnValueOnce('')
+        .mockReturnValueOnce(instructions);
 
       outputVal = await ClipUtils.clipInstructions();
     });
@@ -543,7 +551,11 @@ describe('clipInstructions', () => {
       expect(grabByMlSpy).toHaveBeenCalledWith(2);
     });
 
-    it('calls formatInstructions()', () => {
+    it('calls formatInstructions() for class match', () => {
+      expect(formatInstructionsSpy).toBeCalledWith('');
+    });
+
+    it('calls formatInstructions() for ml match', () => {
       expect(formatInstructionsSpy).toBeCalledWith(instructionsMatch);
     });
 

@@ -48,14 +48,14 @@ export const clipTotalTime = () => format.totalTime(
   || closestToRegExp(matchTotalTime).replace('\n', ''),
 );
 
-export const clipIngredients = async () => format.ingredients(
-  grabLongestMatchByClasses(...ClassMatchers.ingredients)
-  || await grabByMl(1),
+export const clipIngredients = async () => (
+  format.ingredients(grabLongestMatchByClasses(...ClassMatchers.ingredients))
+  || format.ingredients(await grabByMl(1))
 );
 
-export const clipInstructions = async () => format.instructions(
-  grabLongestMatchByClasses(...ClassMatchers.instructions)
-  || await grabByMl(2),
+export const clipInstructions = async () => (
+  format.instructions(grabLongestMatchByClasses(...ClassMatchers.instructions))
+  || format.instructions(await grabByMl(2))
 );
 
 export const clipNotes = () => format.notes(

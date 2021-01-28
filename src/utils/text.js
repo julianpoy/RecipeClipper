@@ -18,9 +18,11 @@ export const isScale = (line) => removeSpecialCharacters(line).match(matchScale)
 
 export const removeFieldTitles = (line) => line.replace(matchFieldTitles, '').trim();
 
-// Format capitalized lines "HEADER:" as [Header]
-export const formatHeaders = (line) => (line.match(/^([A-Z] *)+:? *$/)
-  ? `[${capitalizeEachWord(line.toLowerCase()).replace(':', '')}]` : line);
+// Format capitalized lines "HEADER:" as [Header] or "for the xyz" as [For The Xyz]
+export const formatHeaders = (line) => (
+  line.trim().match(/^([A-Z] *)+:?$/) || line.trim().match(/^for the ([a-z] *)+:?$/i)
+    ? `[${capitalizeEachWord(line.trim().toLowerCase()).replace(':', '')}]` : line
+);
 
 export const cleanKnownWords = (textBlock) => textBlock.split('\n')
   .map((line) => line.trim())

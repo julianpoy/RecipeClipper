@@ -78,6 +78,11 @@ describe('cleanKnownWords', () => {
     expect(cleanKnownWords('MULTIWORD HEADER:')).toEqual('[Multiword Header]');
   });
 
+  it('formats "for the ..." lines as headers', () => {
+    expect(cleanKnownWords('for the broth')).toEqual('[For The Broth]');
+    expect(cleanKnownWords('FOR THE chicken soup:')).toEqual('[For The Chicken Soup]');
+  });
+
   it('maintains linebreaks', () => {
     const input = '1 cup sugar\n2 tbsp coconut oil';
 

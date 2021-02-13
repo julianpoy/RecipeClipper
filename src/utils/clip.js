@@ -16,17 +16,28 @@ import {
 import {
   grabByMl,
 } from './ml';
+import {
+  getImageSrcFromSchema,
+  getTitleFromSchema,
+  getDescriptionFromSchema,
+  getYieldFromSchema,
+  getIngredientsFromSchema,
+  getInstructionsFromSchema,
+} from './schema';
 
 export const clipImageURL = () => format.imageURL(
-  getSrcFromImage(grabLargestImage()),
+  getImageSrcFromSchema()
+  || getSrcFromImage(grabLargestImage()),
 );
 
 export const clipTitle = () => format.title(
-  grabLongestMatchByClasses(...ClassMatchers.title) || grabRecipeTitleFromDocumentTitle(),
+  getTitleFromSchema()
+  || grabLongestMatchByClasses(...ClassMatchers.title) || grabRecipeTitleFromDocumentTitle(),
 );
 
 export const clipDescription = () => format.description(
-  grabLongestMatchByClasses(...ClassMatchers.description),
+  getDescriptionFromSchema()
+  || grabLongestMatchByClasses(...ClassMatchers.description),
 );
 
 export const clipSource = () => format.source(
@@ -34,7 +45,8 @@ export const clipSource = () => format.source(
 );
 
 export const clipYield = () => format.yield(
-  grabLongestMatchByClasses(...ClassMatchers.yield)
+  getYieldFromSchema()
+  || grabLongestMatchByClasses(...ClassMatchers.yield)
   || closestToRegExp(matchYield).replace('\n', ''),
 );
 
@@ -48,15 +60,17 @@ export const clipTotalTime = () => format.totalTime(
   || closestToRegExp(matchTotalTime).replace('\n', ''),
 );
 
-export const clipIngredients = async () => (
-  format.ingredients(grabLongestMatchByClasses(...ClassMatchers.ingredients))
-  || format.ingredients(await grabByMl(1))
-);
+export const clipIngredients = async () => format.ingredients(
+  getIngredientsFromSchema()
+  || grabLongestMatchByClasses(...ClassMatchers.ingredients),
+)
+  || format.ingredients(await grabByMl(1));
 
-export const clipInstructions = async () => (
-  format.instructions(grabLongestMatchByClasses(...ClassMatchers.instructions))
-  || format.instructions(await grabByMl(2))
-);
+export const clipInstructions = async () => format.instructions(
+  getInstructionsFromSchema()
+  || grabLongestMatchByClasses(...ClassMatchers.instructions),
+)
+  || format.instructions(await grabByMl(2));
 
 export const clipNotes = () => format.notes(
   grabLongestMatchByClasses(...ClassMatchers.notes),

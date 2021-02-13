@@ -1,6 +1,7 @@
 import * as TextUtils from './text';
 import * as ElementUtils from './element';
 import * as ClipUtils from './clip';
+import * as SchemaUtils from './schema';
 import * as ML from './ml';
 import {
   matchYield,
@@ -13,46 +14,91 @@ describe('clipImageURL', () => {
   const mockImageSrc = ' https://test.com ';
   const mockImageUrl = 'https://test.com';
   let outputVal;
-  let grabLargestImageSpy, getSrcFromImageSpy, formatImageURLSpy;
+  let getImageSrcFromSchemaSpy, grabLargestImageSpy, getSrcFromImageSpy, formatImageURLSpy;
 
-  beforeAll(() => {
-    grabLargestImageSpy = jest.spyOn(ElementUtils, 'grabLargestImage').mockReturnValue(mockImage);
-    getSrcFromImageSpy = jest.spyOn(ElementUtils, 'getSrcFromImage').mockReturnValue(mockImageSrc);
-    formatImageURLSpy = jest.spyOn(TextUtils.format, 'imageURL').mockReturnValue(mockImageUrl);
+  describe('when schema match is found', () => {
+    beforeAll(() => {
+      getImageSrcFromSchemaSpy = jest.spyOn(SchemaUtils, 'getImageSrcFromSchema').mockReturnValue(mockImageSrc);
+      grabLargestImageSpy = jest.spyOn(ElementUtils, 'grabLargestImage').mockReturnValue(mockImage);
+      getSrcFromImageSpy = jest.spyOn(ElementUtils, 'getSrcFromImage').mockReturnValue(mockImageSrc);
+      formatImageURLSpy = jest.spyOn(TextUtils.format, 'imageURL').mockReturnValue(mockImageUrl);
 
-    outputVal = ClipUtils.clipImageURL();
+      outputVal = ClipUtils.clipImageURL();
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getImageSrcFromSchema()', () => {
+      expect(getImageSrcFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call grabLargestImage()', () => {
+      expect(grabLargestImageSpy).not.toHaveBeenCalled();
+    });
+
+    it('does not call getSrcFromImage()', () => {
+      expect(getSrcFromImageSpy).not.toHaveBeenCalled();
+    });
+
+    it('calls format.imageURL() with image src', () => {
+      expect(formatImageURLSpy).toBeCalledWith(mockImageSrc);
+    });
+
+    it('returns formatted image URL', () => {
+      expect(outputVal).toEqual(mockImageUrl);
+    });
   });
 
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
+  describe('when no schema match is found', () => {
+    beforeAll(() => {
+      getImageSrcFromSchemaSpy = jest.spyOn(SchemaUtils, 'getImageSrcFromSchema').mockReturnValue('');
+      grabLargestImageSpy = jest.spyOn(ElementUtils, 'grabLargestImage').mockReturnValue(mockImage);
+      getSrcFromImageSpy = jest.spyOn(ElementUtils, 'getSrcFromImage').mockReturnValue(mockImageSrc);
+      formatImageURLSpy = jest.spyOn(TextUtils.format, 'imageURL').mockReturnValue(mockImageUrl);
 
-  it('calls grabLargestImage()', () => {
-    expect(grabLargestImageSpy).toBeCalled();
-  });
+      outputVal = ClipUtils.clipImageURL();
+    });
 
-  it('calls getSrcFromImage() with image', () => {
-    expect(getSrcFromImageSpy).toBeCalledWith(mockImage);
-  });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
 
-  it('calls format.imageURL() with image src', () => {
-    expect(formatImageURLSpy).toBeCalledWith(mockImageSrc);
-  });
+    it('calls getImageSrcFromSchema()', () => {
+      expect(getImageSrcFromSchemaSpy).toBeCalled();
+    });
 
-  it('returns formatted image URL', () => {
-    expect(outputVal).toEqual(mockImageUrl);
+    it('calls grabLargestImage()', () => {
+      expect(grabLargestImageSpy).toBeCalled();
+    });
+
+    it('calls getSrcFromImage() with image', () => {
+      expect(getSrcFromImageSpy).toBeCalledWith(mockImage);
+    });
+
+    it('calls format.imageURL() with image src', () => {
+      expect(formatImageURLSpy).toBeCalledWith(mockImageSrc);
+    });
+
+    it('returns formatted image URL', () => {
+      expect(outputVal).toEqual(mockImageUrl);
+    });
   });
 });
 
 describe('clipTitle', () => {
-  describe('when title is found within document', () => {
-    const classTitleMatch = 'example title';
-    const documentTitleMatch = 'alternate title';
-    const title = 'Example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, grabRecipeTitleFromDocumentTitleSpy, formatTitleSpy;
+  const schemaTitleMatch = 'schema title';
+  const classTitleMatch = 'example title';
+  const documentTitleMatch = 'alternate title';
+  const title = 'Example';
+  let outputVal;
+  let getTitleFromSchemaSpy, grabLongestMatchByClassesSpy;
+  let grabRecipeTitleFromDocumentTitleSpy, formatTitleSpy;
 
+  describe('when schema match is found', () => {
     beforeAll(() => {
+      getTitleFromSchemaSpy = jest.spyOn(SchemaUtils, 'getTitleFromSchema').mockReturnValue(schemaTitleMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(classTitleMatch);
       grabRecipeTitleFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabRecipeTitleFromDocumentTitle').mockReturnValue(documentTitleMatch);
       formatTitleSpy = jest.spyOn(TextUtils.format, 'title').mockReturnValue(title);
@@ -62,6 +108,45 @@ describe('clipTitle', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getTitleFromSchema()', () => {
+      expect(getTitleFromSchemaSpy).toHaveBeenCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls formatTitle()', () => {
+      expect(formatTitleSpy).toBeCalledWith(schemaTitleMatch);
+    });
+
+    it('does not call grabRecipeTitleFromDocumentTitle()', () => {
+      expect(grabRecipeTitleFromDocumentTitleSpy).not.toBeCalled();
+    });
+
+    it('returns formatted title', () => {
+      expect(outputVal).toEqual(title);
+    });
+  });
+
+  describe('when title is found within document', () => {
+    beforeAll(() => {
+      getTitleFromSchemaSpy = jest.spyOn(SchemaUtils, 'getTitleFromSchema').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(classTitleMatch);
+      grabRecipeTitleFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabRecipeTitleFromDocumentTitle').mockReturnValue(documentTitleMatch);
+      formatTitleSpy = jest.spyOn(TextUtils.format, 'title').mockReturnValue(title);
+
+      outputVal = ClipUtils.clipTitle();
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getTitleFromSchema()', () => {
+      expect(getTitleFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -82,12 +167,8 @@ describe('clipTitle', () => {
   });
 
   describe('when title is not found within document', () => {
-    const documentTitleMatch = 'alternate title';
-    const title = 'Example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, grabRecipeTitleFromDocumentTitleSpy, formatTitleSpy;
-
     beforeAll(() => {
+      getTitleFromSchemaSpy = jest.spyOn(SchemaUtils, 'getTitleFromSchema').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(null);
       grabRecipeTitleFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabRecipeTitleFromDocumentTitle').mockReturnValue(documentTitleMatch);
       formatTitleSpy = jest.spyOn(TextUtils.format, 'title').mockReturnValue(title);
@@ -97,6 +178,10 @@ describe('clipTitle', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getTitleFromSchema()', () => {
+      expect(getTitleFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -121,29 +206,66 @@ describe('clipDescription', () => {
   const descriptionMatch = 'example description';
   const description = 'example';
   let outputVal;
-  let grabLongestMatchByClassesSpy, formatDescriptionSpy;
+  let getDescriptionFromSchemaSpy, grabLongestMatchByClassesSpy, formatDescriptionSpy;
 
-  beforeAll(() => {
-    grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
-    formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
+  describe('when schema match is found', () => {
+    beforeAll(() => {
+      getDescriptionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getDescriptionFromSchema').mockReturnValue(descriptionMatch);
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
+      formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
 
-    outputVal = ClipUtils.clipDescription();
+      outputVal = ClipUtils.clipDescription();
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getDescriptionFromSchema()', () => {
+      expect(getDescriptionFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls formatDescription()', () => {
+      expect(formatDescriptionSpy).toBeCalledWith(descriptionMatch);
+    });
+
+    it('returns formatted description', () => {
+      expect(outputVal).toEqual(description);
+    });
   });
 
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
+  describe('when no schema match is found', () => {
+    beforeAll(() => {
+      getDescriptionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getDescriptionFromSchema').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
+      formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
 
-  it('calls grabLongestMatchByClasses()', () => {
-    expect(grabLongestMatchByClassesSpy).toBeCalled();
-  });
+      outputVal = ClipUtils.clipDescription();
+    });
 
-  it('calls formatDescription()', () => {
-    expect(formatDescriptionSpy).toBeCalledWith(descriptionMatch);
-  });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
 
-  it('returns formatted description', () => {
-    expect(outputVal).toEqual(description);
+    it('calls getDescriptionFromSchema()', () => {
+      expect(getDescriptionFromSchemaSpy).toBeCalled();
+    });
+
+    it('calls grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).toBeCalled();
+    });
+
+    it('calls formatDescription()', () => {
+      expect(formatDescriptionSpy).toBeCalledWith(descriptionMatch);
+    });
+
+    it('returns formatted description', () => {
+      expect(outputVal).toEqual(description);
+    });
   });
 });
 
@@ -209,14 +331,15 @@ describe('clipSource', () => {
 });
 
 describe('clipYield', () => {
-  describe('when yield is found in the document', () => {
-    const documentMatch = 'example yield';
-    const searchMatch = 'searched yield';
-    const finalYield = 'example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, closestToRegExpSpy, formatYieldSpy;
+  const documentMatch = 'example yield';
+  const searchMatch = 'searched yield';
+  const finalYield = 'example';
+  let outputVal;
+  let getYieldFromSchemaSpy, grabLongestMatchByClassesSpy, closestToRegExpSpy, formatYieldSpy;
 
+  describe('when schema match is found', () => {
     beforeAll(() => {
+      getYieldFromSchemaSpy = jest.spyOn(SchemaUtils, 'getYieldFromSchema').mockReturnValue(documentMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
@@ -226,6 +349,45 @@ describe('clipYield', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getYieldFromSchema()', () => {
+      expect(getYieldFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls formatYield()', () => {
+      expect(formatYieldSpy).toBeCalledWith(documentMatch);
+    });
+
+    it('does not call closestToRegExp()', () => {
+      expect(closestToRegExpSpy).not.toBeCalled();
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(finalYield);
+    });
+  });
+
+  describe('when yield is found in the document', () => {
+    beforeAll(() => {
+      getYieldFromSchemaSpy = jest.spyOn(SchemaUtils, 'getYieldFromSchema').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
+      closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
+      formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
+
+      outputVal = ClipUtils.clipYield();
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getYieldFromSchema()', () => {
+      expect(getYieldFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -246,12 +408,8 @@ describe('clipYield', () => {
   });
 
   describe('when yield is not found in the document', () => {
-    const searchMatch = 'searched yield';
-    const finalYield = 'example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, closestToRegExpSpy, formatYieldSpy;
-
     beforeAll(() => {
+      getYieldFromSchemaSpy = jest.spyOn(SchemaUtils, 'getYieldFromSchema').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(null);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
@@ -261,6 +419,10 @@ describe('clipYield', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getYieldFromSchema()', () => {
+      expect(getYieldFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -431,19 +593,55 @@ describe('clipIngredients', () => {
   const ingredientsMatch = 'example ingredients';
   const ingredients = 'example';
   let outputVal;
-  let grabLongestMatchByClassesSpy, grabByMlSpy, formatIngredientsSpy;
+  let getIngredientsFromSchemaSpy, grabLongestMatchByClassesSpy, grabByMlSpy, formatIngredientsSpy;
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  describe('when grabLongestMatchByClasses returns a value', () => {
+  describe('when schema match is found', () => {
     beforeEach(async () => {
+      getIngredientsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getIngredientsFromSchema').mockReturnValue(ingredientsMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(ingredientsMatch);
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
 
       outputVal = await ClipUtils.clipIngredients();
+    });
+
+    it('calls getIngredientsFromSchema()', () => {
+      expect(getIngredientsFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('does not call grabByMl()', () => {
+      expect(grabByMlSpy).not.toBeCalled();
+    });
+
+    it('calls formatIngredients()', () => {
+      expect(formatIngredientsSpy).toBeCalledWith(ingredientsMatch);
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(ingredients);
+    });
+  });
+
+  describe('when grabLongestMatchByClasses returns a value', () => {
+    beforeEach(async () => {
+      getIngredientsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getIngredientsFromSchema').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(ingredientsMatch);
+      grabByMlSpy = jest.spyOn(ML, 'grabByMl');
+      formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
+
+      outputVal = await ClipUtils.clipIngredients();
+    });
+
+    it('calls getIngredientsFromSchema()', () => {
+      expect(getIngredientsFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -465,6 +663,7 @@ describe('clipIngredients', () => {
 
   describe('when grabLongestMatchByClasses does not return a value', () => {
     beforeEach(async () => {
+      getIngredientsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getIngredientsFromSchema').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue('');
       grabByMlSpy = jest.spyOn(ML, 'grabByMl').mockResolvedValue(ingredientsMatch);
       formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients')
@@ -472,6 +671,10 @@ describe('clipIngredients', () => {
         .mockReturnValueOnce(ingredients);
 
       outputVal = await ClipUtils.clipIngredients();
+    });
+
+    it('calls getIngredientsFromSchema()', () => {
+      expect(getIngredientsFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -500,19 +703,56 @@ describe('clipInstructions', () => {
   const instructionsMatch = 'example instructions';
   const instructions = 'example';
   let outputVal;
-  let grabLongestMatchByClassesSpy, grabByMlSpy, formatInstructionsSpy;
+  let getInstructionsFromSchemaSpy, grabLongestMatchByClassesSpy;
+  let grabByMlSpy, formatInstructionsSpy;
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  describe('when grabLongestMatchByClasses returns a value', () => {
+  describe('when schema match is found', () => {
     beforeEach(async () => {
+      getInstructionsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getInstructionsFromSchema').mockReturnValue(instructionsMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(instructionsMatch);
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
 
       outputVal = await ClipUtils.clipInstructions();
+    });
+
+    it('calls getInstructionsFromSchema()', () => {
+      expect(getInstructionsFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('does not call grabByMl()', () => {
+      expect(grabByMlSpy).not.toBeCalled();
+    });
+
+    it('calls formatInstructions()', () => {
+      expect(formatInstructionsSpy).toBeCalledWith(instructionsMatch);
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(instructions);
+    });
+  });
+
+  describe('when grabLongestMatchByClasses returns a value', () => {
+    beforeEach(async () => {
+      getInstructionsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getInstructionsFromSchema').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(instructionsMatch);
+      grabByMlSpy = jest.spyOn(ML, 'grabByMl');
+      formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
+
+      outputVal = await ClipUtils.clipInstructions();
+    });
+
+    it('calls getInstructionsFromSchema()', () => {
+      expect(getInstructionsFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -534,6 +774,7 @@ describe('clipInstructions', () => {
 
   describe('when grabLongestMatchByClasses does not return a value', () => {
     beforeEach(async () => {
+      getInstructionsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getInstructionsFromSchema').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue('');
       grabByMlSpy = jest.spyOn(ML, 'grabByMl').mockResolvedValue(instructionsMatch);
       formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions')
@@ -541,6 +782,10 @@ describe('clipInstructions', () => {
         .mockReturnValueOnce(instructions);
 
       outputVal = await ClipUtils.clipInstructions();
+    });
+
+    it('calls getInstructionsFromSchema()', () => {
+      expect(getInstructionsFromSchemaSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {

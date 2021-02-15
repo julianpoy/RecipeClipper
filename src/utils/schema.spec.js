@@ -126,16 +126,28 @@ describe('getImageSrcFromSchema', () => {
     expect(getImageSrcFromSchema()).toEqual('');
   });
 
-  it('returns value when schema query result is string', () => {
-    const exampleString = 'example';
+  it('returns value when schema query result is valid url', () => {
+    const exampleString = 'https://example.com/test.jpg';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(exampleString);
     expect(getImageSrcFromSchema()).toEqual(exampleString);
   });
 
-  it('returns first value when schema query result is array of strings', () => {
-    const exampleString = 'example';
+  it('returns first value when schema query result is array of valid urls', () => {
+    const exampleString = 'http://example.com/test.jpg';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString]);
     expect(getImageSrcFromSchema()).toEqual(exampleString);
+  });
+
+  it('returns empty string when schema query result is non-http url', () => {
+    const exampleString = 'ftp://example.com/test.jpg';
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString]);
+    expect(getImageSrcFromSchema()).toEqual('');
+  });
+
+  it('returns empty string when schema query result is invalid url', () => {
+    const exampleString = 'test.jpg';
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString]);
+    expect(getImageSrcFromSchema()).toEqual('');
   });
 
   it('returns empty string when schema query result is object', () => {

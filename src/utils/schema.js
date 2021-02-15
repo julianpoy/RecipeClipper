@@ -41,8 +41,19 @@ export const getImageSrcFromSchema = () => {
   const images = self.getPropertyFromSchema('image');
   if (!images) return '';
 
-  if (typeof images === 'string') return images;
-  if (typeof images[0] === 'string') return images[0];
+  let imageSrc;
+  if (typeof images === 'string') imageSrc = images;
+  else if (typeof images[0] === 'string') [imageSrc] = images;
+
+  if (imageSrc) {
+    try {
+      const url = new URL(imageSrc);
+
+      if (url.protocol === 'http:' || url.protocol === 'https:') return imageSrc;
+    } catch (_) {
+      // Do nothing
+    }
+  }
 
   return '';
 };

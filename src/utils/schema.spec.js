@@ -65,6 +65,16 @@ describe('getRecipeSchemasFromDocument', () => {
     expect(getRecipeSchemasFromDocument()).toEqual([recipeSchema]);
   });
 
+  it('returns recipe schema if schema is actually an array of schemas', () => {
+    const recipeSchema = {
+      '@type': 'Recipe',
+    };
+    const arraySchema = [recipeSchema];
+    createSchema(JSON.stringify(arraySchema));
+
+    expect(getRecipeSchemasFromDocument()).toEqual([recipeSchema]);
+  });
+
   it('does not return non-recipe schema types', () => {
     const nonRecipeSchema = {
       '@type': 'Article',

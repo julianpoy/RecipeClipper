@@ -16,11 +16,18 @@ export const getRecipeSchemasFromDocument = () => {
     .filter((e) => e);
 
   const recipeSchemas = schemas.map((schema) => {
+    // Schemas that evaluate to a graph
     if (schema['@graph']) {
       return schema['@graph'].find((subSchema) => subSchema['@type'] === 'Recipe');
     }
 
+    // Schemas that are directly embedded
     if (schema['@type'] === 'Recipe') return schema;
+
+    // Schemas that evaluate to an array
+    if (schema.length && schema[0]) {
+      return schema.find((subSchema) => subSchema['@type'] === 'Recipe');
+    }
 
     return null;
   }).filter((e) => e);

@@ -17,6 +17,8 @@ try {
     global.options.mlModelEndpoint = window.RC_ML_MODEL_ENDPOINT;
     global.options.mlClassifyEndpoint = window.RC_ML_CLASSIFY_ENDPOINT;
   }
-} catch(_) {}
+} catch (_) {
+  // Do nothing
+}
 
 export default global;

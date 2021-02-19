@@ -1,4 +1,1 @@
-export const getInnerText = (element) => {
-  return element.innerText || element.textContent;
-};
-
+export const getInnerText = (element) => element.innerText || element.textContent;

@@ -1,3 +1,4 @@
+import global from '../global';
 import { format } from './text';
 import {
   getSrcFromImage,
@@ -41,7 +42,7 @@ export const clipDescription = () => format.description(
 );
 
 export const clipSource = () => format.source(
-  grabSourceFromDocumentTitle() || window.location.hostname,
+  grabSourceFromDocumentTitle() || global.window.location.hostname,
 );
 
 export const clipYield = () => format.yield(

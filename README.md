@@ -21,9 +21,9 @@ To add support for a specific site, you'll want to find the relevant CSS selecto
 
 ## :sushi: Usage
 
-You can use this package in any browser that supports the `innerText` prop. At the time of writing, this is approximately 98.7% of worldwide browser usage. See support here: https://caniuse.com/#feat=innertext
+Results will be more accurate in browsers that support the `innerText` prop. At the time of writing, this is approximately 98.7% of worldwide browser usage. See support here: https://caniuse.com/#feat=innertext
 
-Note: The Recipe Clipper does not support fake browser engines such as JSDOM, which lack `innerText` support.
+HTML parsing engines such as JSDOM can be used with this library, but may provide less accurate results than a headless browser, due to support for `innerText`.
 
 To import:
 ```
@@ -43,6 +43,17 @@ RecipeClipper.clipRecipe().then(recipeData => {
 });
 ```
 
+You can pass an optional options object into `clipRecipe` as shown below:
+
+```
+RecipeClipper.clipRecipe({
+  window: window, // Optional: Pass a custom window object - very useful if you want to use this library with JSDOM
+  mlDisable: false, // Optional: Disable the machine learning part of this project
+  mlClassifyEndpoint: '', // Optional: Provide the endpoint for the machine learning classification server documented below
+  mlModelEndpoint: '' // Optional: Provide the machine learning model endpoint if using local in-browser machine learning
+})...
+```
+
 ### Tensorflow & Advanced Recognition
 
 The RecipeClipper can use TensorFlow.js for recognition in many scenarios, greatly improving the overall results.
@@ -59,7 +70,7 @@ Running TensorFlow.js in the browser
 The advantage of this option is that you don't have any external service dependencies. Everything runs only within the browser.
 This route is quite slow, however. On an average webpage, you can expect it to take roughly ~30 seconds.
 
-I highly recommend going with option #2 if you can, or disabling the ML part of this project completely (`window.RC_ML_DISABLE = true`).
+I highly recommend going with option #2 if you can, or disabling the ML part of this project completely (`window.RC_ML_DISABLE = true`, or option `mlDisable: true`).
 
 ```
 const loadScript = (src, cb) => {
@@ -87,7 +98,7 @@ Running a dedicated server for TensorFlow
 You can run a server instance here:
 https://github.com/julianpoy/ingredient-instruction-classifier
 
-Then, specify the endpoint of your hosted instance by setting `window.RC_ML_CLASSIFY_ENDPOINT = http://example.com`.
+Then, specify the endpoint of your hosted instance by setting `window.RC_ML_CLASSIFY_ENDPOINT = http://example.com` or by passing an object into `clipRecipe` with `mlClassifyEndpoint: 'http://example.com'`.
 
 #### TensorFlow Option #3
 Disabling the TensorFlow part of this project.
@@ -95,7 +106,7 @@ Disabling the TensorFlow part of this project.
 This project can still recognize ingredients/instructions without TensorFlow by looking at the classes on elements within the document.
 This functionality is limited, however.
 
-To disable machine learning, specify `window.RC_ML_DISABLE = true`.
+To disable machine learning, specify `window.RC_ML_DISABLE = true` or pass an object into `clipRecipe` with the property `mlDisable: true`.
 
 ## :ramen: Setup, Testing & Building
 

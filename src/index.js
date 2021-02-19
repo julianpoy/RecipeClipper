@@ -2,7 +2,10 @@ import global from './global';
 import * as ClipUtils from './utils/clip';
 
 export const clipRecipe = async (options) => {
-  global.options = options || global.options;
+  global.options = {
+    ...global.options,
+    ...(options || {}),
+  };
   global.window = global.options.window;
 
   return {
@@ -16,5 +19,5 @@ export const clipRecipe = async (options) => {
     ingredients: await ClipUtils.clipIngredients(),
     instructions: await ClipUtils.clipInstructions(),
     notes: ClipUtils.clipNotes(),
-  }
+  };
 };

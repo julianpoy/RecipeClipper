@@ -1,5 +1,6 @@
 import * as element from './element';
 import * as ml from './ml';
+import global from '../global';
 import {
   grabByMl,
   findByHeader,
@@ -20,7 +21,7 @@ import {
 describe('ml', () => {
   afterEach(() => {
     jest.restoreAllMocks();
-    window.RC_ML_DISABLE = undefined;
+    global.options.mlDisable = undefined;
   });
 
   describe('grabByMl', () => {
@@ -32,12 +33,11 @@ describe('ml', () => {
       findFullSearchMock = jest.spyOn(ml, 'findFullSearch');
     });
 
-    describe('when RC_ML_DISABLE true', () => {
+    describe('when mlDisable true', () => {
       let result;
 
       beforeEach(async () => {
-        window.RC_ML_DISABLE = true;
-
+        global.options.mlDisable = true;
         result = await grabByMl(1);
       });
 
@@ -592,13 +592,13 @@ describe('ml', () => {
     });
 
     afterEach(() => {
-      window.RC_ML_CLASSIFY_ENDPOINT = undefined;
+      global.options.mlClassifyEndpoint = undefined;
       window.fetch = undefined;
     });
 
-    describe('when RC_ML_CLASSIFY_ENDPOINT is set', () => {
+    describe('when mlClassifyEndpoint is set', () => {
       beforeEach(async () => {
-        window.RC_ML_CLASSIFY_ENDPOINT = 'https://example.com/test';
+        global.options.mlClassifyEndpoint = 'https://example.com/test';
 
         result = await mlClassifyRemote(input);
       });
@@ -612,7 +612,7 @@ describe('ml', () => {
       });
     });
 
-    describe('when RC_ML_CLASSIFY_ENDPOINT is not set', () => {
+    describe('when mlClassifyEndpoint is not set', () => {
       it('should throw', async () => {
         expect(mlClassifyRemote(input)).rejects.toThrow();
       });
@@ -706,7 +706,7 @@ describe('ml', () => {
       window.tf = undefined;
     });
 
-    describe('when RC_ML_MODEL_ENDPOINT is not set', () => {
+    describe('when mlModelEndpoint is not set', () => {
       it('throws', () => {
         expect(loadModel()).rejects.toThrow();
       });
@@ -722,9 +722,9 @@ describe('ml', () => {
       });
     });
 
-    describe('when RC_ML_MODEL_ENDPOINT is set', () => {
+    describe('when mlModelEndpoint is set', () => {
       beforeEach(() => {
-        window.RC_ML_MODEL_ENDPOINT = exampleModelEndpoint;
+        global.options.mlModelEndpoint = exampleModelEndpoint;
       });
 
       it('calls loadLayersModel', async () => {

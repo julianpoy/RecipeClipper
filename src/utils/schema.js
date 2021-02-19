@@ -1,12 +1,14 @@
 import * as self from './schema';
+import global from '../global';
+import { getInnerText } from './innerText';
 
 const longestStringIn = (strArray) => strArray.reduce((max, match) => (match.length > max.length ? match : max), '');
 
 export const getRecipeSchemasFromDocument = () => {
-  const schemas = [...document.querySelectorAll('script[type="application/ld+json"]')]
+  const schemas = [...global.window.document.querySelectorAll('script[type="application/ld+json"]')]
     .map((schema) => {
       try {
-        return JSON.parse(schema.innerText);
+        return JSON.parse(getInnerText(schema));
       } catch (e) {
         // Do nothing
       }

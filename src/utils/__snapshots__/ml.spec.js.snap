@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ml mlClassifyRemote when RC_ML_CLASSIFY_ENDPOINT is set sends fetch request 1`] = `
+exports[`ml mlClassifyRemote when mlClassifyEndpoint is set sends fetch request 1`] = `
 Array [
   Array [
     "https://example.com/test",

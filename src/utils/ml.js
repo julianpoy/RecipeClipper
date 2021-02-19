@@ -1,5 +1,7 @@
 // Self import for mock
 import * as self from './ml';
+import global from '../global';
+import { getInnerText } from './innerText';
 import {
   applyLIBlockStyling,
 } from './element';
@@ -9,10 +11,10 @@ import {
 } from '../constants/regex';
 
 export const getDocumentContent = () => {
-  applyLIBlockStyling(document.body);
-  const pageText = document.body.innerText;
+  const { body } = global.window.document;
+  applyLIBlockStyling(body);
 
-  return pageText.split('\n').map((line) => line.trim()).filter((line) => line);
+  return getInnerText(body).split('\n').map((line) => line.trim()).filter((line) => line);
 };
 
 export const findPotentialSetsByHeader = (headerRegexp) => {
@@ -23,14 +25,14 @@ export const findPotentialSetsByHeader = (headerRegexp) => {
 };
 
 export const loadModel = async () => {
-  const modelUrl = window.RC_ML_MODEL_ENDPOINT;
-  if (!modelUrl) throw new Error('You must provide RC_ML_MODEL_ENDPOINT on the window to use local classification');
-  return window.tf.loadLayersModel(modelUrl);
+  const modelUrl = global.options.mlModelEndpoint;
+  if (!modelUrl) throw new Error('You must provide window.RC_ML_MODEL_ENDPOINT or options.mlModelEndpoint to use local classification');
+  return global.window.tf.loadLayersModel(modelUrl);
 };
 
 export const mlClassifyLocal = async (lines) => {
   const model = await self.loadModel();
-  const useModel = await window.use.load();
+  const useModel = await global.window.use.load();
 
   const predictions = [];
   for (let i = 0; i < lines.length; i += 1) {
@@ -44,10 +46,10 @@ export const mlClassifyLocal = async (lines) => {
 };
 
 export const mlClassifyRemote = async (lines) => {
-  const remote = window.RC_ML_CLASSIFY_ENDPOINT;
-  if (!remote) throw new Error('You must provide RC_ML_CLASSIFY_ENDPOINT on the window to use remote classification');
+  const remote = global.options.mlClassifyEndpoint;
+  if (!remote) throw new Error('You must provide window.RC_ML_CLASSIFY_ENDPOINT or options.mlClassifyEndpoint to use remote classification');
 
-  const response = await fetch(remote, {
+  const response = await global.window.fetch(remote, {
     method: 'POST',
     body: JSON.stringify({
       sentences: lines,
@@ -61,8 +63,8 @@ export const mlClassifyRemote = async (lines) => {
 };
 
 export const mlClassify = async (lines) => {
-  const isTFJSAvailable = window.tf && window.tf.loadLayersModel;
-  const isUSEAvailable = window.use && window.use.load;
+  const isTFJSAvailable = global.window.tf && global.window.tf.loadLayersModel;
+  const isUSEAvailable = global.window.use && global.window.use.load;
 
   if (isTFJSAvailable && isUSEAvailable) return self.mlClassifyLocal(lines);
   return self.mlClassifyRemote(lines);
@@ -165,7 +167,7 @@ export const findByHeader = async (type) => {
 // Type 2 for instructions
 // Others to be implemented in future...
 export const grabByMl = async (type) => {
-  if (window.RC_ML_DISABLE) return '';
+  if (global.options.mlDisable) return '';
 
   const result = await self.findByHeader(type) || await self.findFullSearch(type);
 

@@ -25,13 +25,13 @@ describe('getRecipeSchemasFromDocument', () => {
   });
 
   it('returns empty array when no schemas are present', () => {
-    expect(getRecipeSchemasFromDocument()).toEqual([]);
+    expect(getRecipeSchemasFromDocument(window)).toEqual([]);
   });
 
   it('returns empty array when invalid schema is present', () => {
     createSchema('invalid schema content');
 
-    expect(getRecipeSchemasFromDocument()).toEqual([]);
+    expect(getRecipeSchemasFromDocument(window)).toEqual([]);
   });
 
   it('returns recipe schema when present', () => {
@@ -40,7 +40,7 @@ describe('getRecipeSchemasFromDocument', () => {
     };
     createSchema(JSON.stringify(recipeSchema));
 
-    expect(getRecipeSchemasFromDocument()).toEqual([recipeSchema]);
+    expect(getRecipeSchemasFromDocument(window)).toEqual([recipeSchema]);
   });
 
   it('returns multiple recipe schemas when present', () => {
@@ -50,7 +50,7 @@ describe('getRecipeSchemasFromDocument', () => {
     createSchema(JSON.stringify(recipeSchema));
     createSchema(JSON.stringify(recipeSchema));
 
-    expect(getRecipeSchemasFromDocument()).toEqual([recipeSchema, recipeSchema]);
+    expect(getRecipeSchemasFromDocument(window)).toEqual([recipeSchema, recipeSchema]);
   });
 
   it('returns recipe schema from within schema graph', () => {
@@ -62,7 +62,7 @@ describe('getRecipeSchemasFromDocument', () => {
     };
     createSchema(JSON.stringify(graphSchema));
 
-    expect(getRecipeSchemasFromDocument()).toEqual([recipeSchema]);
+    expect(getRecipeSchemasFromDocument(window)).toEqual([recipeSchema]);
   });
 
   it('returns recipe schema if schema is actually an array of schemas', () => {
@@ -72,7 +72,7 @@ describe('getRecipeSchemasFromDocument', () => {
     const arraySchema = [recipeSchema];
     createSchema(JSON.stringify(arraySchema));
 
-    expect(getRecipeSchemasFromDocument()).toEqual([recipeSchema]);
+    expect(getRecipeSchemasFromDocument(window)).toEqual([recipeSchema]);
   });
 
   it('does not return non-recipe schema types', () => {
@@ -85,7 +85,7 @@ describe('getRecipeSchemasFromDocument', () => {
     createSchema(JSON.stringify(nonRecipeSchema));
     createSchema(JSON.stringify(recipeSchema));
 
-    expect(getRecipeSchemasFromDocument()).toEqual([recipeSchema]);
+    expect(getRecipeSchemasFromDocument(window)).toEqual([recipeSchema]);
   });
 });
 
@@ -98,9 +98,9 @@ describe('getPropertyFromSchema', () => {
     }, {
       example: '1234',
     }]);
-    getPropertyFromSchema('test');
-    getPropertyFromSchema('test');
-    getPropertyFromSchema('test');
+    getPropertyFromSchema(window, 'test');
+    getPropertyFromSchema(window, 'test');
+    getPropertyFromSchema(window, 'test');
   });
 
   afterAll(() => {
@@ -112,11 +112,11 @@ describe('getPropertyFromSchema', () => {
   });
 
   it('returns null when no schemas match', () => {
-    expect(getPropertyFromSchema('test')).toEqual(null);
+    expect(getPropertyFromSchema(window, 'test')).toEqual(null);
   });
 
   it('returns value from first schema with matching element', () => {
-    expect(getPropertyFromSchema('example')).toEqual(value);
+    expect(getPropertyFromSchema(window, 'example')).toEqual(value);
   });
 });
 
@@ -127,51 +127,51 @@ describe('getImageSrcFromSchema', () => {
 
   it('calls getPropertyFromSchema', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema');
-    getImageSrcFromSchema();
+    getImageSrcFromSchema(window);
     expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledTimes(1);
   });
 
   it('returns empty string when no match is found', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(null);
-    expect(getImageSrcFromSchema()).toEqual('');
+    expect(getImageSrcFromSchema(window)).toEqual('');
   });
 
   it('returns value when schema query result is valid url', () => {
     const exampleString = 'https://example.com/test.jpg';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(exampleString);
-    expect(getImageSrcFromSchema()).toEqual(exampleString);
+    expect(getImageSrcFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns first value when schema query result is array of valid urls', () => {
     const exampleString = 'http://example.com/test.jpg';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString]);
-    expect(getImageSrcFromSchema()).toEqual(exampleString);
+    expect(getImageSrcFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns empty string when schema query result is non-http url', () => {
     const exampleString = 'ftp://example.com/test.jpg';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString]);
-    expect(getImageSrcFromSchema()).toEqual('');
+    expect(getImageSrcFromSchema(window)).toEqual('');
   });
 
   it('returns empty string when schema query result is invalid url', () => {
     const exampleString = 'test.jpg';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString]);
-    expect(getImageSrcFromSchema()).toEqual('');
+    expect(getImageSrcFromSchema(window)).toEqual('');
   });
 
   it('returns empty string when schema query result is object', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue({
       some: 'object',
     });
-    expect(getImageSrcFromSchema()).toEqual('');
+    expect(getImageSrcFromSchema(window)).toEqual('');
   });
 
   it('returns empty string when schema query result is array of objects', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([{
       some: 'object',
     }]);
-    expect(getImageSrcFromSchema()).toEqual('');
+    expect(getImageSrcFromSchema(window)).toEqual('');
   });
 });
 
@@ -182,27 +182,27 @@ describe('getTitleFromSchema', () => {
 
   it('calls getPropertyFromSchema', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema');
-    getTitleFromSchema();
+    getTitleFromSchema(window);
     expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledTimes(1);
-    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith('name');
+    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith(window, 'name');
   });
 
   it('returns empty string when no match is found', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(null);
-    expect(getTitleFromSchema()).toEqual('');
+    expect(getTitleFromSchema(window)).toEqual('');
   });
 
   it('returns value when schema query result is string', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(exampleString);
-    expect(getTitleFromSchema()).toEqual(exampleString);
+    expect(getTitleFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns empty string when schema query result is not a string', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue({
       some: 'object',
     });
-    expect(getTitleFromSchema()).toEqual('');
+    expect(getTitleFromSchema(window)).toEqual('');
   });
 });
 
@@ -213,27 +213,27 @@ describe('getDescriptionFromSchema', () => {
 
   it('calls getPropertyFromSchema', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema');
-    getDescriptionFromSchema();
+    getDescriptionFromSchema(window);
     expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledTimes(1);
-    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith('description');
+    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith(window, 'description');
   });
 
   it('returns empty string when no match is found', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(null);
-    expect(getDescriptionFromSchema()).toEqual('');
+    expect(getDescriptionFromSchema(window)).toEqual('');
   });
 
   it('returns value when schema query result is string', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(exampleString);
-    expect(getDescriptionFromSchema()).toEqual(exampleString);
+    expect(getDescriptionFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns empty string when schema query result is not a string', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue({
       some: 'object',
     });
-    expect(getDescriptionFromSchema()).toEqual('');
+    expect(getDescriptionFromSchema(window)).toEqual('');
   });
 });
 
@@ -244,33 +244,33 @@ describe('getYieldFromSchema', () => {
 
   it('calls getPropertyFromSchema', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema');
-    getYieldFromSchema();
+    getYieldFromSchema(window);
     expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledTimes(1);
-    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith('recipeYield');
+    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith(window, 'recipeYield');
   });
 
   it('returns empty string when no match is found', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(null);
-    expect(getYieldFromSchema()).toEqual('');
+    expect(getYieldFromSchema(window)).toEqual('');
   });
 
   it('returns value when schema query result is string', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(exampleString);
-    expect(getYieldFromSchema()).toEqual(exampleString);
+    expect(getYieldFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns longest value when schema query result is an array of strings', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(['a', exampleString, 'ab']);
-    expect(getYieldFromSchema()).toEqual(exampleString);
+    expect(getYieldFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns empty string when schema query result is not a string or array of strings', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([{
       some: 'object',
     }]);
-    expect(getYieldFromSchema()).toEqual('');
+    expect(getYieldFromSchema(window)).toEqual('');
   });
 });
 
@@ -281,26 +281,26 @@ describe('getInstructionsFromSchema', () => {
 
   it('calls getPropertyFromSchema', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema');
-    getInstructionsFromSchema();
+    getInstructionsFromSchema(window);
     expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledTimes(1);
-    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith('recipeInstructions');
+    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith(window, 'recipeInstructions');
   });
 
   it('returns empty string when no match is found', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(null);
-    expect(getInstructionsFromSchema()).toEqual('');
+    expect(getInstructionsFromSchema(window)).toEqual('');
   });
 
   it('returns value when schema query result is string', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(exampleString);
-    expect(getInstructionsFromSchema()).toEqual(exampleString);
+    expect(getInstructionsFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns concatenated value when schema query result is an array of strings', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString, exampleString, exampleString]);
-    expect(getInstructionsFromSchema()).toEqual('example\nexample\nexample');
+    expect(getInstructionsFromSchema(window)).toEqual('example\nexample\nexample');
   });
 
   it('returns concatenated value when schema query result is an array of schemas with text', () => {
@@ -311,14 +311,14 @@ describe('getInstructionsFromSchema', () => {
       text: exampleString,
     }]);
 
-    expect(getInstructionsFromSchema()).toEqual('example\nexample');
+    expect(getInstructionsFromSchema(window)).toEqual('example\nexample');
   });
 
   it('returns empty string when schema query result is not a string, array of strings, or array of schema objects with text', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([{
       some: 'object',
     }]);
-    expect(getInstructionsFromSchema()).toEqual('');
+    expect(getInstructionsFromSchema(window)).toEqual('');
   });
 });
 
@@ -329,26 +329,26 @@ describe('getIngredientsFromSchema', () => {
 
   it('calls getPropertyFromSchema', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema');
-    getIngredientsFromSchema();
+    getIngredientsFromSchema(window);
     expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledTimes(1);
-    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith('recipeIngredient');
+    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith(window, 'recipeIngredient');
   });
 
   it('returns empty string when no match is found', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(null);
-    expect(getIngredientsFromSchema()).toEqual('');
+    expect(getIngredientsFromSchema(window)).toEqual('');
   });
 
   it('returns value when schema query result is string', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(exampleString);
-    expect(getIngredientsFromSchema()).toEqual(exampleString);
+    expect(getIngredientsFromSchema(window)).toEqual(exampleString);
   });
 
   it('returns concatenated value when schema query result is an array of strings', () => {
     const exampleString = 'example';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString, exampleString, exampleString]);
-    expect(getIngredientsFromSchema()).toEqual('example\nexample\nexample');
+    expect(getIngredientsFromSchema(window)).toEqual('example\nexample\nexample');
   });
 
   it('returns concatenated value when schema query result is an array of schemas with text', () => {
@@ -359,13 +359,13 @@ describe('getIngredientsFromSchema', () => {
       text: exampleString,
     }]);
 
-    expect(getIngredientsFromSchema()).toEqual('example\nexample');
+    expect(getIngredientsFromSchema(window)).toEqual('example\nexample');
   });
 
   it('returns empty string when schema query result is not a string, array of strings, or array of schema objects with text', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([{
       some: 'object',
     }]);
-    expect(getIngredientsFromSchema()).toEqual('');
+    expect(getIngredientsFromSchema(window)).toEqual('');
   });
 });

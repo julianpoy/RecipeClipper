@@ -1,11 +1,10 @@
 import * as self from './schema';
-import global from '../global';
 import { getInnerText } from './innerText';
 
 const longestStringIn = (strArray) => strArray.reduce((max, match) => (match.length > max.length ? match : max), '');
 
-export const getRecipeSchemasFromDocument = () => {
-  const schemas = [...global.window.document.querySelectorAll('script[type="application/ld+json"]')]
+export const getRecipeSchemasFromDocument = (window) => {
+  const schemas = [...window.document.querySelectorAll('script[type="application/ld+json"]')]
     .map((schema) => {
       try {
         return JSON.parse(getInnerText(schema));
@@ -37,16 +36,16 @@ export const getRecipeSchemasFromDocument = () => {
   return recipeSchemas;
 };
 
-export const getPropertyFromSchema = (propName) => {
-  if (!global.window.parsedSchemas) global.window.parsedSchemas = self.getRecipeSchemasFromDocument();
+export const getPropertyFromSchema = (window, propName) => {
+  if (!window.parsedSchemas) window.parsedSchemas = self.getRecipeSchemasFromDocument(window);
 
-  const foundSchema = global.window.parsedSchemas.find((schema) => schema[propName]) || {};
+  const foundSchema = window.parsedSchemas.find((schema) => schema[propName]) || {};
 
   return foundSchema[propName] || null;
 };
 
-export const getImageSrcFromSchema = () => {
-  const images = self.getPropertyFromSchema('image');
+export const getImageSrcFromSchema = (window) => {
+  const images = self.getPropertyFromSchema(window, 'image');
   if (!images) return '';
 
   let imageSrc;
@@ -66,24 +65,24 @@ export const getImageSrcFromSchema = () => {
   return '';
 };
 
-export const getTitleFromSchema = () => {
-  const title = self.getPropertyFromSchema('name');
+export const getTitleFromSchema = (window) => {
+  const title = self.getPropertyFromSchema(window, 'name');
 
   if (typeof title === 'string') return title;
 
   return '';
 };
 
-export const getDescriptionFromSchema = () => {
-  const description = self.getPropertyFromSchema('description');
+export const getDescriptionFromSchema = (window) => {
+  const description = self.getPropertyFromSchema(window, 'description');
 
   if (typeof description === 'string') return description;
 
   return '';
 };
 
-export const getYieldFromSchema = () => {
-  const recipeYield = self.getPropertyFromSchema('recipeYield');
+export const getYieldFromSchema = (window) => {
+  const recipeYield = self.getPropertyFromSchema(window, 'recipeYield');
   if (!recipeYield) return '';
 
   if (typeof recipeYield === 'string') return recipeYield;
@@ -92,8 +91,8 @@ export const getYieldFromSchema = () => {
   return '';
 };
 
-export const getInstructionsFromSchema = () => {
-  const instructions = self.getPropertyFromSchema('recipeInstructions');
+export const getInstructionsFromSchema = (window) => {
+  const instructions = self.getPropertyFromSchema(window, 'recipeInstructions');
   if (!instructions) return '';
 
   if (typeof instructions === 'string') return instructions;
@@ -105,8 +104,8 @@ export const getInstructionsFromSchema = () => {
   return '';
 };
 
-export const getIngredientsFromSchema = () => {
-  const ingredients = self.getPropertyFromSchema('recipeIngredient');
+export const getIngredientsFromSchema = (window) => {
+  const ingredients = self.getPropertyFromSchema(window, 'recipeIngredient');
   if (!ingredients) return '';
 
   if (typeof ingredients === 'string') return ingredients;

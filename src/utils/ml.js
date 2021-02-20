@@ -1,6 +1,5 @@
 // Self import for mock
 import * as self from './ml';
-import global from '../global';
 import { getInnerText } from './innerText';
 import {
   applyLIBlockStyling,
@@ -10,29 +9,29 @@ import {
   instructionSectionHeader,
 } from '../constants/regex';
 
-export const getDocumentContent = () => {
-  const { body } = global.window.document;
+export const getDocumentContent = (config) => {
+  const { body } = config.window.document;
   applyLIBlockStyling(body);
 
   return getInnerText(body).split('\n').map((line) => line.trim()).filter((line) => line);
 };
 
-export const findPotentialSetsByHeader = (headerRegexp) => {
-  const content = self.getDocumentContent();
+export const findPotentialSetsByHeader = (config, headerRegexp) => {
+  const content = self.getDocumentContent(config);
 
   return content.filter((line) => line.match(headerRegexp))
     .map((line) => content.slice(content.indexOf(line) + 1));
 };
 
-export const loadModel = async () => {
-  const modelUrl = global.options.mlModelEndpoint;
+export const loadModel = async (config) => {
+  const modelUrl = config.options.mlModelEndpoint;
   if (!modelUrl) throw new Error('You must provide window.RC_ML_MODEL_ENDPOINT or options.mlModelEndpoint to use local classification');
-  return global.window.tf.loadLayersModel(modelUrl);
+  return config.window.tf.loadLayersModel(modelUrl);
 };
 
-export const mlClassifyLocal = async (lines) => {
-  const model = await self.loadModel();
-  const useModel = await global.window.use.load();
+export const mlClassifyLocal = async (config, lines) => {
+  const model = await self.loadModel(config);
+  const useModel = await config.window.use.load();
 
   const predictions = [];
   for (let i = 0; i < lines.length; i += 1) {
@@ -45,11 +44,11 @@ export const mlClassifyLocal = async (lines) => {
   return predictions;
 };
 
-export const mlClassifyRemote = async (lines) => {
-  const remote = global.options.mlClassifyEndpoint;
+export const mlClassifyRemote = async (config, lines) => {
+  const remote = config.options.mlClassifyEndpoint;
   if (!remote) throw new Error('You must provide window.RC_ML_CLASSIFY_ENDPOINT or options.mlClassifyEndpoint to use remote classification');
 
-  const response = await global.window.fetch(remote, {
+  const response = await config.window.fetch(remote, {
     method: 'POST',
     body: JSON.stringify({
       sentences: lines,
@@ -62,16 +61,16 @@ export const mlClassifyRemote = async (lines) => {
   return response.json();
 };
 
-export const mlClassify = async (lines) => {
-  const isTFJSAvailable = global.window.tf && global.window.tf.loadLayersModel;
-  const isUSEAvailable = global.window.use && global.window.use.load;
+export const mlClassify = async (config, lines) => {
+  const isTFJSAvailable = config.window.tf && config.window.tf.loadLayersModel;
+  const isUSEAvailable = config.window.use && config.window.use.load;
 
-  if (isTFJSAvailable && isUSEAvailable) return self.mlClassifyLocal(lines);
-  return self.mlClassifyRemote(lines);
+  if (isTFJSAvailable && isUSEAvailable) return self.mlClassifyLocal(config, lines);
+  return self.mlClassifyRemote(config, lines);
 };
 
-export const mlFilter = async (lines, type) => {
-  const predictions = await self.mlClassify(lines);
+export const mlFilter = async (config, lines, type) => {
+  const predictions = await self.mlClassify(config, lines);
 
   let lastType = -1;
   const filteredOutput = [];
@@ -98,10 +97,10 @@ export const mlFilter = async (lines, type) => {
   return filteredOutput;
 };
 
-export const findFullSearch = async (type) => {
-  const content = self.getDocumentContent();
+export const findFullSearch = async (config, type) => {
+  const content = self.getDocumentContent(config);
 
-  const predictions = await self.mlClassify(content);
+  const predictions = await self.mlClassify(config, content);
 
   const { groups, workingGroup } = content.reduce((acc, line, idx) => {
     const predictedType = predictions[idx].indexOf(Math.max(...predictions[idx])) + 1;
@@ -147,15 +146,15 @@ export const findFullSearch = async (type) => {
     .reduce((a, b) => (a.length > b.length ? a : b), '');
 };
 
-export const findByHeader = async (type) => {
+export const findByHeader = async (config, type) => {
   const headerRegexp = type === 1 ? ingredientSectionHeader : instructionSectionHeader;
-  const potentialSets = self.findPotentialSetsByHeader(headerRegexp);
+  const potentialSets = self.findPotentialSetsByHeader(config, headerRegexp);
 
   const sets = [];
   for (let i = 0; i < potentialSets.length; i += 1) {
     const potentialSet = potentialSets[i];
     // eslint-disable-next-line no-await-in-loop
-    const set = await self.mlFilter(potentialSet, type);
+    const set = await self.mlFilter(config, potentialSet, type);
     sets.push(set);
   }
 
@@ -166,10 +165,10 @@ export const findByHeader = async (type) => {
 // Type 1 for ingredients
 // Type 2 for instructions
 // Others to be implemented in future...
-export const grabByMl = async (type) => {
-  if (global.options.mlDisable) return '';
+export const grabByMl = async (config, type) => {
+  if (config.options.mlDisable) return '';
 
-  const result = await self.findByHeader(type) || await self.findFullSearch(type);
+  const result = await self.findByHeader(config, type) || await self.findFullSearch(config, type);
 
   return result;
 };

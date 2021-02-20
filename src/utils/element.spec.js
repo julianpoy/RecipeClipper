@@ -35,23 +35,23 @@ describe('getClassNamesMatching', () => {
   });
 
   it('matches single classname', () => {
-    expect(getClassNamesMatching('single-example')).toEqual(['single-example']);
+    expect(getClassNamesMatching(window, 'single-example')).toEqual(['single-example']);
   });
 
   it('matches and groups multiple, similar classnames', () => {
-    expect(getClassNamesMatching('multiple-similar')).toEqual(['multiple-similar-example']);
+    expect(getClassNamesMatching(window, 'multiple-similar')).toEqual(['multiple-similar-example']);
   });
 
   it('matches multiple classnames', () => {
-    expect(getClassNamesMatching('multiple-different')).toEqual(['multiple-different-example1', 'multiple-different-example2']);
+    expect(getClassNamesMatching(window, 'multiple-different')).toEqual(['multiple-different-example1', 'multiple-different-example2']);
   });
 
   it('matches elements with multiple classnames', () => {
-    expect(getClassNamesMatching('multiple-classes')).toEqual(['example with multiple-classes']);
+    expect(getClassNamesMatching(window, 'multiple-classes')).toEqual(['example with multiple-classes']);
   });
 
   it('returns empty array for no matches', () => {
-    expect(getClassNamesMatching('shouldnotmatch')).toEqual([]);
+    expect(getClassNamesMatching(window, 'shouldnotmatch')).toEqual([]);
   });
 });
 
@@ -69,19 +69,19 @@ describe('getClassNamesContaining', () => {
   });
 
   it('matches single classname', () => {
-    expect(getClassNamesContaining('single-example')).toEqual(['single-example']);
+    expect(getClassNamesContaining(window, 'single-example')).toEqual(['single-example']);
   });
 
   it('only matches exact', () => {
-    expect(getClassNamesContaining('single-exam')).toEqual([]);
+    expect(getClassNamesContaining(window, 'single-exam')).toEqual([]);
   });
 
   it('matches elements with multiple classnames', () => {
-    expect(getClassNamesContaining('multiple-classes')).toEqual(['example with multiple-classes']);
+    expect(getClassNamesContaining(window, 'multiple-classes')).toEqual(['example with multiple-classes']);
   });
 
   it('returns empty array for no matches', () => {
-    expect(getClassNamesContaining('shouldnotmatch')).toEqual([]);
+    expect(getClassNamesContaining(window, 'shouldnotmatch')).toEqual([]);
   });
 });
 
@@ -99,11 +99,11 @@ describe('softMatchElementsByClass', () => {
   });
 
   it('returns matched elements', () => {
-    expect(softMatchElementsByClass('example-element')).toMatchSnapshot();
+    expect(softMatchElementsByClass(window, 'example-element')).toMatchSnapshot();
   });
 
   it('returns empty array when elements not found', () => {
-    expect(softMatchElementsByClass('does-not-exist')).toEqual([]);
+    expect(softMatchElementsByClass(window, 'does-not-exist')).toEqual([]);
   });
 });
 
@@ -121,15 +121,15 @@ describe('matchElementsByClass', () => {
   });
 
   it('returns matched elements', () => {
-    expect(matchElementsByClass('example-element-1')).toMatchSnapshot();
+    expect(matchElementsByClass(window, 'example-element-1')).toMatchSnapshot();
   });
 
   it('only matches exact', () => {
-    expect(matchElementsByClass('example-element')).toEqual([]);
+    expect(matchElementsByClass(window, 'example-element')).toEqual([]);
   });
 
   it('returns empty array when elements not found', () => {
-    expect(matchElementsByClass('does-not-exist')).toEqual([]);
+    expect(matchElementsByClass(window, 'does-not-exist')).toEqual([]);
   });
 });
 
@@ -185,7 +185,7 @@ describe('grabLongestMatchByClasses', () => {
       </div>
     `;
 
-    const text = grabLongestMatchByClasses(['recipe-ingredient'], ['recipe-ingredients']);
+    const text = grabLongestMatchByClasses(window, ['recipe-ingredient'], ['recipe-ingredients']);
     expect(text).toEqual('Ingredient 1');
   });
 
@@ -199,7 +199,7 @@ describe('grabLongestMatchByClasses', () => {
       </div>
     `;
 
-    const text = grabLongestMatchByClasses(['recipe-ingredient'], ['recipe-ingredients']);
+    const text = grabLongestMatchByClasses(window, ['recipe-ingredient'], ['recipe-ingredients']);
     expect(text).toEqual("We'll be making food today!\nIngredient 1");
   });
 
@@ -213,7 +213,7 @@ describe('grabLongestMatchByClasses', () => {
       </div>
     `;
 
-    const text = grabLongestMatchByClasses(['recipe-ingredients'], ['recipe-ingredient-other']);
+    const text = grabLongestMatchByClasses(window, ['recipe-ingredients'], ['recipe-ingredient-other']);
     expect(text).toEqual("We'll be making food today! Some other text");
   });
 
@@ -227,7 +227,7 @@ describe('grabLongestMatchByClasses', () => {
       </div>
     `;
 
-    const text = grabLongestMatchByClasses(['recipe-ingredient-other'], ['recipe-']);
+    const text = grabLongestMatchByClasses(window, ['recipe-ingredient-other'], ['recipe-']);
     expect(text).toEqual("We'll be making food today! Some other text");
   });
 
@@ -243,7 +243,7 @@ describe('grabLongestMatchByClasses', () => {
       </div>
     `;
 
-    const text = grabLongestMatchByClasses(['recipe-ingredients'], ['recipe-']);
+    const text = grabLongestMatchByClasses(window, ['recipe-ingredients'], ['recipe-']);
     expect(text).toEqual("We'll be making food today!\nWe'll be making food today! Some other text");
   });
 
@@ -259,7 +259,7 @@ describe('grabLongestMatchByClasses', () => {
       </div>
     `;
 
-    const text = grabLongestMatchByClasses(['recipe-ingredient-other'], ['recipe-']);
+    const text = grabLongestMatchByClasses(window, ['recipe-ingredient-other'], ['recipe-']);
     expect(text).toEqual("We'll be making food today!\nWe'll be making food today! Some other text");
   });
 
@@ -275,7 +275,7 @@ describe('grabLongestMatchByClasses', () => {
       </div>
     `;
 
-    const text = grabLongestMatchByClasses(['recipe-ingredient-other'], ['recipe-ingredient-other']);
+    const text = grabLongestMatchByClasses(window, ['recipe-ingredient-other'], ['recipe-ingredient-other']);
     expect(text).toEqual('');
   });
 });
@@ -514,7 +514,7 @@ describe('grabLargestImage', () => {
   });
 
   it('calls querySelectorAll()', () => {
-    grabLargestImage();
+    grabLargestImage(window);
     expect(querySelectorAllSpy).toBeCalledWith('img');
   });
 
@@ -524,7 +524,7 @@ describe('grabLargestImage', () => {
     img2.offsetWidth = 300;
     img2.offsetHeight = 300;
 
-    expect(grabLargestImage()).toEqual(img2);
+    expect(grabLargestImage(window)).toEqual(img2);
   });
 
   it('returns first same-sized image', () => {
@@ -533,7 +533,7 @@ describe('grabLargestImage', () => {
     img2.offsetWidth = 200;
     img2.offsetHeight = 200;
 
-    expect(grabLargestImage()).toEqual(img1);
+    expect(grabLargestImage(window)).toEqual(img1);
   });
 
   it('does not include images less than 200x200', () => {
@@ -542,11 +542,11 @@ describe('grabLargestImage', () => {
     img2.offsetWidth = 100;
     img2.offsetHeight = 100;
 
-    expect(grabLargestImage()).toEqual(null);
+    expect(grabLargestImage(window)).toEqual(null);
   });
 
   it('does not include images with no offset', () => {
-    expect(grabLargestImage()).toEqual(null);
+    expect(grabLargestImage(window)).toEqual(null);
   });
 });
 
@@ -562,11 +562,11 @@ describe('closestToRegExp', () => {
   });
 
   it('finds closest match in document', () => {
-    expect(closestToRegExp(/this.*a/i)).toEqual('This is a');
+    expect(closestToRegExp(window, /this.*a/i)).toEqual('This is a');
   });
 
   it('returns empty string when no match', () => {
-    expect(closestToRegExp(/no match/)).toEqual('');
+    expect(closestToRegExp(window, /no match/)).toEqual('');
   });
 });
 
@@ -652,25 +652,25 @@ describe('grabRecipeTitleFromDocumentTitle', () => {
   it('grabs first half hyphenated page title', () => {
     document.title = 'Some Title - Some Author';
 
-    expect(grabRecipeTitleFromDocumentTitle()).toEqual('Some Title');
+    expect(grabRecipeTitleFromDocumentTitle(window)).toEqual('Some Title');
   });
 
   it('grabs first half of pipe delimited page title', () => {
     document.title = 'Some Title|Some Author';
 
-    expect(grabRecipeTitleFromDocumentTitle()).toEqual('Some Title');
+    expect(grabRecipeTitleFromDocumentTitle(window)).toEqual('Some Title');
   });
 
   it('does not split hypenated page title without spaces', () => {
     document.title = 'Some-Title';
 
-    expect(grabRecipeTitleFromDocumentTitle()).toEqual('Some-Title');
+    expect(grabRecipeTitleFromDocumentTitle(window)).toEqual('Some-Title');
   });
 
   it('returns empty string for blank page title', () => {
     document.title = '';
 
-    expect(grabRecipeTitleFromDocumentTitle()).toEqual('');
+    expect(grabRecipeTitleFromDocumentTitle(window)).toEqual('');
   });
 });
 
@@ -682,24 +682,24 @@ describe('grabSourceFromDocumentTitle', () => {
   it('grabs second half hyphenated page title', () => {
     document.title = 'Some Title - Some Author';
 
-    expect(grabSourceFromDocumentTitle()).toEqual('Some Author');
+    expect(grabSourceFromDocumentTitle(window)).toEqual('Some Author');
   });
 
   it('grabs second half of pipe delimited page title', () => {
     document.title = 'Some Title|Some Author';
 
-    expect(grabSourceFromDocumentTitle()).toEqual('Some Author');
+    expect(grabSourceFromDocumentTitle(window)).toEqual('Some Author');
   });
 
   it('does not split hypenated page title without spaces', () => {
     document.title = 'Some-Title';
 
-    expect(grabSourceFromDocumentTitle()).toEqual('');
+    expect(grabSourceFromDocumentTitle(window)).toEqual('');
   });
 
   it('returns empty string for blank page title', () => {
     document.title = '';
 
-    expect(grabSourceFromDocumentTitle()).toEqual('');
+    expect(grabSourceFromDocumentTitle(window)).toEqual('');
   });
 });

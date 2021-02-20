@@ -9,6 +9,10 @@ import {
   matchTotalTime,
 } from '../constants/regex';
 
+const config = {
+  window,
+};
+
 describe('clipImageURL', () => {
   const mockImage = {};
   const mockImageSrc = ' https://test.com ';
@@ -23,7 +27,7 @@ describe('clipImageURL', () => {
       getSrcFromImageSpy = jest.spyOn(ElementUtils, 'getSrcFromImage').mockReturnValue(mockImageSrc);
       formatImageURLSpy = jest.spyOn(TextUtils.format, 'imageURL').mockReturnValue(mockImageUrl);
 
-      outputVal = ClipUtils.clipImageURL();
+      outputVal = ClipUtils.clipImageURL(config);
     });
 
     afterAll(() => {
@@ -58,7 +62,7 @@ describe('clipImageURL', () => {
       getSrcFromImageSpy = jest.spyOn(ElementUtils, 'getSrcFromImage').mockReturnValue(mockImageSrc);
       formatImageURLSpy = jest.spyOn(TextUtils.format, 'imageURL').mockReturnValue(mockImageUrl);
 
-      outputVal = ClipUtils.clipImageURL();
+      outputVal = ClipUtils.clipImageURL(config);
     });
 
     afterAll(() => {
@@ -66,11 +70,11 @@ describe('clipImageURL', () => {
     });
 
     it('calls getImageSrcFromSchema()', () => {
-      expect(getImageSrcFromSchemaSpy).toBeCalled();
+      expect(getImageSrcFromSchemaSpy).toBeCalledWith(config.window);
     });
 
     it('calls grabLargestImage()', () => {
-      expect(grabLargestImageSpy).toBeCalled();
+      expect(grabLargestImageSpy).toBeCalledWith(config.window);
     });
 
     it('calls getSrcFromImage() with image', () => {
@@ -103,7 +107,7 @@ describe('clipTitle', () => {
       grabRecipeTitleFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabRecipeTitleFromDocumentTitle').mockReturnValue(documentTitleMatch);
       formatTitleSpy = jest.spyOn(TextUtils.format, 'title').mockReturnValue(title);
 
-      outputVal = ClipUtils.clipTitle();
+      outputVal = ClipUtils.clipTitle(config);
     });
 
     afterAll(() => {
@@ -111,7 +115,7 @@ describe('clipTitle', () => {
     });
 
     it('calls getTitleFromSchema()', () => {
-      expect(getTitleFromSchemaSpy).toHaveBeenCalled();
+      expect(getTitleFromSchemaSpy).toHaveBeenCalledWith(config.window);
     });
 
     it('does not call grabLongestMatchByClasses()', () => {
@@ -138,7 +142,7 @@ describe('clipTitle', () => {
       grabRecipeTitleFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabRecipeTitleFromDocumentTitle').mockReturnValue(documentTitleMatch);
       formatTitleSpy = jest.spyOn(TextUtils.format, 'title').mockReturnValue(title);
 
-      outputVal = ClipUtils.clipTitle();
+      outputVal = ClipUtils.clipTitle(config);
     });
 
     afterAll(() => {
@@ -146,7 +150,7 @@ describe('clipTitle', () => {
     });
 
     it('calls getTitleFromSchema()', () => {
-      expect(getTitleFromSchemaSpy).toBeCalled();
+      expect(getTitleFromSchemaSpy).toBeCalledWith(config.window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -173,7 +177,7 @@ describe('clipTitle', () => {
       grabRecipeTitleFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabRecipeTitleFromDocumentTitle').mockReturnValue(documentTitleMatch);
       formatTitleSpy = jest.spyOn(TextUtils.format, 'title').mockReturnValue(title);
 
-      outputVal = ClipUtils.clipTitle();
+      outputVal = ClipUtils.clipTitle(config);
     });
 
     afterAll(() => {
@@ -181,7 +185,7 @@ describe('clipTitle', () => {
     });
 
     it('calls getTitleFromSchema()', () => {
-      expect(getTitleFromSchemaSpy).toBeCalled();
+      expect(getTitleFromSchemaSpy).toBeCalledWith(config.window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -214,7 +218,7 @@ describe('clipDescription', () => {
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
       formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
 
-      outputVal = ClipUtils.clipDescription();
+      outputVal = ClipUtils.clipDescription(config);
     });
 
     afterAll(() => {
@@ -244,7 +248,7 @@ describe('clipDescription', () => {
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
       formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
 
-      outputVal = ClipUtils.clipDescription();
+      outputVal = ClipUtils.clipDescription(config);
     });
 
     afterAll(() => {
@@ -280,7 +284,7 @@ describe('clipSource', () => {
       grabSourceFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabSourceFromDocumentTitle').mockReturnValue(titleMatch);
       formatSourceSpy = jest.spyOn(TextUtils.format, 'source').mockReturnValue(source);
 
-      outputVal = ClipUtils.clipSource();
+      outputVal = ClipUtils.clipSource(config);
     });
 
     afterAll(() => {
@@ -309,7 +313,7 @@ describe('clipSource', () => {
       grabSourceFromDocumentTitleSpy = jest.spyOn(ElementUtils, 'grabSourceFromDocumentTitle').mockReturnValue(null);
       formatSourceSpy = jest.spyOn(TextUtils.format, 'source').mockReturnValue(source);
 
-      outputVal = ClipUtils.clipSource();
+      outputVal = ClipUtils.clipSource(config);
     });
 
     afterAll(() => {
@@ -344,7 +348,7 @@ describe('clipYield', () => {
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
 
-      outputVal = ClipUtils.clipYield();
+      outputVal = ClipUtils.clipYield(config);
     });
 
     afterAll(() => {
@@ -379,7 +383,7 @@ describe('clipYield', () => {
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
 
-      outputVal = ClipUtils.clipYield();
+      outputVal = ClipUtils.clipYield(config);
     });
 
     afterAll(() => {
@@ -414,7 +418,7 @@ describe('clipYield', () => {
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
 
-      outputVal = ClipUtils.clipYield();
+      outputVal = ClipUtils.clipYield(config);
     });
 
     afterAll(() => {
@@ -430,7 +434,7 @@ describe('clipYield', () => {
     });
 
     it('calls closestToRegExp()', () => {
-      expect(closestToRegExpSpy).toBeCalledWith(matchYield);
+      expect(closestToRegExpSpy).toBeCalledWith(config.window, matchYield);
     });
 
     it('calls formatYield()', () => {
@@ -456,7 +460,7 @@ describe('clipActiveTime', () => {
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatActiveTimeSpy = jest.spyOn(TextUtils.format, 'activeTime').mockReturnValue(finalActiveTime);
 
-      outputVal = ClipUtils.clipActiveTime();
+      outputVal = ClipUtils.clipActiveTime(config);
     });
 
     afterAll(() => {
@@ -491,7 +495,7 @@ describe('clipActiveTime', () => {
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatActiveTimeSpy = jest.spyOn(TextUtils.format, 'activeTime').mockReturnValue(finalActiveTime);
 
-      outputVal = ClipUtils.clipActiveTime();
+      outputVal = ClipUtils.clipActiveTime(config);
     });
 
     afterAll(() => {
@@ -503,7 +507,7 @@ describe('clipActiveTime', () => {
     });
 
     it('calls closestToRegExp()', () => {
-      expect(closestToRegExpSpy).toBeCalledWith(matchActiveTime);
+      expect(closestToRegExpSpy).toBeCalledWith(config.window, matchActiveTime);
     });
 
     it('calls formatActiveTime()', () => {
@@ -529,7 +533,7 @@ describe('clipTotalTime', () => {
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatTotalTimeSpy = jest.spyOn(TextUtils.format, 'totalTime').mockReturnValue(finalTotalTime);
 
-      outputVal = ClipUtils.clipTotalTime();
+      outputVal = ClipUtils.clipTotalTime(config);
     });
 
     afterAll(() => {
@@ -564,7 +568,7 @@ describe('clipTotalTime', () => {
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatTotalTimeSpy = jest.spyOn(TextUtils.format, 'totalTime').mockReturnValue(finalTotalTime);
 
-      outputVal = ClipUtils.clipTotalTime();
+      outputVal = ClipUtils.clipTotalTime(config);
     });
 
     afterAll(() => {
@@ -576,7 +580,7 @@ describe('clipTotalTime', () => {
     });
 
     it('calls closestToRegExp()', () => {
-      expect(closestToRegExpSpy).toBeCalledWith(matchTotalTime);
+      expect(closestToRegExpSpy).toBeCalledWith(config.window, matchTotalTime);
     });
 
     it('calls formatTotalTime()', () => {
@@ -606,7 +610,7 @@ describe('clipIngredients', () => {
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
 
-      outputVal = await ClipUtils.clipIngredients();
+      outputVal = await ClipUtils.clipIngredients(config);
     });
 
     it('calls getIngredientsFromSchema()', () => {
@@ -637,7 +641,7 @@ describe('clipIngredients', () => {
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
 
-      outputVal = await ClipUtils.clipIngredients();
+      outputVal = await ClipUtils.clipIngredients(config);
     });
 
     it('calls getIngredientsFromSchema()', () => {
@@ -670,7 +674,7 @@ describe('clipIngredients', () => {
         .mockReturnValueOnce('')
         .mockReturnValueOnce(ingredients);
 
-      outputVal = await ClipUtils.clipIngredients();
+      outputVal = await ClipUtils.clipIngredients(config);
     });
 
     it('calls getIngredientsFromSchema()', () => {
@@ -682,7 +686,7 @@ describe('clipIngredients', () => {
     });
 
     it('does not call grabByMl()', () => {
-      expect(grabByMlSpy).toHaveBeenCalledWith(1);
+      expect(grabByMlSpy).toHaveBeenCalledWith(config, 1);
     });
 
     it('calls formatIngredients() for class match', () => {
@@ -717,7 +721,7 @@ describe('clipInstructions', () => {
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
 
-      outputVal = await ClipUtils.clipInstructions();
+      outputVal = await ClipUtils.clipInstructions(config);
     });
 
     it('calls getInstructionsFromSchema()', () => {
@@ -748,7 +752,7 @@ describe('clipInstructions', () => {
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
 
-      outputVal = await ClipUtils.clipInstructions();
+      outputVal = await ClipUtils.clipInstructions(config);
     });
 
     it('calls getInstructionsFromSchema()', () => {
@@ -781,7 +785,7 @@ describe('clipInstructions', () => {
         .mockReturnValueOnce('')
         .mockReturnValueOnce(instructions);
 
-      outputVal = await ClipUtils.clipInstructions();
+      outputVal = await ClipUtils.clipInstructions(config);
     });
 
     it('calls getInstructionsFromSchema()', () => {
@@ -793,7 +797,7 @@ describe('clipInstructions', () => {
     });
 
     it('does not call grabByMl()', () => {
-      expect(grabByMlSpy).toHaveBeenCalledWith(2);
+      expect(grabByMlSpy).toHaveBeenCalledWith(config, 2);
     });
 
     it('calls formatInstructions() for class match', () => {
@@ -820,7 +824,7 @@ describe('clipNotes', () => {
     grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(notesMatch);
     formatNotesSpy = jest.spyOn(TextUtils.format, 'notes').mockReturnValue(notes);
 
-    outputVal = ClipUtils.clipNotes();
+    outputVal = ClipUtils.clipNotes(config);
   });
 
   afterAll(() => {

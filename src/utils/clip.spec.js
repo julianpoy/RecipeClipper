@@ -193,7 +193,7 @@ describe('clipTitle', () => {
     });
 
     it('calls grabRecipeTitleFromDocumentTitle()', () => {
-      expect(grabRecipeTitleFromDocumentTitleSpy).toBeCalled();
+      expect(grabRecipeTitleFromDocumentTitleSpy).toBeCalledWith(config.window);
     });
 
     it('calls formatTitle()', () => {

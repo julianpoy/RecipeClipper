@@ -33,7 +33,7 @@ export const clipImageURL = (config) => format.imageURL(
 export const clipTitle = (config) => format.title(
   getTitleFromSchema(config.window)
   || grabLongestMatchByClasses(config.window, ...ClassMatchers.title)
-  || grabRecipeTitleFromDocumentTitle(),
+  || grabRecipeTitleFromDocumentTitle(config.window),
 );
 
 export const clipDescription = (config) => format.description(
@@ -63,7 +63,7 @@ export const clipTotalTime = (config) => format.totalTime(
 
 export const clipIngredients = async (config) => format.ingredients(
   getIngredientsFromSchema(config.window)
-  || grabLongestMatchByClasses(...ClassMatchers.ingredients),
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.ingredients),
 )
   || format.ingredients(await grabByMl(config, 1));
 

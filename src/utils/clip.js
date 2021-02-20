@@ -1,4 +1,3 @@
-import global from '../global';
 import { format } from './text';
 import {
   getSrcFromImage,
@@ -26,53 +25,54 @@ import {
   getInstructionsFromSchema,
 } from './schema';
 
-export const clipImageURL = () => format.imageURL(
-  getImageSrcFromSchema()
-  || getSrcFromImage(grabLargestImage()),
+export const clipImageURL = (config) => format.imageURL(
+  getImageSrcFromSchema(config.window)
+  || getSrcFromImage(grabLargestImage(config.window)),
 );
 
-export const clipTitle = () => format.title(
-  getTitleFromSchema()
-  || grabLongestMatchByClasses(...ClassMatchers.title) || grabRecipeTitleFromDocumentTitle(),
+export const clipTitle = (config) => format.title(
+  getTitleFromSchema(config.window)
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.title)
+  || grabRecipeTitleFromDocumentTitle(),
 );
 
-export const clipDescription = () => format.description(
-  getDescriptionFromSchema()
-  || grabLongestMatchByClasses(...ClassMatchers.description),
+export const clipDescription = (config) => format.description(
+  getDescriptionFromSchema(config.window)
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.description),
 );
 
-export const clipSource = () => format.source(
-  grabSourceFromDocumentTitle() || global.window.location.hostname,
+export const clipSource = (config) => format.source(
+  grabSourceFromDocumentTitle(config.window) || config.window.location.hostname,
 );
 
-export const clipYield = () => format.yield(
-  getYieldFromSchema()
-  || grabLongestMatchByClasses(...ClassMatchers.yield)
-  || closestToRegExp(matchYield).replace('\n', ''),
+export const clipYield = (config) => format.yield(
+  getYieldFromSchema(config.window)
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.yield)
+  || closestToRegExp(config.window, matchYield).replace('\n', ''),
 );
 
-export const clipActiveTime = () => format.activeTime(
-  grabLongestMatchByClasses(...ClassMatchers.activeTime)
-  || closestToRegExp(matchActiveTime).replace('\n', ''),
+export const clipActiveTime = (config) => format.activeTime(
+  grabLongestMatchByClasses(config.window, ...ClassMatchers.activeTime)
+  || closestToRegExp(config.window, matchActiveTime).replace('\n', ''),
 );
 
-export const clipTotalTime = () => format.totalTime(
-  grabLongestMatchByClasses(...ClassMatchers.totalTime)
-  || closestToRegExp(matchTotalTime).replace('\n', ''),
+export const clipTotalTime = (config) => format.totalTime(
+  grabLongestMatchByClasses(config.window, ...ClassMatchers.totalTime)
+  || closestToRegExp(config.window, matchTotalTime).replace('\n', ''),
 );
 
-export const clipIngredients = async () => format.ingredients(
-  getIngredientsFromSchema()
+export const clipIngredients = async (config) => format.ingredients(
+  getIngredientsFromSchema(config.window)
   || grabLongestMatchByClasses(...ClassMatchers.ingredients),
 )
-  || format.ingredients(await grabByMl(1));
+  || format.ingredients(await grabByMl(config, 1));
 
-export const clipInstructions = async () => format.instructions(
-  getInstructionsFromSchema()
-  || grabLongestMatchByClasses(...ClassMatchers.instructions),
+export const clipInstructions = async (config) => format.instructions(
+  getInstructionsFromSchema(config.window)
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.instructions),
 )
-  || format.instructions(await grabByMl(2));
+  || format.instructions(await grabByMl(config, 2));
 
-export const clipNotes = () => format.notes(
-  grabLongestMatchByClasses(...ClassMatchers.notes),
+export const clipNotes = (config) => format.notes(
+  grabLongestMatchByClasses(config.window, ...ClassMatchers.notes),
 );

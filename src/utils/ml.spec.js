@@ -1,6 +1,5 @@
 import * as element from './element';
 import * as ml from './ml';
-import global from '../global';
 import {
   grabByMl,
   findByHeader,
@@ -18,10 +17,15 @@ import {
   instructionSectionHeader,
 } from '../constants/regex';
 
+const config = {
+  window,
+  options: {},
+};
+
 describe('ml', () => {
   afterEach(() => {
     jest.restoreAllMocks();
-    global.options.mlDisable = undefined;
+    config.options.mlDisable = undefined;
   });
 
   describe('grabByMl', () => {
@@ -37,8 +41,8 @@ describe('ml', () => {
       let result;
 
       beforeEach(async () => {
-        global.options.mlDisable = true;
-        result = await grabByMl(1);
+        config.options.mlDisable = true;
+        result = await grabByMl(config, 1);
       });
 
       it('returns empty string', () => {
@@ -61,7 +65,7 @@ describe('ml', () => {
       beforeEach(async () => {
         findByHeaderMock.mockResolvedValue(mockHeaderResult);
 
-        result = await grabByMl(1);
+        result = await grabByMl(config, 1);
       });
 
       it('returns match from findByHeader', () => {
@@ -69,7 +73,7 @@ describe('ml', () => {
       });
 
       it('calls findByHeader', () => {
-        expect(ml.findByHeader).toHaveBeenCalledWith(1);
+        expect(ml.findByHeader).toHaveBeenCalledWith(config, 1);
       });
 
       it('does not call findFullSearch', () => {
@@ -85,7 +89,7 @@ describe('ml', () => {
         findByHeaderMock.mockReturnValue(null);
         findFullSearchMock.mockReturnValue(mockFullTextResult);
 
-        result = await grabByMl(1);
+        result = await grabByMl(config, 1);
       });
 
       it('returns match from findFullSearch', () => {
@@ -93,11 +97,11 @@ describe('ml', () => {
       });
 
       it('calls findByHeader', () => {
-        expect(ml.findByHeader).toHaveBeenCalledWith(1);
+        expect(ml.findByHeader).toHaveBeenCalledWith(config, 1);
       });
 
       it('calls findFullSearch', () => {
-        expect(ml.findFullSearch).toHaveBeenCalledWith(1);
+        expect(ml.findFullSearch).toHaveBeenCalledWith(config, 1);
       });
     });
   });
@@ -112,7 +116,8 @@ describe('ml', () => {
     let result;
 
     beforeEach(() => {
-      findPotentialSetsByHeaderMock = jest.spyOn(ml, 'findPotentialSetsByHeader').mockReturnValue(findPotentialSetsByHeaderMockReturn);
+      findPotentialSetsByHeaderMock = jest.spyOn(ml, 'findPotentialSetsByHeader')
+        .mockReturnValue(findPotentialSetsByHeaderMockReturn);
       mlFilterMock = jest.spyOn(ml, 'mlFilter');
     });
 
@@ -121,17 +126,17 @@ describe('ml', () => {
         mlFilterMock
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[0])
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[1]);
-        result = await findByHeader(1);
+        result = await findByHeader(config, 1);
       });
 
       it('calls findPotentialSetsByHeader with ingredient regexp', () => {
-        expect(findPotentialSetsByHeaderMock).toHaveBeenCalledWith(ingredientSectionHeader);
+        expect(findPotentialSetsByHeaderMock).toHaveBeenCalledWith(config, ingredientSectionHeader);
       });
 
       it('calls mlFilter with ingredient type', () => {
         expect(mlFilterMock.mock.calls).toEqual([
-          [findPotentialSetsByHeaderMockReturn[0], 1],
-          [findPotentialSetsByHeaderMockReturn[1], 1],
+          [config, findPotentialSetsByHeaderMockReturn[0], 1],
+          [config, findPotentialSetsByHeaderMockReturn[1], 1],
         ]);
       });
     });
@@ -141,17 +146,18 @@ describe('ml', () => {
         mlFilterMock
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[0])
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[1]);
-        result = await findByHeader(2);
+        result = await findByHeader(config, 2);
       });
 
       it('calls findPotentialSetsByHeader with instruction regexp', () => {
-        expect(findPotentialSetsByHeaderMock).toHaveBeenCalledWith(instructionSectionHeader);
+        expect(findPotentialSetsByHeaderMock)
+          .toHaveBeenCalledWith(config, instructionSectionHeader);
       });
 
       it('calls mlFilter with ingredient type', () => {
         expect(mlFilterMock.mock.calls).toEqual([
-          [findPotentialSetsByHeaderMockReturn[0], 2],
-          [findPotentialSetsByHeaderMockReturn[1], 2],
+          [config, findPotentialSetsByHeaderMockReturn[0], 2],
+          [config, findPotentialSetsByHeaderMockReturn[1], 2],
         ]);
       });
     });
@@ -161,7 +167,7 @@ describe('ml', () => {
         mlFilterMock
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[0])
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[1]);
-        result = await findByHeader(2);
+        result = await findByHeader(config, 2);
       });
 
       it('returns the longest length result as a string', () => {
@@ -176,7 +182,7 @@ describe('ml', () => {
           .mockReturnValueOnce(findPotentialSetsByHeaderMockReturn[0]);
         findPotentialSetsByHeaderMock
           .mockReturnValue(findPotentialSetsByHeaderMockReturn.slice().reverse());
-        result = await findByHeader(2);
+        result = await findByHeader(config, 2);
       });
 
       it('returns the longest length result as a string', () => {
@@ -187,7 +193,7 @@ describe('ml', () => {
     describe('no content', () => {
       beforeEach(async () => {
         mlFilterMock.mockReturnValue([]);
-        result = await findByHeader(2);
+        result = await findByHeader(config, 2);
       });
 
       it('returns nothing', () => {
@@ -242,25 +248,25 @@ describe('ml', () => {
     });
 
     it('calls getDocumentContent', async () => {
-      await findFullSearch(1);
-      expect(getDocumentContentMock).toHaveBeenCalled();
+      await findFullSearch(config, 1);
+      expect(getDocumentContentMock).toHaveBeenCalledWith(config);
     });
 
     it('calls mlClassify', async () => {
-      await findFullSearch(1);
+      await findFullSearch(config, 1);
       expect(mlClassifyMock).toHaveBeenCalled();
     });
 
     it('returns largest group of ingredients', async () => {
       const expectedIngredients = getDocumentContentMockReturn.slice(0, 4).join('\n');
 
-      expect(await findFullSearch(1)).toEqual(expectedIngredients);
+      expect(await findFullSearch(config, 1)).toEqual(expectedIngredients);
     });
 
     it('returns largest group of instructions', async () => {
       const expectedInstructions = getDocumentContentMockReturn.slice(8, 11).join('\n');
 
-      expect(await findFullSearch(2)).toEqual(expectedInstructions);
+      expect(await findFullSearch(config, 2)).toEqual(expectedInstructions);
     });
   });
 
@@ -312,7 +318,7 @@ describe('ml', () => {
       it('returns ingredients up to non-ingredient content', async () => {
         const expectedIngredients = content.slice(0, 4);
 
-        expect(await mlFilter(content, 1)).toEqual(expectedIngredients);
+        expect(await mlFilter(config, content, 1)).toEqual(expectedIngredients);
       });
     });
 
@@ -357,7 +363,7 @@ describe('ml', () => {
       it('returns instructions up to non-instruction content', async () => {
         const expectedInstructions = content.slice(0, 3);
 
-        expect(await mlFilter(content, 2)).toEqual(expectedInstructions);
+        expect(await mlFilter(config, content, 2)).toEqual(expectedInstructions);
       });
     });
 
@@ -400,11 +406,11 @@ describe('ml', () => {
       });
 
       it('returns nothing for ingredient filter', async () => {
-        expect(await mlFilter(content, 1)).toEqual([]);
+        expect(await mlFilter(config, content, 1)).toEqual([]);
       });
 
       it('returns nothing for instruction filter', async () => {
-        expect(await mlFilter(content, 2)).toEqual([]);
+        expect(await mlFilter(config, content, 2)).toEqual([]);
       });
     });
 
@@ -417,7 +423,7 @@ describe('ml', () => {
       });
 
       it('returns nothing', async () => {
-        expect(await mlFilter(content, 1)).toEqual([]);
+        expect(await mlFilter(config, content, 1)).toEqual([]);
       });
     });
   });
@@ -455,11 +461,11 @@ describe('ml', () => {
             load: () => {},
           };
 
-          result = await mlClassify(input);
+          result = await mlClassify(config, input);
         });
 
         it('calls local classify', () => {
-          expect(mlClassifyLocalMock).toHaveBeenCalledWith(input);
+          expect(mlClassifyLocalMock).toHaveBeenCalledWith(config, input);
         });
 
         it('does not call remote classify', () => {
@@ -480,11 +486,11 @@ describe('ml', () => {
             load: () => {},
           };
 
-          result = await mlClassify(input);
+          result = await mlClassify(config, input);
         });
 
         it('calls remote classify', () => {
-          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
+          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(config, input);
         });
 
         it('does not call local classify', () => {
@@ -504,11 +510,11 @@ describe('ml', () => {
             load: () => {},
           };
 
-          result = await mlClassify(input);
+          result = await mlClassify(config, input);
         });
 
         it('calls remote classify', () => {
-          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
+          expect(mlClassifyRemoteMock).toHaveBeenCalledWith(config, input);
         });
 
         it('does not call local classify', () => {
@@ -530,11 +536,11 @@ describe('ml', () => {
         };
         window.use = {};
 
-        result = await mlClassify(input);
+        result = await mlClassify(config, input);
       });
 
       it('calls remote classify', () => {
-        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
+        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(config, input);
       });
 
       it('does not call local classify', () => {
@@ -554,11 +560,11 @@ describe('ml', () => {
           loadLayersModel: () => {},
         };
 
-        result = await mlClassify(input);
+        result = await mlClassify(config, input);
       });
 
       it('calls remote classify', () => {
-        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(input);
+        expect(mlClassifyRemoteMock).toHaveBeenCalledWith(config, input);
       });
 
       it('does not call local classify', () => {
@@ -592,15 +598,15 @@ describe('ml', () => {
     });
 
     afterEach(() => {
-      global.options.mlClassifyEndpoint = undefined;
+      config.options.mlClassifyEndpoint = undefined;
       window.fetch = undefined;
     });
 
     describe('when mlClassifyEndpoint is set', () => {
       beforeEach(async () => {
-        global.options.mlClassifyEndpoint = 'https://example.com/test';
+        config.options.mlClassifyEndpoint = 'https://example.com/test';
 
-        result = await mlClassifyRemote(input);
+        result = await mlClassifyRemote(config, input);
       });
 
       it('sends fetch request', () => {
@@ -614,7 +620,7 @@ describe('ml', () => {
 
     describe('when mlClassifyEndpoint is not set', () => {
       it('should throw', async () => {
-        expect(mlClassifyRemote(input)).rejects.toThrow();
+        expect(mlClassifyRemote(config, input)).rejects.toThrow();
       });
     });
   });
@@ -658,7 +664,7 @@ describe('ml', () => {
         load: loadUseMock,
       };
 
-      result = await mlClassifyLocal(input);
+      result = await mlClassifyLocal(config, input);
     });
 
     it('calls loadModel', () => {
@@ -708,12 +714,12 @@ describe('ml', () => {
 
     describe('when mlModelEndpoint is not set', () => {
       it('throws', () => {
-        expect(loadModel()).rejects.toThrow();
+        expect(loadModel(config)).rejects.toThrow();
       });
 
       it('does not call loadLayersModel', async () => {
         try {
-          await loadModel();
+          await loadModel(config);
         } catch (e) {
           // Do nothing
         }
@@ -724,11 +730,11 @@ describe('ml', () => {
 
     describe('when mlModelEndpoint is set', () => {
       beforeEach(() => {
-        global.options.mlModelEndpoint = exampleModelEndpoint;
+        config.options.mlModelEndpoint = exampleModelEndpoint;
       });
 
       it('calls loadLayersModel', async () => {
-        await loadModel();
+        await loadModel(config);
 
         expect(loadLayersModelMock).toHaveBeenCalledWith(exampleModelEndpoint);
       });
@@ -750,12 +756,12 @@ describe('ml', () => {
     });
 
     it('calls getDocumentContent', () => {
-      findPotentialSetsByHeader(/example 1/);
+      findPotentialSetsByHeader(config, /example 1/);
       expect(getDocumentContentMock).toHaveBeenCalled();
     });
 
     it('returns content found after regex', () => {
-      const result = findPotentialSetsByHeader(/example 2/);
+      const result = findPotentialSetsByHeader(config, /example 2/);
       expect(result).toEqual([
         [
           'example 3',
@@ -766,7 +772,7 @@ describe('ml', () => {
     });
 
     it('returns multiple when regex matches', () => {
-      const result = findPotentialSetsByHeader(/example 2|example 4/);
+      const result = findPotentialSetsByHeader(config, /example 2|example 4/);
       expect(result).toEqual([
         [
           'example 3',
@@ -793,7 +799,7 @@ describe('ml', () => {
       applyLIBlockStylingMock = jest.spyOn(element, 'applyLIBlockStyling');
       document.body.innerHTML = documentHtml;
 
-      result = getDocumentContent();
+      result = getDocumentContent(config);
     });
 
     it('returns document innerText', () => {
@@ -801,7 +807,7 @@ describe('ml', () => {
     });
 
     it('calls applyLIBlockStyling', () => {
-      expect(applyLIBlockStylingMock).toHaveBeenCalled();
+      expect(applyLIBlockStylingMock).toHaveBeenCalledWith(window.document.body);
     });
   });
 });

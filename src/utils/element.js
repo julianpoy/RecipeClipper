@@ -1,33 +1,32 @@
-import global from '../global';
 import { getInnerText } from './innerText';
 
-export const getClassNamesMatching = (classNamePartial) => {
+export const getClassNamesMatching = (window, classNamePartial) => {
   const classRegExp = new RegExp(`class="((\\w|\\s|-)*${classNamePartial}(\\w|\\s|-)*)"`, 'gi');
-  const matches = global.window.document.body.innerHTML.matchAll(classRegExp);
+  const matches = window.document.body.innerHTML.matchAll(classRegExp);
 
   return Array.from(new Set(Array.from(matches, (match) => match[1])));
 };
 
-export const getClassNamesContaining = (className) => {
+export const getClassNamesContaining = (window, className) => {
   const classRegExp = new RegExp(`class="(([\\w-\\s]*\\s)?${className}(\\s[\\w-\\s]*)?)"`, 'gi');
-  const matches = global.window.document.body.innerHTML.matchAll(classRegExp);
+  const matches = window.document.body.innerHTML.matchAll(classRegExp);
 
   return Array.from(new Set(Array.from(matches, (match) => match[1])));
 };
 
-export const softMatchElementsByClass = (classNamePartial) => {
-  const classNames = getClassNamesMatching(classNamePartial);
+export const softMatchElementsByClass = (window, classNamePartial) => {
+  const classNames = getClassNamesMatching(window, classNamePartial);
 
   return classNames
-    .map((className) => Array.from(global.window.document.getElementsByClassName(className)))
+    .map((className) => Array.from(window.document.getElementsByClassName(className)))
     .flat();
 };
 
-export const matchElementsByClass = (classNameFull) => {
-  const classNames = getClassNamesContaining(classNameFull);
+export const matchElementsByClass = (window, classNameFull) => {
+  const classNames = getClassNamesContaining(window, classNameFull);
 
   return classNames
-    .map((className) => Array.from(global.window.document.getElementsByClassName(className)))
+    .map((className) => Array.from(window.document.getElementsByClassName(className)))
     .flat();
 };
 
@@ -39,12 +38,12 @@ export const applyLIBlockStyling = (element) => {
   return element;
 };
 
-export const grabLongestMatchByClasses = (preferredClassNames, fuzzyClassNames) => {
+export const grabLongestMatchByClasses = (window, preferredClassNames, fuzzyClassNames) => {
   const exactMatches = preferredClassNames
-    .map((className) => matchElementsByClass(className))
+    .map((className) => matchElementsByClass(window, className))
     .flat();
   const fuzzyMatches = fuzzyClassNames
-    .map((className) => softMatchElementsByClass(className))
+    .map((className) => softMatchElementsByClass(window, className))
     .flat();
 
   return (exactMatches.length > 0 ? exactMatches : fuzzyMatches)
@@ -95,8 +94,8 @@ export const getImageDimensions = (element) => {
   };
 };
 
-export const grabLargestImage = () => {
-  const matches = global.window.document.querySelectorAll('img');
+export const grabLargestImage = (window) => {
+  const matches = window.document.querySelectorAll('img');
 
   return [...matches]
     .filter((element) => isValidImage(element))
@@ -113,13 +112,13 @@ export const grabLargestImage = () => {
     }, null);
 };
 
-export const closestToRegExp = (regExp) => {
-  const { body } = global.window.document;
+export const closestToRegExp = (window, regExp) => {
+  const { body } = window.document;
   const match = getInnerText(body).match(regExp);
   if (!match) return '';
   return match[0];
 };
 
-export const grabRecipeTitleFromDocumentTitle = () => global.window.document.title.split(/ - |\|/)[0].trim();
+export const grabRecipeTitleFromDocumentTitle = (window) => window.document.title.split(/ - |\|/)[0].trim();
 
-export const grabSourceFromDocumentTitle = () => (global.window.document.title.split(/ - |\|/)[1] || '').trim();
+export const grabSourceFromDocumentTitle = (window) => (window.document.title.split(/ - |\|/)[1] || '').trim();

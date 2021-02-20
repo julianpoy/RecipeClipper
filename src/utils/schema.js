@@ -37,11 +37,10 @@ export const getRecipeSchemasFromDocument = () => {
   return recipeSchemas;
 };
 
-let schemas;
 export const getPropertyFromSchema = (propName) => {
-  if (!schemas) schemas = self.getRecipeSchemasFromDocument();
+  if (!global.window.parsedSchemas) global.window.parsedSchemas = self.getRecipeSchemasFromDocument();
 
-  const foundSchema = schemas.find((schema) => schema[propName]) || {};
+  const foundSchema = global.window.parsedSchemas.find((schema) => schema[propName]) || {};
 
   return foundSchema[propName] || null;
 };

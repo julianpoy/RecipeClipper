@@ -50,7 +50,9 @@ export const getImageSrcFromSchema = (window) => {
 
   let imageSrc;
   if (typeof images === 'string') imageSrc = images;
+  else if (typeof images.url === 'string') imageSrc = images.url;
   else if (typeof images[0] === 'string') [imageSrc] = images;
+  else if (images[0] && typeof images[0].url === 'string') imageSrc = images[0].url;
 
   if (imageSrc) {
     try {

@@ -142,9 +142,39 @@ describe('getImageSrcFromSchema', () => {
     expect(getImageSrcFromSchema(window)).toEqual(exampleString);
   });
 
+  it('returns value when schema query result is an ImageObject', () => {
+    const exampleString = 'http://example.com/test.jpg';
+    const imageObj = {
+      url: exampleString,
+    };
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(imageObj);
+    expect(getImageSrcFromSchema(window)).toEqual(exampleString);
+  });
+
   it('returns first value when schema query result is array of valid urls', () => {
     const exampleString = 'http://example.com/test.jpg';
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([exampleString]);
+    expect(getImageSrcFromSchema(window)).toEqual(exampleString);
+  });
+
+  it('returns first value when schema query result is an array of ImageObjects', () => {
+    const exampleString = 'http://example.com/test.jpg';
+    const imageObj = {
+      url: exampleString,
+    };
+    const imageObj2 = {
+      url: `${exampleString}h`,
+    };
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue([imageObj, imageObj2]);
+    expect(getImageSrcFromSchema(window)).toEqual(exampleString);
+  });
+
+  it('returns first value when schema query result is an ImageObject', () => {
+    const exampleString = 'http://example.com/test.jpg';
+    const imageObj = {
+      url: exampleString,
+    };
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(imageObj);
     expect(getImageSrcFromSchema(window)).toEqual(exampleString);
   });
 

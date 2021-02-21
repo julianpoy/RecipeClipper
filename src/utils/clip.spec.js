@@ -2,6 +2,7 @@ import * as TextUtils from './text';
 import * as ElementUtils from './element';
 import * as ClipUtils from './clip';
 import * as SchemaUtils from './schema';
+import * as MicrodataUtils from './microdata';
 import * as ML from './ml';
 import {
   matchYield,
@@ -339,11 +340,13 @@ describe('clipYield', () => {
   const searchMatch = 'searched yield';
   const finalYield = 'example';
   let outputVal;
-  let getYieldFromSchemaSpy, grabLongestMatchByClassesSpy, closestToRegExpSpy, formatYieldSpy;
+  let getYieldFromSchemaSpy, getYieldFromMicrodataSpy;
+  let grabLongestMatchByClassesSpy, closestToRegExpSpy, formatYieldSpy;
 
   describe('when schema match is found', () => {
     beforeAll(() => {
       getYieldFromSchemaSpy = jest.spyOn(SchemaUtils, 'getYieldFromSchema').mockReturnValue(documentMatch);
+      getYieldFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getYieldFromMicrodata').mockReturnValue(documentMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
@@ -357,6 +360,50 @@ describe('clipYield', () => {
 
     it('calls getYieldFromSchema()', () => {
       expect(getYieldFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call getYieldFromMicrodata()', () => {
+      expect(getYieldFromMicrodataSpy).not.toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls formatYield()', () => {
+      expect(formatYieldSpy).toBeCalledWith(documentMatch);
+    });
+
+    it('does not call closestToRegExp()', () => {
+      expect(closestToRegExpSpy).not.toBeCalled();
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(finalYield);
+    });
+  });
+
+  describe('when microdata match is found', () => {
+    beforeAll(() => {
+      getYieldFromSchemaSpy = jest.spyOn(SchemaUtils, 'getYieldFromSchema').mockReturnValue('');
+      getYieldFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getYieldFromMicrodata').mockReturnValue(documentMatch);
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
+      closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
+      formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
+
+      outputVal = ClipUtils.clipYield(config);
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getYieldFromSchema()', () => {
+      expect(getYieldFromSchemaSpy).toBeCalled();
+    });
+
+    it('does calls getYieldFromMicrodata()', () => {
+      expect(getYieldFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('does not call grabLongestMatchByClasses()', () => {
@@ -379,6 +426,7 @@ describe('clipYield', () => {
   describe('when yield is found in the document', () => {
     beforeAll(() => {
       getYieldFromSchemaSpy = jest.spyOn(SchemaUtils, 'getYieldFromSchema').mockReturnValue('');
+      getYieldFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getYieldFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
@@ -414,6 +462,7 @@ describe('clipYield', () => {
   describe('when yield is not found in the document', () => {
     beforeAll(() => {
       getYieldFromSchemaSpy = jest.spyOn(SchemaUtils, 'getYieldFromSchema').mockReturnValue('');
+      getYieldFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getYieldFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(null);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatYieldSpy = jest.spyOn(TextUtils.format, 'yield').mockReturnValue(finalYield);
@@ -448,14 +497,16 @@ describe('clipYield', () => {
 });
 
 describe('clipActiveTime', () => {
-  describe('when activeTime is found in the document', () => {
-    const documentMatch = 'example activeTime';
-    const searchMatch = 'searched activeTime';
-    const finalActiveTime = 'example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, closestToRegExpSpy, formatActiveTimeSpy;
+  const documentMatch = 'example activeTime';
+  const searchMatch = 'searched activeTime';
+  const finalActiveTime = 'example';
+  let outputVal;
+  let getActiveTimeFromMicrodataSpy, grabLongestMatchByClassesSpy;
+  let closestToRegExpSpy, formatActiveTimeSpy;
 
+  describe('when activeTime microdata is found', () => {
     beforeAll(() => {
+      getActiveTimeFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getActiveTimeFromMicrodata').mockReturnValue(documentMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatActiveTimeSpy = jest.spyOn(TextUtils.format, 'activeTime').mockReturnValue(finalActiveTime);
@@ -465,6 +516,45 @@ describe('clipActiveTime', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getActiveTimeFromMicrodata()', () => {
+      expect(getActiveTimeFromMicrodataSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls formatActiveTime()', () => {
+      expect(formatActiveTimeSpy).toBeCalledWith(documentMatch);
+    });
+
+    it('does not call closestToRegExp()', () => {
+      expect(closestToRegExpSpy).not.toBeCalled();
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(finalActiveTime);
+    });
+  });
+
+  describe('when activeTime is found in the document', () => {
+    beforeAll(() => {
+      getActiveTimeFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getActiveTimeFromMicrodata').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
+      closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
+      formatActiveTimeSpy = jest.spyOn(TextUtils.format, 'activeTime').mockReturnValue(finalActiveTime);
+
+      outputVal = ClipUtils.clipActiveTime(config);
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getActiveTimeFromMicrodata()', () => {
+      expect(getActiveTimeFromMicrodataSpy).toBeCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -485,12 +575,8 @@ describe('clipActiveTime', () => {
   });
 
   describe('when activeTime is not found in the document', () => {
-    const searchMatch = 'searched activeTime';
-    const finalActiveTime = 'example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, closestToRegExpSpy, formatActiveTimeSpy;
-
     beforeAll(() => {
+      getActiveTimeFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getActiveTimeFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(null);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatActiveTimeSpy = jest.spyOn(TextUtils.format, 'activeTime').mockReturnValue(finalActiveTime);
@@ -500,6 +586,10 @@ describe('clipActiveTime', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getActiveTimeFromMicrodata()', () => {
+      expect(getActiveTimeFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -521,14 +611,16 @@ describe('clipActiveTime', () => {
 });
 
 describe('clipTotalTime', () => {
-  describe('when totalTime is found in the document', () => {
-    const documentMatch = 'example totalTime';
-    const searchMatch = 'searched totalTime';
-    const finalTotalTime = 'example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, closestToRegExpSpy, formatTotalTimeSpy;
+  const documentMatch = 'example totalTime';
+  const searchMatch = 'searched totalTime';
+  const finalTotalTime = 'example';
+  let outputVal;
+  let getTotalTimeFromMicrodataSpy, grabLongestMatchByClassesSpy;
+  let closestToRegExpSpy, formatTotalTimeSpy;
 
+  describe('when totalTime microdata is found', () => {
     beforeAll(() => {
+      getTotalTimeFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getTotalTimeFromMicrodata').mockReturnValue(documentMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatTotalTimeSpy = jest.spyOn(TextUtils.format, 'totalTime').mockReturnValue(finalTotalTime);
@@ -538,6 +630,45 @@ describe('clipTotalTime', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getTotalTimeFromMicrodata()', () => {
+      expect(getTotalTimeFromMicrodataSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls formatTotalTime()', () => {
+      expect(formatTotalTimeSpy).toBeCalledWith(documentMatch);
+    });
+
+    it('does not call closestToRegExp()', () => {
+      expect(closestToRegExpSpy).not.toBeCalled();
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(finalTotalTime);
+    });
+  });
+
+  describe('when totalTime is found in the document', () => {
+    beforeAll(() => {
+      getTotalTimeFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getTotalTimeFromMicrodata').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(documentMatch);
+      closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
+      formatTotalTimeSpy = jest.spyOn(TextUtils.format, 'totalTime').mockReturnValue(finalTotalTime);
+
+      outputVal = ClipUtils.clipTotalTime(config);
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getTotalTimeFromMicrodata()', () => {
+      expect(getTotalTimeFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -558,12 +689,8 @@ describe('clipTotalTime', () => {
   });
 
   describe('when totalTime is not found in the document', () => {
-    const searchMatch = 'searched totalTime';
-    const finalTotalTime = 'example';
-    let outputVal;
-    let grabLongestMatchByClassesSpy, closestToRegExpSpy, formatTotalTimeSpy;
-
     beforeAll(() => {
+      getTotalTimeFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getTotalTimeFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(null);
       closestToRegExpSpy = jest.spyOn(ElementUtils, 'closestToRegExp').mockReturnValue(searchMatch);
       formatTotalTimeSpy = jest.spyOn(TextUtils.format, 'totalTime').mockReturnValue(finalTotalTime);
@@ -573,6 +700,10 @@ describe('clipTotalTime', () => {
 
     afterAll(() => {
       jest.restoreAllMocks();
+    });
+
+    it('calls getTotalTimeFromMicrodata()', () => {
+      expect(getTotalTimeFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -597,7 +728,8 @@ describe('clipIngredients', () => {
   const ingredientsMatch = 'example ingredients';
   const ingredients = 'example';
   let outputVal;
-  let getIngredientsFromSchemaSpy, grabLongestMatchByClassesSpy, grabByMlSpy, formatIngredientsSpy;
+  let getIngredientsFromSchemaSpy, getIngredientsFromMicrodataSpy;
+  let grabLongestMatchByClassesSpy, grabByMlSpy, formatIngredientsSpy;
 
   afterEach(() => {
     jest.restoreAllMocks();
@@ -606,6 +738,7 @@ describe('clipIngredients', () => {
   describe('when schema match is found', () => {
     beforeEach(async () => {
       getIngredientsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getIngredientsFromSchema').mockReturnValue(ingredientsMatch);
+      getIngredientsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getIngredientsFromMicrodata').mockReturnValue(ingredientsMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(ingredientsMatch);
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
@@ -614,7 +747,47 @@ describe('clipIngredients', () => {
     });
 
     it('calls getIngredientsFromSchema()', () => {
-      expect(getIngredientsFromSchemaSpy).toBeCalled();
+      expect(getIngredientsFromSchemaSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls getIngredientsFromMicrodata()', () => {
+      expect(getIngredientsFromMicrodataSpy).not.toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('does not call grabByMl()', () => {
+      expect(grabByMlSpy).not.toBeCalled();
+    });
+
+    it('calls formatIngredients()', () => {
+      expect(formatIngredientsSpy).toBeCalledWith(ingredientsMatch);
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(ingredients);
+    });
+  });
+
+  describe('when microdata match is found', () => {
+    beforeEach(async () => {
+      getIngredientsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getIngredientsFromSchema').mockReturnValue('');
+      getIngredientsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getIngredientsFromMicrodata').mockReturnValue(ingredientsMatch);
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(ingredientsMatch);
+      grabByMlSpy = jest.spyOn(ML, 'grabByMl');
+      formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
+
+      outputVal = await ClipUtils.clipIngredients(config);
+    });
+
+    it('calls getIngredientsFromSchema()', () => {
+      expect(getIngredientsFromSchemaSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls getIngredientsFromMicrodata()', () => {
+      expect(getIngredientsFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('does not call grabLongestMatchByClasses()', () => {
@@ -637,6 +810,7 @@ describe('clipIngredients', () => {
   describe('when grabLongestMatchByClasses returns a value', () => {
     beforeEach(async () => {
       getIngredientsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getIngredientsFromSchema').mockReturnValue('');
+      getIngredientsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getIngredientsFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(ingredientsMatch);
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients').mockReturnValue(ingredients);
@@ -646,6 +820,10 @@ describe('clipIngredients', () => {
 
     it('calls getIngredientsFromSchema()', () => {
       expect(getIngredientsFromSchemaSpy).toBeCalled();
+    });
+
+    it('calls getIngredientsFromMicrodata()', () => {
+      expect(getIngredientsFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -668,6 +846,7 @@ describe('clipIngredients', () => {
   describe('when grabLongestMatchByClasses does not return a value', () => {
     beforeEach(async () => {
       getIngredientsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getIngredientsFromSchema').mockReturnValue('');
+      getIngredientsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getIngredientsFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue('');
       grabByMlSpy = jest.spyOn(ML, 'grabByMl').mockResolvedValue(ingredientsMatch);
       formatIngredientsSpy = jest.spyOn(TextUtils.format, 'ingredients')
@@ -678,7 +857,11 @@ describe('clipIngredients', () => {
     });
 
     it('calls getIngredientsFromSchema()', () => {
-      expect(getIngredientsFromSchemaSpy).toBeCalled();
+      expect(getIngredientsFromSchemaSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls getIngredientsFromMicrodata()', () => {
+      expect(getIngredientsFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -707,7 +890,7 @@ describe('clipInstructions', () => {
   const instructionsMatch = 'example instructions';
   const instructions = 'example';
   let outputVal;
-  let getInstructionsFromSchemaSpy, grabLongestMatchByClassesSpy;
+  let getInstructionsFromSchemaSpy, getInstructionsFromMicrodataSpy, grabLongestMatchByClassesSpy;
   let grabByMlSpy, formatInstructionsSpy;
 
   afterEach(() => {
@@ -717,6 +900,7 @@ describe('clipInstructions', () => {
   describe('when schema match is found', () => {
     beforeEach(async () => {
       getInstructionsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getInstructionsFromSchema').mockReturnValue(instructionsMatch);
+      getInstructionsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getInstructionsFromMicrodata').mockReturnValue(instructionsMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(instructionsMatch);
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
@@ -725,7 +909,47 @@ describe('clipInstructions', () => {
     });
 
     it('calls getInstructionsFromSchema()', () => {
-      expect(getInstructionsFromSchemaSpy).toBeCalled();
+      expect(getInstructionsFromSchemaSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls getInstructionsFromMicrodata()', () => {
+      expect(getInstructionsFromMicrodataSpy).not.toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('does not call grabByMl()', () => {
+      expect(grabByMlSpy).not.toBeCalled();
+    });
+
+    it('calls formatInstructions()', () => {
+      expect(formatInstructionsSpy).toBeCalledWith(instructionsMatch);
+    });
+
+    it('returns formatted', () => {
+      expect(outputVal).toEqual(instructions);
+    });
+  });
+
+  describe('when microdata match is found', () => {
+    beforeEach(async () => {
+      getInstructionsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getInstructionsFromSchema').mockReturnValue('');
+      getInstructionsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getInstructionsFromMicrodata').mockReturnValue(instructionsMatch);
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(instructionsMatch);
+      grabByMlSpy = jest.spyOn(ML, 'grabByMl');
+      formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
+
+      outputVal = await ClipUtils.clipInstructions(config);
+    });
+
+    it('calls getInstructionsFromSchema()', () => {
+      expect(getInstructionsFromSchemaSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls getInstructionsFromMicrodata()', () => {
+      expect(getInstructionsFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('does not call grabLongestMatchByClasses()', () => {
@@ -748,6 +972,7 @@ describe('clipInstructions', () => {
   describe('when grabLongestMatchByClasses returns a value', () => {
     beforeEach(async () => {
       getInstructionsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getInstructionsFromSchema').mockReturnValue('');
+      getInstructionsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getInstructionsFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(instructionsMatch);
       grabByMlSpy = jest.spyOn(ML, 'grabByMl');
       formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions').mockReturnValue(instructions);
@@ -756,7 +981,11 @@ describe('clipInstructions', () => {
     });
 
     it('calls getInstructionsFromSchema()', () => {
-      expect(getInstructionsFromSchemaSpy).toBeCalled();
+      expect(getInstructionsFromSchemaSpy).toHaveBeenCalledWith(window);
+    });
+
+    it('calls getInstructionsFromMicrodata()', () => {
+      expect(getInstructionsFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {
@@ -779,6 +1008,7 @@ describe('clipInstructions', () => {
   describe('when grabLongestMatchByClasses does not return a value', () => {
     beforeEach(async () => {
       getInstructionsFromSchemaSpy = jest.spyOn(SchemaUtils, 'getInstructionsFromSchema').mockReturnValue('');
+      getInstructionsFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getInstructionsFromMicrodata').mockReturnValue('');
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue('');
       grabByMlSpy = jest.spyOn(ML, 'grabByMl').mockResolvedValue(instructionsMatch);
       formatInstructionsSpy = jest.spyOn(TextUtils.format, 'instructions')
@@ -790,6 +1020,10 @@ describe('clipInstructions', () => {
 
     it('calls getInstructionsFromSchema()', () => {
       expect(getInstructionsFromSchemaSpy).toBeCalled();
+    });
+
+    it('calls getInstructionsFromMicrodata()', () => {
+      expect(getInstructionsFromMicrodataSpy).toHaveBeenCalledWith(window);
     });
 
     it('calls grabLongestMatchByClasses()', () => {

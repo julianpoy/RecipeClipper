@@ -3,6 +3,8 @@ import {
   matchStep, matchFieldTitles, matchScale, matchSpecialChracters,
 } from '../constants/regex';
 
+export const getLongestString = (strings) => strings.reduce((acc, el) => (el.length > acc.length ? el : acc), '');
+
 export const capitalizeEachWord = (textBlock) => textBlock.split(' ').map((word) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`).join(' ');
 
 export const removeSpecialCharacters = (line) => line.replace(matchSpecialChracters, '').trim();

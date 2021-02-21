@@ -24,6 +24,13 @@ import {
   getIngredientsFromSchema,
   getInstructionsFromSchema,
 } from './schema';
+import {
+  getYieldFromMicrodata,
+  getActiveTimeFromMicrodata,
+  getTotalTimeFromMicrodata,
+  getIngredientsFromMicrodata,
+  getInstructionsFromMicrodata,
+} from './microdata';
 
 export const clipImageURL = (config) => format.imageURL(
   getImageSrcFromSchema(config.window)
@@ -47,28 +54,33 @@ export const clipSource = (config) => format.source(
 
 export const clipYield = (config) => format.yield(
   getYieldFromSchema(config.window)
+  || getYieldFromMicrodata(config.window)
   || grabLongestMatchByClasses(config.window, ...ClassMatchers.yield)
   || closestToRegExp(config.window, matchYield).replace('\n', ''),
 );
 
 export const clipActiveTime = (config) => format.activeTime(
-  grabLongestMatchByClasses(config.window, ...ClassMatchers.activeTime)
+  getActiveTimeFromMicrodata(config.window)
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.activeTime)
   || closestToRegExp(config.window, matchActiveTime).replace('\n', ''),
 );
 
 export const clipTotalTime = (config) => format.totalTime(
-  grabLongestMatchByClasses(config.window, ...ClassMatchers.totalTime)
+  getTotalTimeFromMicrodata(config.window)
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.totalTime)
   || closestToRegExp(config.window, matchTotalTime).replace('\n', ''),
 );
 
 export const clipIngredients = async (config) => format.ingredients(
   getIngredientsFromSchema(config.window)
+  || getIngredientsFromMicrodata(config.window)
   || grabLongestMatchByClasses(config.window, ...ClassMatchers.ingredients),
 )
   || format.ingredients(await grabByMl(config, 1));
 
 export const clipInstructions = async (config) => format.instructions(
   getInstructionsFromSchema(config.window)
+  || getInstructionsFromMicrodata(config.window)
   || grabLongestMatchByClasses(config.window, ...ClassMatchers.instructions),
 )
   || format.instructions(await grabByMl(config, 2));

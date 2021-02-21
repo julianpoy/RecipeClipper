@@ -1,7 +1,6 @@
 import * as self from './schema';
 import { getInnerText } from './innerText';
-
-const longestStringIn = (strArray) => strArray.reduce((max, match) => (match.length > max.length ? match : max), '');
+import { getLongestString } from './text';
 
 export const getRecipeSchemasFromDocument = (window) => {
   const schemas = [...window.document.querySelectorAll('script[type="application/ld+json"]')]
@@ -88,7 +87,7 @@ export const getYieldFromSchema = (window) => {
   if (!recipeYield) return '';
 
   if (typeof recipeYield === 'string') return recipeYield;
-  if (typeof recipeYield[0] === 'string') return longestStringIn(recipeYield);
+  if (typeof recipeYield[0] === 'string') return getLongestString(recipeYield);
 
   return '';
 };

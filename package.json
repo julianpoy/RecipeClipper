@@ -39,7 +39,7 @@
     "puppeteer-core": "^2.1.1",
     "rollup": "^2.36.2",
     "rollup-plugin-babel": "^4.4.0",
-    "sanitize-html": "^1.27.5",
+    "sanitize-html": "^2.3.2",
     "semantic-release": "^17.3.3"
   }
 }

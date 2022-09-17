@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ml mlClassifyRemote when mlClassifyEndpoint is set sends fetch request 1`] = `
-Array [
-  Array [
+[
+  [
     "https://example.com/test",
-    Object {
-      "body": "{\\"sentences\\":[\\"line 1\\",\\"line 2\\"]}",
-      "headers": Object {
+    {
+      "body": "{"sentences":["line 1","line 2"]}",
+      "headers": {
         "Content-Type": "application/json",
       },
       "method": "POST",

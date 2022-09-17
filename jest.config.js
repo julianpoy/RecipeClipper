@@ -1,5 +1,6 @@
 module.exports = {
   setupFilesAfterEnv: ['./jest.setup.js'],
+  testEnvironment: 'jsdom',
   coverageThreshold: {
     global: {
       branches: 100,

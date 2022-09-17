@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`clip returns result matching snapshot 1`] = `
-Object {
+{
   "activeTime": "activeTime",
   "description": "description",
   "imageURL": "imageURL",

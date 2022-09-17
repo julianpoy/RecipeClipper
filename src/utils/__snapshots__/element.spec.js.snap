@@ -2,11 +2,11 @@
 
 exports[`applyLIBlockStyling renders dom matching snapshot 1`] = `
 "
-      <ul id=\\"el\\">
-        <li style=\\"display: block;\\">Test1</li>
-        <li style=\\"display: block;\\">Test2</li>
+      <ul id="el">
+        <li style="display: block;">Test1</li>
+        <li style="display: block;">Test2</li>
       </ul>
-      <ul id=\\"el2\\">
+      <ul id="el2">
         <li>Test1</li>
         <li>Test2</li>
       </ul>
@@ -14,7 +14,7 @@ exports[`applyLIBlockStyling renders dom matching snapshot 1`] = `
 `;
 
 exports[`getImgElementsWithin matches child image elements 1`] = `
-Array [
+[
   <img
     id="test"
   />,
@@ -25,7 +25,7 @@ Array [
 `;
 
 exports[`matchElementsByClass returns matched elements 1`] = `
-Array [
+[
   <a
     class="example-element-1"
   >
@@ -35,7 +35,7 @@ Array [
 `;
 
 exports[`softMatchElementsByClass returns matched elements 1`] = `
-Array [
+[
   <a
     class="example-element-1"
   >

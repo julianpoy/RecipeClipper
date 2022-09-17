@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`classMatchers matches snapshot 1`] = `
-Object {
-  "activeTime": Array [
-    Array [
+{
+  "activeTime": [
+    [
       "activeTime",
       "active-time",
       "prep-time",
       "time-active",
       "time-prep",
     ],
-    Array [
+    [
       "activeTime",
       "active-time",
       "prep-time",
@@ -18,14 +18,14 @@ Object {
       "time-prep",
     ],
   ],
-  "description": Array [
-    Array [
+  "description": [
+    [
       "wprm-recipe-summary",
     ],
-    Array [],
+    [],
   ],
-  "imageURL": Array [
-    Array [
+  "imageURL": [
+    [
       "wprm-recipe-image",
       "tasty-recipes-image",
       "hero-photo",
@@ -35,7 +35,7 @@ Object {
       "recipe__hero",
       "content",
     ],
-    Array [
+    [
       "recipe-image",
       "hero",
       "recipe-content",
@@ -44,8 +44,8 @@ Object {
       "recipe-",
     ],
   ],
-  "ingredients": Array [
-    Array [
+  "ingredients": [
+    [
       "wprm-recipe-ingredients-container",
       "wprm-recipe-ingredients",
       "tasty-recipes-ingredients",
@@ -55,14 +55,14 @@ Object {
       "ingredientlist",
       "ingredient-list",
     ],
-    Array [
+    [
       "ingredients",
       "ingredientlist",
       "ingredient-list",
     ],
   ],
-  "instructions": Array [
-    Array [
+  "instructions": [
+    [
       "wprm-recipe-instructions",
       "tasty-recipes-instructions",
       "recipe-directions__list",
@@ -87,7 +87,7 @@ Object {
       "directions",
       "instructions",
     ],
-    Array [
+    [
       "instructionlist",
       "instruction-list",
       "preparationsteps",
@@ -102,8 +102,8 @@ Object {
       "instructions",
     ],
   ],
-  "notes": Array [
-    Array [
+  "notes": [
+    [
       "notes",
       "recipenotes",
       "recipe-notes",
@@ -112,44 +112,44 @@ Object {
       "recipe__tips",
       "wprm-recipe-notes-container",
     ],
-    Array [
+    [
       "recipenotes",
       "recipe-notes",
       "recipefootnotes",
       "recipe-footnotes",
     ],
   ],
-  "title": Array [
-    Array [
+  "title": [
+    [
       "wprm-recipe-name",
     ],
-    Array [
+    [
       "recipename",
       "recipe-name",
       "recipetitle",
       "recipe-title",
     ],
   ],
-  "totalTime": Array [
-    Array [
+  "totalTime": [
+    [
       "totalTime",
       "total-time",
       "time-total",
     ],
-    Array [
+    [
       "totalTime",
       "total-time",
       "time-total",
     ],
   ],
-  "yield": Array [
-    Array [
+  "yield": [
+    [
       "recipe-yield",
       "recipe-servings",
       "yield",
       "servings",
     ],
-    Array [
+    [
       "yield",
       "servings",
     ],

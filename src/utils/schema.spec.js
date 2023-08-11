@@ -393,4 +393,15 @@ describe('getTextFromSchema', () => {
       some: 'object',
     }])).toEqual('');
   });
+
+  it('returns empty string when schema is in an unrecognizable format', () => {
+    expect(getTextFromSchema([
+      {
+        some: {
+          property: 'value',
+        },
+      },
+      3, // Check against an unexpected type of value
+    ])).toEqual('');
+  });
 });

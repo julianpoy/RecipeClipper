@@ -320,7 +320,7 @@ describe('getInstructionsFromSchema', () => {
   it('calls getTextFromSchema', () => {
     jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue('example');
     jest.spyOn(schemaUtils, 'getTextFromSchema');
-    getIngredientsFromSchema(window);
+    getInstructionsFromSchema(window);
     expect(schemaUtils.getTextFromSchema).toHaveBeenCalledTimes(1);
   });
 });

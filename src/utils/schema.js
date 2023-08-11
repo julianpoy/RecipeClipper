@@ -92,28 +92,39 @@ export const getYieldFromSchema = (window) => {
   return '';
 };
 
+/**
+ * Useful for breaking down:
+ * Recipe.recipeIngredient (https://schema.org/recipeIngredient)
+ * Recipe.recipeInstructions (https://schema.org/recipeInstructions)
+ * Which can both often be provided as a string, array, or list of more objects within.
+ */
+export const getTextFromSchema = (schema) => {
+  if (typeof schema === 'string') return schema;
+  if (Array.isArray(schema)) {
+    return schema.map((item) => {
+      if (typeof item === 'string') return item;
+      if (typeof item === 'object') {
+        if (item.text) return item.text;
+        if (item.itemListElement) return getTextFromSchema(item.itemListElement);
+      }
+
+      return undefined;
+    }).filter((el) => el !== null && el !== undefined).join('\n');
+  }
+
+  return '';
+};
+
 export const getInstructionsFromSchema = (window) => {
   const instructions = self.getPropertyFromSchema(window, 'recipeInstructions');
   if (!instructions) return '';
 
-  if (typeof instructions === 'string') return instructions;
-  if (typeof instructions[0] === 'string') return instructions.join('\n');
-  if (instructions[0] && typeof instructions[0].text === 'string') {
-    return instructions.map((instruction) => instruction.text).join('\n');
-  }
-
-  return '';
+  return self.getTextFromSchema(instructions);
 };
 
 export const getIngredientsFromSchema = (window) => {
   const ingredients = self.getPropertyFromSchema(window, 'recipeIngredient');
   if (!ingredients) return '';
 
-  if (typeof ingredients === 'string') return ingredients;
-  if (typeof ingredients[0] === 'string') return ingredients.join('\n');
-  if (ingredients[0] && typeof ingredients[0].text === 'string') {
-    return ingredients.map((ingredient) => ingredient.text).join('\n');
-  }
-
-  return '';
+  return self.getTextFromSchema(ingredients);
 };

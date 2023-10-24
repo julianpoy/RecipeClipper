@@ -5,7 +5,7 @@ const sites = [
   'https://panlasangpinoy.com/leche-flan/',
   'https://sallysbakingaddiction.com/quiche-recipe/',
   'https://www.allrecipes.com/recipe/231244/asparagus-mushroom-bacon-crustless-quiche/',
-  'https://www.foodnetwork.com/recipes/paula-deen/spinach-and-bacon-quiche-recipe-2131172',
+  'https://www.foodnetwork.com/recipes/food-network-kitchen/fall-off-the-bone-chicken-5195778',
   'https://www.delish.com/cooking/recipe-ideas/a25648042/crustless-quiche-recipe/',
   'https://food52.com/recipes/81867-best-quiche-recipe',
   'https://myheartbeets.com/paleo-tortilla-chips/',

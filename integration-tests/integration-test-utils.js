@@ -1,40 +1,35 @@
 import "regenerator-runtime/runtime";
+import * as jsdom from "jsdom";
+import sanitizeHtml from "sanitize-html";
 
-const puppeteer = require('puppeteer-core');
+import { clipRecipe } from '../dist/recipe-clipper.esm';
+
+const replaceBrWithBreak = (html) => {
+  return html.replaceAll(new RegExp(/<br( \/)?>/, "g"), "\n");
+};
 
 export const clipRecipeFromUrl = async clipUrl => {
-  const browser = await puppeteer.connect({
-    browserWSEndpoint: process.env.BROWSERLESS_WS || 'ws://localhost:3000'
+  const response = await fetch(clipUrl);
+  const html = await response.text();
+
+  const dom = new jsdom.JSDOM(html);
+  const { window } = dom;
+
+  Object.defineProperty(window.Element.prototype, 'innerText', {
+    get() {
+      const html = replaceBrWithBreak(this.innerHTML);
+      return sanitizeHtml(html, {
+        allowedTags: [], // remove all tags and return text content only
+        allowedAttributes: {}, // remove all tags and return text content only
+      });
+    },
   });
 
-  const page = await browser.newPage();
+  window.fetch = fetch;
 
-  await page.setBypassCSP(true);
-
-  let recipeData;
-  try {
-    await page.goto(clipUrl, {
-      waitUntil: "networkidle2",
-      timeout: 25000
-    });
-
-    await page.evaluate(() => {
-      try {
-        window.scrollTo(0, document.body.scrollHeight);
-      } catch(e) {}
-    });
-
-    await page.addScriptTag({ path: './dist/recipe-clipper.umd.js' });
-    recipeData = await page.evaluate(() => {
-      return window.RecipeClipper.clipRecipe();
-    });
-  } catch(e) {
-    await page.close();
-    await browser.close();
-
-    throw e;
-  }
-
-  return recipeData;
+  return await clipRecipe({
+    window,
+    mlClassifyEndpoint: 'http://localhost:3060',
+  });
 };
 

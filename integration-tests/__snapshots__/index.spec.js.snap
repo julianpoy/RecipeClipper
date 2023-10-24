@@ -1,56 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`testing clips recipe matching snapshot from https://food52.com/recipes/81867-best-quiche-recipe 1`] = `
-Object {
+{
   "activeTime": "3 Hours",
-  "description": "",
-  "imageURL": "https://images.food52.com/LVMXJEEPYuxKMtj9wsyPRqnMXrY=/965x643/filters:format(webp)/ad25bacb-a4f9-406e-af6b-4f48fc34ed3a--2019-0820_best-quiche-recipe_3x2_bobbi-lin_083.jpg",
-  "ingredients": "Ingredients send grocery list
-Crust
-1 cup (128 grams) all-purpose flour
+  "description": "Our test kitchen's best quiche recipe has a flaky-tender crust, a silky-smooth custard, and can be customized with whatever mix-ins you want.",
+  "imageURL": "https://images.food52.com/AWUO8Vqs0idPxMFt5STHI9yuJd8=/1200x1200/ad25bacb-a4f9-406e-af6b-4f48fc34ed3a--2019-0820_best-quiche-recipe_3x2_bobbi-lin_083.jpg",
+  "ingredients": "1 cup (128 grams) all-purpose flour, plus more for rolling
 1/3 cup (40 grams) whole-wheat flour
-1/2 teaspoon kosher salt
 1/2 teaspoon granulated sugar
+1/2 teaspoon kosher salt, plus more
 1/8 teaspoon baking powder
 3 ounces cream cheese, very cold, cubed
 4 ounces (1 stick) unsalted butter, very cold, cubed
 1 1/2 tablespoons water, very cold
 1 1/2 teaspoons apple cider vinegar
-1 large egg white
-Filling
+1  large egg white
 1 cup heavy cream
 1 cup whole milk
 3 tablespoons all-purpose flour
-5 large eggs
-1 large egg yolk
+5  large eggs
+1  large egg yolk
 1 3/4 teaspoons kosher salt
 3/4 teaspoon freshly ground black pepper
-1 to 1 1/4 cups mix-ins, depending on mix-in (see headnote)
-1 cup grated cheese (see headnote)",
-  "instructions": "Make the crust: Combine the flours, sugar, salt, and baking powder in the bowl of a stand mixer fitted with a paddle attachment. Mix on low just to combine. Add the cream cheese and mix on low until them cream cheese is mostly broken-down. Add the butter and mix on low until mostly incorporated and none of the pieces are bigger than a chickpea; this should take 30 seconds to 1 minute (if there are any stragglers, just stop the machine and smush the piece with your fingertips—don’t overmix). Combine the water and vinegar in a small glass and, with the machine running, pour in. As soon as the sides of the bowl are no longer dusty and clumps and curds begin to form (it should not form a cohesive ball—that’s too far), turn the mixer off; better to undermix versus overmix at this point. Remove the bowl and bring the dough into a ball with your hands. Wrap well in plastic wrap and form into a flat disc. Refrigerate for at least 1 hour or up to a couple days. (You can also freeze the dough for future quiches; just thaw in the fridge overnight.)
-Roll out and crimp the crust: On a floured work surface, roll out the dough into a 12-inch or so circle, then transfer to a 9-inch pie pan (not deep-dish), making sure the bottom corners are tightly pressed against the pan. Use scissors to trim the dough to an even 1-inch overhang. Fold the edge under itself. Use your fingers to press and even out the sides, making sure the bottom corners are tightly pressed against the pan. Crimp the edges however you’d like (I like using my left hand’s thumb and pointer finger as a guide, then crimping with my right hand’s pointer finger, to form ruffles). Stick in the freezer for at least 15 minutes or up to 2 days.
-Parbake the crust: Heat the oven to 400°F. Line the frozen crust with a square of parchment, fill with dried beans (or another pie weight), then set on a sheet pan. Bake on the lower rack for about 40 minutes, rotating halfway through, until the crust is starting to brown along the edges and the bottom no longer looks raw and doughy. While the crust is baking, use a fork to whisk the egg white with a pinch of salt until it’s very loose. When the crust is done, remove the parchment and beans and prick the bottom and sides of the crust a few times with a fork. Brush the inside of the crust with the salted egg white, then return to the oven to bake for another minute to set.
-Remove the parbaked crust from the oven to cool, then lower the oven to 325°F and turn your attention to the custard.
-Make the custard: Combine the cream and milk in a bowl. Add the flour to another, smaller bowl, and add a splash (figure, 1 tablespoon or so) of the liquid. Stir with a fork or whisk until smooth. Repeat this (splash, stir, splash, stir) until the flour mixture is completely smooth and pourable. Pour into the bigger bowl of cream and milk and stir. Add the eggs, egg yolk, salt, and pepper, and whisk until smooth.
-Fill the quiche: Sprinkle half of the cheese evenly over the bottom of the crust. Sprinkle the mix-ins on top, spreading them out as much as possible (even scooching up the sides is fine), so that you can see the cheese and crust below. There should not be a packed-solid layer of mix-ins; the custard filling needs to be able to get through. Sprinkle the remaining cheese on top. Slowly and evenly pour in the custard, taking it as high to the brim as possible. It should be on the verge of overflowing. If you have any leftover custard, bake it in a ramekin or microwave it as a snack.
-Bake the quiche for 55 to 65 minutes, or until it no longer shimmies when shook. (If the crust starts to brown too much mid-bake, you can carefully tent it with foil.) Let cool until warm before serving. It’s also great at room temperature and cold.",
+1 cup grated cheese (see headnote), divided
+1 to 1 1/4 cups mix-ins, depending on mix-in (see headnote)",
+  "instructions": "Make the crust: In the large bowl of a stand mixer fitted with the paddle attachment, mix the flours, sugar, salt, and baking powder on low speed just to combine. Add the cream cheese and mix on low speed until mostly broken down. Add the butter and mix on low speed until mostly incorporated and none of the pieces are bigger than a chickpea; this should take 30 seconds to 1 minute (if there are any stragglers, just stop the machine and smush the piece with your fingertips—don’t overmix). In a small glass or glass measuring cup, combine the water and vinegar. Drizzle into the dough with the motor running. As soon as the sides of the bowl are no longer dusty and clumps and curds begin to form (it should not form a cohesive ball—that’s too far), turn the mixer off; better to undermix versus overmix at this point. Form the dough into a ball with your hands. Wrap well in plastic wrap and form into a flat disc. Refrigerate for at least 1 hour or up to a couple days. (You can also freeze the dough for future quiches; just thaw in the fridge overnight.)
+Roll out and crimp the crust: On a floured work surface, roll out the dough to a 12-inch or so circle, then transfer to a 9-inch pie pan (not deep-dish), making sure the bottom corners are tightly pressed against the pan. Using scissors, trim the dough, leaving a 1-inch overhang. Fold the edge under itself. Using your fingers, press and even out the sides, making sure the bottom corners are tightly pressed against the pan. Crimp the edges however you’d like (I like using my left hand’s thumb and pointer finger as a guide, then crimping with my right hand’s pointer finger, to form ruffles). Freeze for at least 15 minutes or up to 2 days.
+Parbake the crust: Arrange a rack in the bottom third of the oven; heat to 400°F. Line the frozen crust with a square of parchment, fill with dried beans (or another pie weight), then set on a sheet pan. Bake on the lower rack, rotating halfway through, for about 40 minutes, until the crust is starting to brown along the edges and the bottom no longer looks raw and doughy. While the crust is baking, using a fork, whisk the egg white with a pinch of salt until very loose. When the crust is done, remove the parchment and beans and prick the bottom and sides of the crust a few times with a fork. Brush the inside of the crust with the salted egg white, then return to the oven to bake for 1 more minute to set.
+Remove the parbaked crust from the oven to cool, then reduce the oven temperature to 325°F.
+Make the custard: In a medium bowl, combine the cream and milk. Place the flour in a small bowl and add a splash (figure, 1 tablespoon or so) of the cream mixture. Stir with a fork or whisk until smooth. Repeat this (splash, stir, splash, stir) until completely smooth and pourable. Pour into the bigger bowl of cream and milk and stir to combine. Add the eggs, egg yolk, salt, and pepper and whisk until smooth.
+Fill the quiche: Sprinkle half of the cheese evenly over the bottom of the crust. Sprinkle the mix-ins on top, spreading out as much as possible (even scooching up the sides is fine), so that you can see the cheese and crust below. There should not be a packed-solid layer of mix-ins; the custard filling needs to be able to get through. Sprinkle the remaining cheese on top. Slowly and evenly pour in the custard, taking it as high to the brim as possible. It should be on the verge of overflowing. If you have any leftover custard, bake in a ramekin or microwave it as a snack.
+Bake the quiche for 55 to 65 minutes, until it no longer shimmies when shook. (If the crust starts to brown too much mid-bake, you can carefully tent it with foil.) Let cool until warm before serving. It’s also great at room temperature and cold.",
   "notes": "",
   "source": "How to Make Any Type of Quiche Perfectly",
-  "title": "Best Quiche Recipe",
+  "title": "Quiche, Any Way You Want It",
   "totalTime": "",
-  "yield": "",
+  "yield": "Makes 1 (9-inch) Pie",
 }
 `;
 
 exports[`testing clips recipe matching snapshot from https://myheartbeets.com/paleo-tortilla-chips/ 1`] = `
-Object {
+{
   "activeTime": "",
   "description": "",
-  "imageURL": "https://myheartbeets.com/wp-content/uploads/2015/08/paleo-tortilla-chips.jpg",
-  "ingredients": "1 cup coconut milk, full-fat
+  "imageURL": "https://myheartbeets.com/wp-content/uploads/2017/08/paleo-tortilla-chip-300x225.jpg",
+  "ingredients": "1 cup coconut milk (full-fat)
 ½ cup almond flour
 ½ cup tapioca flour
-½ teaspoon salt, adjust to taste
+½ teaspoon salt (adjust to taste)
 ¼ teaspoon turmeric",
   "instructions": "Pre-heat a 9.5 inch (or larger) nonstick pan over medium heat.
 Mix the almond flour, tapioca flour, coconut milk, salt and turmeric together in a bowl.
@@ -67,16 +64,15 @@ Bake at 400°F for 10-12 minutes or until the tortilla chips are crispy.",
 `;
 
 exports[`testing clips recipe matching snapshot from https://panlasangpinoy.com/leche-flan/ 1`] = `
-Object {
-  "activeTime": "10 Minutes",
+{
+  "activeTime": "Prep: 10 Minutes Minutes",
   "description": "This is a simple and easy version of a famous Filipino dessert known as Leche Flan.",
-  "imageURL": "https://panlasangpinoy.com/wp-content/uploads/2009/07/Leche-Flan-Recipe-2.jpg",
+  "imageURL": "https://panlasangpinoy.com/wp-content/uploads/2009/07/Leche-Flan_-jpg.webp",
   "ingredients": "10 pieces eggs
-1 can condensed milk (14 oz)
-1 cup fresh milk or evaporated milk
+1 can condensed milk ((14 oz))
+1 cup fresh milk (or evaporated milk)
 1 cup granulated sugar
-1 teaspoon vanilla extract
-US Customary - Metric",
+1 teaspoon vanilla extract",
   "instructions": "Using all the eggs, separate the yolk from the egg white (only egg yolks will be used).
 Place the egg yolks in a big bowl then beat them using a fork or an egg beater
 Add the condensed milk and mix thoroughly
@@ -90,112 +86,102 @@ Steam the mold with egg and milk mixture for 30 to 35 minutes.
 After steaming, let the temperature cool down then refrigerate
 Serve for dessert. Share and Enjoy!",
   "notes": "",
-  "source": "panlasangpinoy.com",
+  "source": "",
   "title": "Leche Flan",
-  "totalTime": "55 Minutes",
+  "totalTime": "Total: 55 Minutes Minutes",
   "yield": "6 People",
 }
 `;
 
 exports[`testing clips recipe matching snapshot from https://sallysbakingaddiction.com/quiche-recipe/ 1`] = `
-Object {
+{
   "activeTime": "2 Hours, 40 Minutes",
-  "description": "",
-  "imageURL": "https://cdn.sallysbakingaddiction.com/wp-content/uploads/2019/04/quiche-600x900.jpg",
+  "description": "This is a perfect base quiche recipe and it's all baked in a super flaky homemade pie crust. Use a combination of milk and heavy cream for the richest, creamiest filling and add your favorites such as bacon, feta cheese, ham, white cheddar cheese, crab meat or spinach.",
+  "imageURL": "https://sallysbakingaddiction.com/wp-content/uploads/2019/04/quiche-225x225.jpg",
   "ingredients": "1 unbaked Flaky Pie Crust (what I used) or All Butter Pie Crust*
 4 large eggs
 1/2 cup whole milk*
 1/2 cup heavy cream or heavy whipping cream*
 1/4 teaspoon each salt and pepper*
-up to 1 cup shredded or crumbled cheese (see recipe note)
+1 cup shredded or crumbled cheese such as feta, cheddar, goat cheese, or gruyere
 up to 2 cups add-ins (see recipe note)
-optional toppings for serving: extra cheese, chopped herbs, hollandaise sauce, & freshly ground pepper to taste",
-  "instructions": "Pie crust: I like to make sure my pie dough is prepared before I begin the quiche. Make pie dough the night before because it needs to chill in the refrigerator for at least 2 hours before rolling out and blind baking (next step).
-Preheat oven to 400°F (204°C). Partially blind bake your pie crust. Follow blind baking instructions through step 9 in your 9-inch pie dish. Step 4 is optional, though that step guarantees thick pie crust edges. Crust can still be warm when you pour in the filling. (You can partially pre-bake the crust up to 3 days ahead of time. Cover cooled crust tightly and refrigerate until ready to fill.)
+optional toppings for serving: extra cheese, chopped herbs, hollandaise sauce, &amp; freshly ground pepper to taste",
+  "instructions": "I like to make sure my pie dough is prepared before I begin the quiche. Make pie dough the night before because it needs to chill in the refrigerator for at least 2 hours before rolling out and blind baking (next step).
+On a floured work surface, roll out one of the disks of chilled dough (use the 2nd pie crust for another recipe). Turn the dough about a quarter turn after every few rolls until you have a circle 12 inches in diameter. Carefully place the dough into a 9-inch pie dish. Tuck it in with your fingers, making sure it is completely smooth. To make a lovely edge, I do not trim excess dough around the edges. Instead, fold the excess dough back over the edge and use your hands to mold the edge into a rim around the pie. Crimp the edges with a fork or use your fingers to flute the edges. Chill the pie crust in the refrigerator for at least 30 minutes and up to 5 days. Cover the pie crust with plastic wrap if chilling for longer than 30 minutes.
+While the crust is chilling, preheat oven to 375°F (190°C).
+Line the chilled pie crust with parchment paper. Fill with pie weights or dried beans. Make sure the weights are evenly distributed around the pie dish. Bake until the edges of the crust are starting to brown, about 15-16 minutes. Remove pie from the oven and carefully lift the parchment paper (with the weights) out of the pie. Prick holes all around the bottom crust with a fork. Return the pie crust to the oven. Bake until the bottom crust is just beginning to brown, about 7-8 minutes. Remove from the oven and set aside. (Crust can still be warm when you pour in the filling. You can partially pre-bake the crust up to 3 days ahead of time. Cover cooled crust tightly and refrigerate until ready to fill.)
 Reduce oven temperature to 350°F (177°C).
-In a large bowl with a handheld or stand mixer fitted with a whisk attachment, beat the eggs, whole milk, heavy cream, salt, and pepper together on high speed until completely combined, about 1 minute. Whisk in add-ins.
-Bake the quiche until the center is just about set, about 45-55 minutes. Don’t over-bake. Use a pie crust shield to prevent the pie crust edges from over-browning. Allow to cool for 15 minutes. Top with optional toppings before slicing and serving, if desired. Or you can cool the quiche completely before serving– it’s fantastic at room temperature!
+In a large bowl with a handheld or stand mixer fitted with a whisk attachment, beat the eggs, whole milk, heavy cream, salt, and pepper together on high speed until completely combined, about 1 minute. Whisk in add-ins and then pour into crust.
+Bake the quiche until the center is just about set, about 45-55 minutes. Don’t over-bake. Use a pie crust shield to prevent the pie crust edges from over-browning. Allow to cool for 15 minutes. Top with optional toppings before slicing and serving, if desired. Or you can cool the quiche completely before serving—it’s fantastic at room temperature!
 This quiche makes great leftovers! Cover tightly and store in the refrigerator for up to 4 days.",
   "notes": "",
   "source": "Sally's Baking Addiction",
-  "title": "Perfect Quiche Recipe (any Flavor!)",
+  "title": "Quiche Recipe",
   "totalTime": "4 Hours",
-  "yield": "Serves 8",
+  "yield": "8",
 }
 `;
 
 exports[`testing clips recipe matching snapshot from https://www.allrecipes.com/recipe/231244/asparagus-mushroom-bacon-crustless-quiche/ 1`] = `
-Object {
-  "activeTime": "",
+{
+  "activeTime": "15 Mins",
   "description": "",
-  "imageURL": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F971958.jpg&w=640&h=640&c=sc&poi=face&q=85",
-  "ingredients": "Original recipe yields 8 servings
-Ingredient Checklist
-6 ounces bacon, diced
+  "imageURL": "",
+  "ingredients": "6 ounces bacon, diced
 ½ pound asparagus, cut into 1-inch pieces
 4 ounces baby bella (cremini) mushrooms, sliced
 4 ounces shredded Swiss cheese
-1 ½ cups heavy whipping cream
-4 large eggs
+1 ½ cups heavy whipping cream
+4  large eggs
 ¼ teaspoon salt
 freshly ground black pepper to taste",
-  "instructions": "Instructions Checklist
-Position oven rack to center position. Preheat oven to 400 degrees F (200 degrees C). Butter a 10-inch pie plate.
+  "instructions": "Position oven rack to center position. Preheat oven to 400 degrees F (200 degrees C). Butter a 10-inch pie plate.
 Heat a large skillet over medium heat; cook and stir bacon in the hot skillet until crisp, 5 to 10 minutes. Remove bacon and drain all but 2 tablespoons grease from skillet. Cook and stir asparagus and mushrooms in the remaining bacon grease until asparagus is tender, about 5 minutes.
 Remove skillet from heat and toss bacon into asparagus mixture. Spread asparagus-bacon mixture into the prepared pie pan. Sprinkle Swiss cheese over mixture.
 Whisk cream, eggs, salt, and pepper in a bowl. Pour egg mixture over asparagus-cheese mixture.
-Bake in the preheated oven until quiche is set and a knife inserted in the center comes out clean, about 30 minutes.
-I Made It  Print",
-  "notes": "Partner Tip
-Reynolds® Aluminum foil can be used to keep food moist, cook it evenly, and make clean-up easier.",
-  "source": "Allrecipes.com",
+Bake in the preheated oven until quiche is set and a knife inserted in the center comes out clean, about 30 minutes.",
+  "notes": "",
+  "source": "",
   "title": "Asparagus Mushroom Bacon Crustless Quiche Recipe",
-  "totalTime": "1 Hr",
-  "yield": "",
+  "totalTime": "55 Mins",
+  "yield": "Per Recipe",
 }
 `;
 
 exports[`testing clips recipe matching snapshot from https://www.bettycrocker.com/recipes/ultimate-chocolate-chip-cookies/77c14e03-d8b0-4844-846d-f19304f61c57 1`] = `
-Object {
+{
   "activeTime": "",
   "description": "",
-  "imageURL": "https://images-gmi-pmc.edge-generalmills.com/087d17eb-500e-4b26-abd1-4f9ffa96a2c6.jpg",
-  "ingredients": "2 1/4
-cups Gold Medal™ all-purpose flour
-teaspoon baking soda
-1/2
-teaspoon salt
-cup butter, softened
-3/4
-cup granulated sugar
-3/4
-cup packed brown sugar
-egg
-teaspoon vanilla
-cups semisweet chocolate chips
-cup coarsely chopped nuts, if desired",
-  "instructions": "Steps
-Hide Images
-Heat oven to 375°F. In small bowl, mix flour, baking soda and salt; set aside.
-In large bowl, beat softened butter and sugars with electric mixer on medium speed, or mix with spoon about 1 minute or until fluffy, scraping side of bowl occasionally.
-Beat in egg and vanilla until smooth. Stir in flour mixture just until blended (dough will be stiff). Stir in chocolate chips and nuts.
-Onto ungreased cookie sheets, drop dough by rounded tablespoonfuls 2 inches apart.
+  "imageURL": "https://images-gmi-pmc.edge-generalmills.com/b989ced9-c647-4636-a21f-7ce481c46746.jpg",
+  "ingredients": "2 1/4  cups Gold Medal™ all-purpose flour
+1  teaspoon baking soda
+1/2  teaspoon salt
+1  cup butter, softened
+3/4  cup granulated sugar
+3/4  cup packed brown sugar
+1  egg
+1  teaspoon vanilla
+2  cups semisweet chocolate chips
+1  cup coarsely chopped nuts, if desired",
+  "instructions": "Heat oven to 375°F. In small bowl, mix flour, baking soda and salt; set aside.
+In large bowl, beat softened butter and sugars with electric mixer on medium speed, or mix with spoon about 1 minute or until fluffy, scraping side of bowl occasionally. Beat in egg and vanilla until smooth.
+Stir in flour mixture just until blended (dough will be stiff). Stir in chocolate chips and nuts.
+Onto ungreased or parchment-lined cookie sheets, drop dough by rounded tablespoonfuls 2 inches apart.
 Bake 8 to 10 minutes or until light brown (centers will be soft). Cool 2 minutes; remove from cookie sheet to cooling rack. Cool completely, about 30 minutes. Store covered in airtight container.",
   "notes": "",
   "source": "BettyCrocker.com",
-  "title": "Ultimate Chocolate Chip Cookies Recipe",
+  "title": "Ultimate Chocolate Chip Cookies",
   "totalTime": "",
-  "yield": "48",
+  "yield": "",
 }
 `;
 
 exports[`testing clips recipe matching snapshot from https://www.bonappetit.com/recipe/chocolate-babka 1`] = `
-Object {
+{
   "activeTime": "",
-  "description": "",
-  "imageURL": "https://assets.bonappetit.com/photos/57accbaa1b334044149751c1/1:1/w_768,h_768,c_limit/chocolate-babka1.jpg",
-  "ingredients": "Dough
-½ cup whole milk, warmed
+  "description": "The secret to the mesmerizing chocolate swirl in this babka recipe? A double helix twist (don’t worry, it’s way easier than science class).",
+  "imageURL": "https://assets.bonappetit.com/photos/57accbaa1b334044149751c1/master/w_3676,h_3676,c_limit/chocolate-babka1.jpg",
+  "ingredients": "½ cup whole milk, warmed
 1 ¼-ounce envelope active dry yeast (about 2¼ teaspoons)
 ¼ cup granulated sugar, plus more
 1 large egg
@@ -203,7 +189,6 @@ Object {
 ½ teaspoon kosher salt
 2 cups all-purpose flour, plus more for surface
 7 tablespoons unsalted butter, room temperature, cut into pieces, plus more for bowl
-Filling and Assembly
 4 tablespoons unsalted butter, melted, divided, plus more room temperature for pan
 3 ounces bittersweet chocolate, finely chopped
 2 tablespoons unsweetened cocoa powder
@@ -214,130 +199,102 @@ Filling and Assembly
 5 tablespoons all-purpose flour
 1 large egg
 1 tablespoon heavy cream",
-  "instructions": "[Recipe Preparation]
-Dough
-Pour milk into a measuring glass or small bowl; sprinkle yeast and a pinch of granulated sugar over milk. Let stand until foamy, about 5 minutes.
+  "instructions": "Pour milk into a measuring glass or small bowl; sprinkle yeast and a pinch of granulated sugar over milk. Let stand until foamy, about 5 minutes.
 Whisk egg, egg yolk, and remaining ¼ cup granulated sugar in a medium bowl until smooth. Whisk in yeast mixture.
 Combine salt and 2 cups flour in the bowl of an electric mixer fitted with the paddle attachment. Add egg mixture and beat on low speed until nearly incorporated, about 30 seconds. Switch to dough hook and add 7 Tbsp. butter; beat on medium-low until butter is completely incorporated and dough is smooth and just slightly sticky, 8–10 minutes.
 Turn out dough onto a lightly floured surface and knead a few times until very smooth (dough will still be wet and a little sticky). Transfer to a large buttered bowl. Cover with plastic wrap and let rise in a warm place until doubled in size, 1½–2 hours, then chill 45 minutes.
-Filling and Assembly
-Preheat oven to 350°. Generously butter a 8½x4½\\" loaf pan. Heat chocolate, cocoa, 2 Tbsp. butter, 1 Tbsp. granulated sugar, ¼ tsp. cinnamon, and ⅛ tsp. salt in a heatproof bowl set over a saucepan of simmering water, stirring occasionally, until chocolate and butter are melted and mixture is smooth. (Alternatively, microwave on medium power 1 minute, stirring halfway through.)
-Turn out chilled dough onto a clean lightly floured surface. Roll out to a 22x12\\" rectangle and orient so a long side is facing you. Using an offset spatula, spread chocolate filling over dough to extend to the edges. Roll up dough away from you like a jelly roll, pulling lightly on it as you roll to maintain thickness. (Use a metal bench scraper if needed to help dough release from surface.)
+Preheat oven to 350°. Generously butter a 8½x4½" loaf pan. Heat chocolate, cocoa, 2 Tbsp. butter, 1 Tbsp. granulated sugar, ¼ tsp. cinnamon, and ⅛ tsp. salt in a heatproof bowl set over a saucepan of simmering water, stirring occasionally, until chocolate and butter are melted and mixture is smooth. (Alternatively, microwave on medium power 1 minute, stirring halfway through.)
+Turn out chilled dough onto a clean lightly floured surface. Roll out to a 22x12" rectangle and orient so a long side is facing you. Using an offset spatula, spread chocolate filling over dough to extend to the edges. Roll up dough away from you like a jelly roll, pulling lightly on it as you roll to maintain thickness. (Use a metal bench scraper if needed to help dough release from surface.)
 Cut log in half crosswise. Set halves so they are side by side and touching. A long side should still be facing you. Place one half over the other to make an X, then twist the two ends on one side twice. Repeat on opposite side. (You should have a total of 4 twists.) Transfer bread to pan, cover with plastic wrap, and let rise 30 minutes.
 Meanwhile, make the streusel. Whisk brown sugar and remaining 1 Tbsp. granulated sugar, ½ tsp. cinnamon, and ⅛ tsp. salt in medium bowl to blend. Mix in remaining 2 Tbsp. butter. Add flour and toss with a fork until moist clumps form (streusel will look slightly wet). Whisk egg and cream in a small bowl and brush egg wash over loaf. Scatter streusel over top.
 Bake babka, rotating pan halfway through, until golden brown, 50–60 minutes. Transfer pan to a wire rack and let babka cool in pan 15 minutes, then turn out onto rack, running a paring knife around edges to help loosen if needed. Let cool completely before slicing.",
   "notes": "",
-  "source": "Bon Appetit",
-  "title": "Chocolate Babka Recipe",
+  "source": "Bon Appétit",
+  "title": "Chocolate Babka",
   "totalTime": "",
   "yield": "",
 }
 `;
 
 exports[`testing clips recipe matching snapshot from https://www.delish.com/cooking/recipe-ideas/a25648042/crustless-quiche-recipe/ 1`] = `
-Object {
-  "activeTime": "0 Hours 20 Mins",
-  "description": "",
-  "imageURL": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/crustless-quiche-128-1546439725.jpg?crop=0.668xw:1.00xh;0.175xw,0&resize=480:*",
-  "ingredients": "1 tbsp.
-butter
-8 oz.
-cremini mushrooms, thinly sliced
-shallot, minced
-2 c.
-loosely packed spinach
+{
+  "activeTime": "20 Mins",
+  "description": "This crustless quiche recipe is not only quick and easy to make, but proves you never really need a crust anyway when it comes to veggie-packed, eggy quiche.",
+  "imageURL": "https://hips.hearstapps.com/hmg-prod/images/crustless-quiche-128-1546439725.jpg?crop=0.670xw:1.00xh;0.167xw,0&amp;resize=1200:*",
+  "ingredients": "1 tbsp. butter
+8 oz. cremini mushrooms, thinly sliced
+1 shallot, minced
+2 c. loosely packed spinach
 Kosher salt
 Freshly ground black pepper
-large eggs
-1/4 c.
-whole milk
-1/4 c.
-oil-packed sun-dried tomatoes, finely chopped
-1/4 c.
-freshly grated Parmesan",
+8 large eggs
+1/4 c. whole milk
+1/4 c. oil-packed sun-dried tomatoes, finely chopped
+1/4 c. freshly grated Parmesan",
   "instructions": "Preheat oven to 375°. In a medium skillet over medium heat, melt butter. Add mushrooms and let cook, undisturbed, for 2 minutes. Stir and continue to cook until mushrooms are tender and golden, 5 to 6 minutes. Add shallot and cook until fragrant, 1 minute. Add spinach and cook until wilted, 1 minute more. Season with salt and pepper and remove from heat.
-In a large bowl, whisk together eggs, milk, tomatoes, and Parmesan. Fold in the mushroom mixture and season again with salt and pepper. Pour into a 8\\" to 9\\" pie dish and bake until eggs are just set, 18 to 20 minutes. Let cool 3 minutes before slicing and serving.",
+In a large bowl, whisk together eggs and milk. Season with salt and pepper. Arrange mushroom mixture, tomatoes, and Parmesan in a 8” pie dish and pour over egg mixture.  Bake until eggs are just set, 20-30 minutes. Let cool 3 minutes before slicing and serving.",
   "notes": "",
   "source": "How To Make Crustless Quiche",
-  "title": "Best Crustless Quiche Recipe",
-  "totalTime": "0 Hours 40 Mins",
-  "yield": "[s]
-6 Servings",
+  "title": "Crustless Quiche",
+  "totalTime": "40 Mins",
+  "yield": "6 Serving(s)",
 }
 `;
 
-exports[`testing clips recipe matching snapshot from https://www.foodnetwork.com/recipes/paula-deen/spinach-and-bacon-quiche-recipe-2131172 1`] = `
-Object {
+exports[`testing clips recipe matching snapshot from https://www.foodnetwork.com/recipes/food-network-kitchen/fall-off-the-bone-chicken-5195778 1`] = `
+{
   "activeTime": "",
   "description": "",
-  "imageURL": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/4/7/0/PA0501_spinach-and-bacon-quiche_s4x3.jpg.rend.hgtvcom.826.620.suffix/1371595433466.jpeg",
-  "ingredients": "6 large eggs, beaten
-1 1/2 cups heavy cream
-Salt and pepper
-2 cups chopped fresh baby spinach, packed
-1 pound bacon, cooked and crumbled
-1 1/2 cups shredded Swiss cheese
-1 (9-inch) refrigerated pie crust, fitted to a 9-inch glass pie plate",
-  "instructions": "Preheat the oven to 375 degrees F.
-Combine the eggs, cream, salt, and pepper in a food processor or blender. Layer the spinach, bacon, and cheese in the bottom of the pie crust, then pour the egg mixture on top. Bake for 35 to 45 minutes until the egg mixture is set. Cut into 8 wedges.",
+  "imageURL": "",
+  "ingredients": "Deselect All
+1 1/2 teaspoons packed light brown sugar
+1 teaspoon paprika
+1/2 teaspoon garlic powder
+Kosher salt and freshly ground black pepper
+8 bone-in, skin-on chicken thighs (about 3 pounds), patted completely dry
+2 tablespoons chopped chives
+Add to Shopping List
+View Shopping List
+Ingredient Substitutions",
+  "instructions": "Combine the sugar, paprika, garlic powder, 1 tablespoon salt and 1/2 teaspoon black pepper in a large bowl. Toss the chicken in the spice mixture until coated. Arrange the chicken in a single layer in a flameproof 9-by-13-inch baking dish. Cover with foil and refrigerate for at least 4 hours and up to overnight.
+Preheat the oven to 300 degrees F.
+Bake until the chicken is super moist and falling off the bone, about 2 hours. Remove the baking dish from the oven and remove the foil. Use a spoon or ladle to remove as much liquid from the dish as possible and reserve. Turn the oven to broil.
+Broil the chicken until the skin is golden brown and slightly crisp, about 5 minutes. Sprinkle the chicken with the chives and serve with the reserved pan juices.",
   "notes": "",
-  "source": "Paula Deen",
-  "title": "Spinach And Bacon Quiche Recipe",
+  "source": "Food Network Kitchen",
+  "title": "Fall-off-the-bone Chicken Recipe",
   "totalTime": "",
-  "yield": "8 Servings",
+  "yield": "",
 }
 `;
 
 exports[`testing clips recipe matching snapshot from https://www.kingarthurflour.com/recipes/chocolate-cake-recipe 1`] = `
-Object {
+{
   "activeTime": "",
-  "description": "",
-  "imageURL": "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/47-3-large.jpg?itok=CfPiwrEc",
-  "ingredients": "2 1/4 cups (269g) King Arthur Unbleached All-Purpose Flour
+  "description": "This chocolate cake uses butter for flavor and a bit of oil for a never-fail moist crumb, ideal for celebrations. With more of a milk chocolate, rather than dark chocolate flavor, it's perfect for kids.",
+  "imageURL": "https://www.kingarthurbaking.com/sites/default/files/2022-12/KABC_Cakes_Chocolate-Cake_Ganache_07863.jpg",
+  "ingredients": "2 1/4 cups (270g) King Arthur Unbleached All-Purpose Flour
 1 1/2 teaspoons baking powder
 1/2 teaspoon baking soda
-1/2 teaspoon salt
-3/4 cup (64g) unsweetened cocoa, natural or Dutch-process cocoa
+3/4 teaspoon salt
+3/4 cup (64g) unsweetened cocoa Dutch-process or natural
 1 3/4 cups (354g) granulated sugar
-1/2 cup (8 tablespoons, 113g) unsalted butter, at room temperature
+8 tablespoons (113g) unsalted butter at room temperature
 1/3 cup (64g) vegetable oil
-2 teaspoons vanilla extract
+2 teaspoons King Arthur Pure Vanilla Extract
 1 cup (227g) milk
-1/2 cup (113g) coffee or water
+1/2 cup (113g) brewed coffee or water
 4 large eggs
-[Nutrition Information]",
-  "instructions": "Preheat the oven to 350°F. Lightly grease and flour your choice of pans: one 9\\" x 13\\" pan, two 9\\" round pans, or three 8\\" round pans.
-Sift together the flour, baking powder, baking soda, salt, cocoa, and sugar into a large mixing bowl.
-Add the butter and mix at low speed for 1 minute. With the mixer running, add the oil and continue mixing until the mixture looks sandy, about 30 seconds more.
-In a large measuring cup, combine the vanilla with the milk and coffee(or water), and add all at once to the dry ingredients. Mix for 1 minute at low speed, stop and scrape the sides and bottom of the bowl, then mix for 30 seconds more.
-Take it a step further
-[Blog]
-How to tell when cake is done
-[By Kye Ameden]
-Add the eggs one at a time, beating well at medium-high speed between additions.
-Scrape the sides and bottom of the mixing bowl, and mix for 30 seconds more. The batter will be thin.
-Transfer the batter to the prepared pan(s) of your choice. Smooth out the tops of the layers with an offset spatula.
-Bake for 34 minutes for a 9\\" x 13\\" pan, 28 to 30 minutes for 9\\" layers, and 24 to 26 minutes for 8\\" layers.
-The cake is done when the top springs back when very lightly touched in the center, and the edges just begin to pull away from the edge of the pan. A cake tester inserted in the center will come out clean.
-Remove the cake from the oven and let cool completely in the pan(s) on a rack before turning out of the pans to frost.
-Cake layers can be wrapped and frozen for up to a month before frosting.
-Tips from our Bakers
-The volume of this batter is 5 3/4 cups. It will rise quite a bit during baking. The weight of the batter is 3 pounds, 1 ounce. If you're weighing out layers, put 1 pound, 8 1/2 ounces in each 9\\" layer, or 1 pound in each 8\\" layer.
-We've tested this cake with natural unsweetened cocoa, and with Dutch-process; both work well. The Dutch-process cake will be darker in color and slightly less sweet.
-Try frosting this cake with Seven-Minute Frosting as shown here.
-The butter in this recipe needs to be very soft. If you can leave a dent in the butter with a gentle touch, it's ready to use.
-[Shares]
-5.8k
-Share on Facebook
-Share by Email
-Share on Pinterest
-Share on Twitter",
+1 batch of Super-Simple Chocolate Frosting*",
+  "instructions": "Preheat the oven to 350°F. Lightly grease and flour your choice of pans: one 9" x 13" pan, two 9" round pans, or three 8" round pans. (To make a four-layer cake, use two 9" round pans; the layers will each be split in half.) , Sift together the flour, baking powder, baking soda, salt, cocoa, and sugar into a large mixing bowl., Add the butter and mix at low speed for 1 minute. With the mixer running, add the oil and continue mixing until the mixture looks sandy, about 30 seconds more., In a large measuring cup, combine the vanilla with the milk and coffee (or water), and add all at once to the dry ingredients. Mix for 1 minute at low speed, stop and scrape the sides and bottom of the bowl, then mix for 30 seconds more., Add the eggs one at a time, beating well at medium-high speed between additions., Scrape the sides and bottom of the mixing bowl, and mix for 30 seconds more. The batter will be thin., Transfer the batter to the prepared pan(s) of your choice. Smooth out the tops of the layers with an offset spatula., Bake for 34 minutes for a 9" x 13" pan, 28 to 30 minutes for 9" layers, and 24 to 26 minutes for 8" layers., The cake is done when the top springs back when very lightly touched in the center, and the edges just begin to pull away from the edge of the pan. A toothpick or paring knife inserted in the center will come out clean., Remove the cake from the oven and let cool completely in the pan(s) on a rack. Cake layers can be wrapped and frozen for up to a month before frosting., Frost the 9" x 13" cake directly in the pan once cool. For the layer cakes, turn them out of the pan once cool. To make a 4-layer cake, split the 9" rounds in half horizontally with a large serrated knife. (Leave the three 8" layers whole.) Frost the top of one layer, then top with the second layer and repeat until all layers are used. Finally, frost the top and sides of the cake. See our blog post, How to assemble and frost a layer cake, for details., Refrigerate the cake for about an hour to help the frosting set up and make slicing easier. Serve slices of cake cold or at room temperature.
+, Refrigerate any leftovers, well wrapped, for a day or so; freeze for longer storage.",
   "notes": "Tips from our Bakers
-The volume of this batter is 5 3/4 cups. It will rise quite a bit during baking. The weight of the batter is 3 pounds, 1 ounce. If you're weighing out layers, put 1 pound, 8 1/2 ounces in each 9\\" layer, or 1 pound in each 8\\" layer.
+The volume of this batter is 5 3/4 cups. It will rise quite a bit during baking.
+The weight of the batter is 3 pounds, 1 ounce. If you're weighing out layers, put 1 pound, 8 1/2 ounces in each 9" layer, or 1 pound in each 8" layer.
 We've tested this cake with natural unsweetened cocoa, and with Dutch-process; both work well. The Dutch-process cake will be darker in color and slightly less sweet.
 Try frosting this cake with Seven-Minute Frosting as shown here.
 The butter in this recipe needs to be very soft. If you can leave a dent in the butter with a gentle touch, it's ready to use.",
-  "source": "King Arthur Flour",
+  "source": "King Arthur Baking",
   "title": "Chocolate Cake",
   "totalTime": "",
   "yield": "",

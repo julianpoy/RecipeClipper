@@ -27,8 +27,9 @@ HTML parsing engines such as JSDOM can be used with this library, but may provid
 
 To import:
 ```
-const RecipeClipper = require('@julianpoy/recipe-clipper');
-import RecipeClipper from '@julianpoy/recipe-clipper';
+const RecipeClipper = require('@julianpoy/recipe-clipper'); // CommonJS
+import RecipeClipper from '@julianpoy/recipe-clipper'; // ES6 CommonJS
+import { clipRecipe } from '@julianpoy/recipe-clipper/dist/recipe-clipper.mjs'; // ESM
 ```
 
 Or:

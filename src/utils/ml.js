@@ -162,13 +162,25 @@ export const findByHeader = async (config, type) => {
     .reduce((a, b) => (a.length > b.length ? a : b), '');
 };
 
-// Type 1 for ingredients
-// Type 2 for instructions
-// Others to be implemented in future...
-export const grabByMl = async (config, type) => {
+export const find = async (config, type) => {
   if (config.options.mlDisable) return '';
 
   const result = await self.findByHeader(config, type) || await self.findFullSearch(config, type);
 
   return result;
+};
+
+// Type 1 for ingredients
+// Type 2 for instructions
+// Others to be implemented in future...
+export const grabByMl = async (config, type) => {
+  try {
+    return await self.find(config, type);
+  } catch (e) {
+    if (config.options.ignoreMLClassifyErrors) {
+      return '';
+    }
+
+    throw e;
+  }
 };

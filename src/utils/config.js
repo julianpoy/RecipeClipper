@@ -7,6 +7,7 @@ export const generateConfig = (options) => {
       mlDisable: null,
       mlModelEndpoint: null,
       mlClassifyEndpoint: null,
+      ignoreMLClassifyErrors: null,
     },
   };
 
@@ -19,6 +20,7 @@ export const generateConfig = (options) => {
       config.options.mlDisable = window.RC_ML_DISABLE || null;
       config.options.mlModelEndpoint = window.RC_ML_MODEL_ENDPOINT || null;
       config.options.mlClassifyEndpoint = window.RC_ML_CLASSIFY_ENDPOINT || null;
+      config.options.ignoreMLClassifyErrors = window.RC_IGNORE_ML_CLASSIFY_ERRORS || null;
     }
   } catch (_) {
     // Do nothing

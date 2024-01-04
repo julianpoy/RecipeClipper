@@ -2,6 +2,7 @@ import * as element from './element';
 import * as ml from './ml';
 import {
   grabByMl,
+  find,
   findByHeader,
   findFullSearch,
   mlFilter,
@@ -26,9 +27,55 @@ describe('ml', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     config.options.mlDisable = undefined;
+    config.options.ignoreMLClassifyErrors = undefined;
   });
 
   describe('grabByMl', () => {
+    let findMock;
+    beforeEach(async () => {
+      findMock = jest.spyOn(ml, 'find');
+    });
+
+    describe('success', () => {
+      let result;
+      beforeEach(async () => {
+        findMock.mockResolvedValue('example');
+        result = await grabByMl(config, 1);
+      });
+
+      it('calls find', () => {
+        expect(findMock).toHaveBeenCalledWith(config, 1);
+      });
+
+      it('returns results from find', () => {
+        expect(result).toEqual('example');
+      });
+    });
+
+    describe('failure', () => {
+      beforeEach(async () => {
+        findMock.mockRejectedValue(new Error('example'));
+      });
+
+      describe('when ignoreMLClassifyErrors is true', () => {
+        beforeEach(() => {
+          config.options.ignoreMLClassifyErrors = true;
+        });
+
+        it('returns an empty string', async () => {
+          expect(await grabByMl(config, 1)).toEqual('');
+        });
+      });
+
+      describe('when ignoreMLClassifyErrors is not enabled', () => {
+        it('throws an error', () => {
+          expect(grabByMl(config, 1)).rejects.toThrow('example');
+        });
+      });
+    });
+  });
+
+  describe('find', () => {
     let findByHeaderMock;
     let findFullSearchMock;
 
@@ -42,7 +89,7 @@ describe('ml', () => {
 
       beforeEach(async () => {
         config.options.mlDisable = true;
-        result = await grabByMl(config, 1);
+        result = await find(config, 1);
       });
 
       it('returns empty string', () => {
@@ -65,7 +112,7 @@ describe('ml', () => {
       beforeEach(async () => {
         findByHeaderMock.mockResolvedValue(mockHeaderResult);
 
-        result = await grabByMl(config, 1);
+        result = await find(config, 1);
       });
 
       it('returns match from findByHeader', () => {
@@ -89,7 +136,7 @@ describe('ml', () => {
         findByHeaderMock.mockReturnValue(null);
         findFullSearchMock.mockReturnValue(mockFullTextResult);
 
-        result = await grabByMl(config, 1);
+        result = await find(config, 1);
       });
 
       it('returns match from findFullSearch', () => {

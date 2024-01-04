@@ -10,6 +10,7 @@ describe('generateConfig', () => {
         mlDisable: null,
         mlModelEndpoint: null,
         mlClassifyEndpoint: null,
+        ignoreMLClassifyErrors: null,
       },
     });
   });
@@ -19,6 +20,7 @@ describe('generateConfig', () => {
       mlDisable: true,
       mlModelEndpoint: 'example',
       mlClassifyEndpoint: 'example2',
+      ignoreMLClassifyErrors: true,
     });
     expect(config).toEqual({
       window,
@@ -27,6 +29,7 @@ describe('generateConfig', () => {
         mlDisable: true,
         mlModelEndpoint: 'example',
         mlClassifyEndpoint: 'example2',
+        ignoreMLClassifyErrors: true,
       },
     });
   });
@@ -43,6 +46,7 @@ describe('generateConfig', () => {
         mlDisable: null,
         mlModelEndpoint: null,
         mlClassifyEndpoint: null,
+        ignoreMLClassifyErrors: null,
       },
     });
   });

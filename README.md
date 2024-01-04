@@ -51,7 +51,8 @@ RecipeClipper.clipRecipe({
   window: window, // Optional: Pass a custom window object - very useful if you want to use this library with JSDOM
   mlDisable: false, // Optional: Disable the machine learning part of this project
   mlClassifyEndpoint: '', // Optional: Provide the endpoint for the machine learning classification server documented below
-  mlModelEndpoint: '' // Optional: Provide the machine learning model endpoint if using local in-browser machine learning
+  mlModelEndpoint: '', // Optional: Provide the machine learning model endpoint if using local in-browser machine learning
+  ignoreMLClassifyErrors: false, // Optional: Do not throw an error if machine learning classification fails, just return an empty string for that field instead
 })...
 ```
 

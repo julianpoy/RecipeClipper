@@ -48,11 +48,23 @@ const classMatchers = {
     ['yield', 'servings'],
   ],
   activeTime: [
-    ['activeTime', 'active-time', 'prep-time', 'time-active', 'time-prep'],
+    [
+      'wprm-recipe-prep_time', // Wordpress recipe embed tool - https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/
+      'activeTime',
+      'active-time',
+      'prep-time',
+      'time-active',
+      'time-prep',
+    ],
     ['activeTime', 'active-time', 'prep-time', 'time-active', 'time-prep'],
   ],
   totalTime: [
-    ['totalTime', 'total-time', 'time-total'],
+    [
+      'wprm-recipe-total_time', // Wordpress recipe embed tool - https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/
+      'totalTime',
+      'total-time',
+      'time-total',
+    ],
     ['totalTime', 'total-time', 'time-total'],
   ],
   ingredients: [
@@ -122,7 +134,7 @@ const classMatchers = {
       'recipefootnotes', // Generic
       'recipe-footnotes', // Generic
       'recipe__tips', // King Arthur Flour - https://www.kingarthurflour.com/recipes/chocolate-cake-recipe
-      'wprm-recipe-notes-container', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
+      'wprm-recipe-notes', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
     ],
     [
       'recipenotes',

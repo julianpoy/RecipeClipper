@@ -211,11 +211,13 @@ describe('clipDescription', () => {
   const descriptionMatch = 'example description';
   const description = 'example';
   let outputVal;
-  let getDescriptionFromSchemaSpy, grabLongestMatchByClassesSpy, formatDescriptionSpy;
+  let getDescriptionFromSchemaSpy, getDescriptionFromMicrodataSpy;
+  let grabLongestMatchByClassesSpy, formatDescriptionSpy;
 
   describe('when schema match is found', () => {
     beforeAll(() => {
       getDescriptionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getDescriptionFromSchema').mockReturnValue(descriptionMatch);
+      getDescriptionFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getDescriptionFromMicrodata').mockReturnValue(descriptionMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
       formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
 
@@ -228,6 +230,10 @@ describe('clipDescription', () => {
 
     it('calls getDescriptionFromSchema()', () => {
       expect(getDescriptionFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call getDescriptionFromMicrodata()', () => {
+      expect(getDescriptionFromMicrodataSpy).not.toBeCalled();
     });
 
     it('does not call grabLongestMatchByClasses()', () => {
@@ -243,9 +249,10 @@ describe('clipDescription', () => {
     });
   });
 
-  describe('when no schema match is found', () => {
+  describe('when no schema match is found, but microdata match is found', () => {
     beforeAll(() => {
       getDescriptionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getDescriptionFromSchema').mockReturnValue('');
+      getDescriptionFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getDescriptionFromMicrodata').mockReturnValue(descriptionMatch);
       grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
       formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
 
@@ -258,6 +265,45 @@ describe('clipDescription', () => {
 
     it('calls getDescriptionFromSchema()', () => {
       expect(getDescriptionFromSchemaSpy).toBeCalled();
+    });
+
+    it('calls getDescriptionFromMicrodata()', () => {
+      expect(getDescriptionFromMicrodataSpy).toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls formatDescription()', () => {
+      expect(formatDescriptionSpy).toBeCalledWith(descriptionMatch);
+    });
+
+    it('returns formatted description', () => {
+      expect(outputVal).toEqual(description);
+    });
+  });
+
+  describe('when no schema or microdata match is found', () => {
+    beforeAll(() => {
+      getDescriptionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getDescriptionFromSchema').mockReturnValue('');
+      getDescriptionFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getDescriptionFromMicrodata').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(descriptionMatch);
+      formatDescriptionSpy = jest.spyOn(TextUtils.format, 'description').mockReturnValue(description);
+
+      outputVal = ClipUtils.clipDescription(config);
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getDescriptionFromSchema()', () => {
+      expect(getDescriptionFromSchemaSpy).toBeCalled();
+    });
+
+    it('calls getDescriptionFromMicrodata()', () => {
+      expect(getDescriptionFromMicrodataSpy).toBeCalled();
     });
 
     it('calls grabLongestMatchByClasses()', () => {

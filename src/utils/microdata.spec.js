@@ -1,6 +1,8 @@
 import * as MicrodataUtils from './microdata';
 import {
   getLongestTextForQueries,
+  getLongestGroupTextForQueries,
+  getDescriptionFromMicrodata,
   getActiveTimeFromMicrodata,
   getTotalTimeFromMicrodata,
   getYieldFromMicrodata,
@@ -14,23 +16,53 @@ describe('MicrodataUtils', () => {
       document.body.innerHTML = `
         <div itemProp="test">Example Text</div>
         <div itemProp="test">Example Text 2</div>
+        <div itemProp="test2">Short</div>
       `;
 
       expect(getLongestTextForQueries(window, [
         '[itemProp="test"]',
+        '[itemProp="test2"]',
       ])).toEqual('Example Text 2');
+    });
+  });
+
+  describe('getLongestGroupTextForQueries', () => {
+    it('gets the text for longest matching element for query', () => {
+      document.body.innerHTML = `
+        <div itemProp="test">Example Text</div>
+        <div itemProp="test">Example Text 2</div>
+        <div itemProp="test2">Short</div>
+      `;
+
+      expect(getLongestGroupTextForQueries(window, [
+        '[itemProp="test"]',
+        '[itemProp="test2"]',
+      ])).toEqual('Example Text\nExample Text 2');
     });
   });
 
   describe('getters', () => {
     let getLongestTextForQueriesSpy;
+    let getLongestGroupTextForQueriesSpy;
 
     beforeEach(() => {
       getLongestTextForQueriesSpy = jest.spyOn(MicrodataUtils, 'getLongestTextForQueries');
+      getLongestGroupTextForQueriesSpy = jest.spyOn(MicrodataUtils, 'getLongestGroupTextForQueries');
     });
 
     afterEach(() => {
       jest.restoreAllMocks();
+    });
+
+    describe('getDescriptionFromMicrodata', () => {
+      it('calls getLongestTextForQueries', () => {
+        getDescriptionFromMicrodata(window);
+
+        expect(getLongestTextForQueriesSpy).toHaveBeenCalledWith(
+          window,
+          ['[itemProp=description]'],
+        );
+      });
     });
 
     describe('getActiveTimeFromMicrodata', () => {
@@ -67,10 +99,10 @@ describe('MicrodataUtils', () => {
     });
 
     describe('getInstructionsFromMicrodata', () => {
-      it('calls getLongestTextForQueries', () => {
+      it('calls getLongestGroupTextForQueries', () => {
         getInstructionsFromMicrodata(window);
 
-        expect(getLongestTextForQueriesSpy).toHaveBeenCalledWith(
+        expect(getLongestGroupTextForQueriesSpy).toHaveBeenCalledWith(
           window,
           [
             '[itemProp=recipeInstructions]',
@@ -81,10 +113,10 @@ describe('MicrodataUtils', () => {
     });
 
     describe('getIngredientsFromMicrodata', () => {
-      it('calls getLongestTextForQueries', () => {
+      it('calls getLongestGroupTextForQueries', () => {
         getIngredientsFromMicrodata(window);
 
-        expect(getLongestTextForQueriesSpy).toHaveBeenCalledWith(
+        expect(getLongestGroupTextForQueriesSpy).toHaveBeenCalledWith(
           window,
           [
             '[itemProp=recipeIngredients]',

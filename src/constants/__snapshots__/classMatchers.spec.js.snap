@@ -4,6 +4,7 @@ exports[`classMatchers matches snapshot 1`] = `
 {
   "activeTime": [
     [
+      "wprm-recipe-prep_time",
       "activeTime",
       "active-time",
       "prep-time",
@@ -110,7 +111,7 @@ exports[`classMatchers matches snapshot 1`] = `
       "recipefootnotes",
       "recipe-footnotes",
       "recipe__tips",
-      "wprm-recipe-notes-container",
+      "wprm-recipe-notes",
     ],
     [
       "recipenotes",
@@ -132,6 +133,7 @@ exports[`classMatchers matches snapshot 1`] = `
   ],
   "totalTime": [
     [
+      "wprm-recipe-total_time",
       "totalTime",
       "total-time",
       "time-total",

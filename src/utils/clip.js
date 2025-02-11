@@ -25,6 +25,7 @@ import {
   getInstructionsFromSchema,
 } from './schema';
 import {
+  getDescriptionFromMicrodata,
   getYieldFromMicrodata,
   getActiveTimeFromMicrodata,
   getTotalTimeFromMicrodata,
@@ -45,6 +46,7 @@ export const clipTitle = (config) => format.title(
 
 export const clipDescription = (config) => format.description(
   getDescriptionFromSchema(config.window)
+  || getDescriptionFromMicrodata(config.window)
   || grabLongestMatchByClasses(config.window, ...ClassMatchers.description),
 );
 

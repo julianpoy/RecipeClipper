@@ -260,4 +260,18 @@ describe('format', () => {
       expect(format.notes('')).toEqual('');
     });
   });
+
+  describe('nutritionInfo', () => {
+    it('cleans known words', () => {
+      expect(format.nutritionInfo('ingredients')).toEqual('');
+    });
+
+    it('preserves valid input', () => {
+      expect(format.nutritionInfo('Calories: 250')).toEqual('Calories: 250');
+    });
+
+    it('handles empty input', () => {
+      expect(format.nutritionInfo('')).toEqual('');
+    });
+  });
 });

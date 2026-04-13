@@ -143,6 +143,19 @@ const classMatchers = {
       'recipe-footnotes',
     ],
   ],
+  nutritionInfo: [
+    [
+      'wprm-recipe-nutrition', // Wordpress recipe embed tool
+      'tasty-recipes-nutrition', // Tasty recipes embed tool
+      'recipe-nutrition', // Generic
+      'nutrition-info', // Generic
+      'nutrition-summary', // Generic
+    ],
+    [
+      'nutrition',
+      'nutrient',
+    ],
+  ],
 };
 
 export default classMatchers;

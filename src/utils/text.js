@@ -47,4 +47,5 @@ export const format = {
   ingredients: (val) => cleanKnownWords(val),
   instructions: (val) => cleanKnownWords(val),
   notes: (val) => cleanKnownWords(val),
+  nutritionInfo: (val) => cleanKnownWords(val),
 };

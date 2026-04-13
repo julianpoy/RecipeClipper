@@ -8,6 +8,7 @@ import {
   getYieldFromMicrodata,
   getIngredientsFromMicrodata,
   getInstructionsFromMicrodata,
+  getNutritionFromMicrodata,
 } from './microdata';
 
 describe('MicrodataUtils', () => {
@@ -122,6 +123,17 @@ describe('MicrodataUtils', () => {
             '[itemProp=recipeIngredients]',
             '[itemProp=ingredients]',
           ],
+        );
+      });
+    });
+
+    describe('getNutritionFromMicrodata', () => {
+      it('calls getLongestTextForQueries', () => {
+        getNutritionFromMicrodata(window);
+
+        expect(getLongestTextForQueriesSpy).toHaveBeenCalledWith(
+          window,
+          ['[itemProp=nutrition]'],
         );
       });
     });

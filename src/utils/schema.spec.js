@@ -10,6 +10,7 @@ import {
   getTextFromSchema,
   getInstructionsFromSchema,
   getIngredientsFromSchema,
+  getNutritionFromSchema,
 } from './schema';
 
 const createSchema = (schemaText) => {
@@ -403,5 +404,62 @@ describe('getTextFromSchema', () => {
       },
       3, // Check against an unexpected type of value
     ])).toEqual('');
+  });
+});
+
+describe('getNutritionFromSchema', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('calls getPropertyFromSchema', () => {
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema');
+    getNutritionFromSchema(window);
+    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledTimes(1);
+    expect(schemaUtils.getPropertyFromSchema).toHaveBeenCalledWith(window, 'nutrition');
+  });
+
+  it('returns empty string when no match is found', () => {
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue(null);
+    expect(getNutritionFromSchema(window)).toEqual('');
+  });
+
+  it('returns empty string when result is not an object', () => {
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue('some string');
+    expect(getNutritionFromSchema(window)).toEqual('');
+  });
+
+  it('returns formatted string when nutrition object has fields', () => {
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue({
+      calories: '250 calories',
+      fatContent: '12g',
+      proteinContent: '8g',
+    });
+    expect(getNutritionFromSchema(window)).toEqual('Calories: 250 calories\nFat: 12g\nProtein: 8g');
+  });
+
+  it('returns empty string when nutrition object has no recognized fields', () => {
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue({
+      '@type': 'NutritionInformation',
+    });
+    expect(getNutritionFromSchema(window)).toEqual('');
+  });
+
+  it('returns all recognized fields when present', () => {
+    jest.spyOn(schemaUtils, 'getPropertyFromSchema').mockReturnValue({
+      calories: '250 calories',
+      fatContent: '12g',
+      saturatedFatContent: '5g',
+      cholesterolContent: '30mg',
+      sodiumContent: '400mg',
+      carbohydrateContent: '30g',
+      fiberContent: '3g',
+      sugarContent: '10g',
+      proteinContent: '8g',
+      servingSize: '1 cup',
+    });
+    expect(getNutritionFromSchema(window)).toEqual(
+      'Calories: 250 calories\nFat: 12g\nSaturated Fat: 5g\nCholesterol: 30mg\nSodium: 400mg\nCarbohydrates: 30g\nFiber: 3g\nSugar: 10g\nProtein: 8g\nServing Size: 1 cup',
+    );
   });
 });

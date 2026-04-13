@@ -23,6 +23,7 @@ import {
   getYieldFromSchema,
   getIngredientsFromSchema,
   getInstructionsFromSchema,
+  getNutritionFromSchema,
 } from './schema';
 import {
   getDescriptionFromMicrodata,
@@ -31,6 +32,7 @@ import {
   getTotalTimeFromMicrodata,
   getIngredientsFromMicrodata,
   getInstructionsFromMicrodata,
+  getNutritionFromMicrodata,
 } from './microdata';
 
 export const clipImageURL = (config) => format.imageURL(
@@ -89,4 +91,10 @@ export const clipInstructions = async (config) => format.instructions(
 
 export const clipNotes = (config) => format.notes(
   grabLongestMatchByClasses(config.window, ...ClassMatchers.notes),
+);
+
+export const clipNutritionInfo = (config) => format.nutritionInfo(
+  getNutritionFromSchema(config.window)
+  || getNutritionFromMicrodata(config.window)
+  || grabLongestMatchByClasses(config.window, ...ClassMatchers.nutritionInfo),
 );

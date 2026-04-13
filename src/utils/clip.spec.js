@@ -1123,3 +1123,116 @@ describe('clipNotes', () => {
     expect(outputVal).toEqual(notes);
   });
 });
+
+describe('clipNutritionInfo', () => {
+  const nutritionMatch = 'Calories: 250';
+  const nutritionInfo = 'Calories: 250';
+  let outputVal;
+  let getNutritionFromSchemaSpy, getNutritionFromMicrodataSpy;
+  let grabLongestMatchByClassesSpy, formatNutritionInfoSpy;
+
+  describe('when schema match is found', () => {
+    beforeAll(() => {
+      getNutritionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getNutritionFromSchema').mockReturnValue(nutritionMatch);
+      getNutritionFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getNutritionFromMicrodata').mockReturnValue(nutritionMatch);
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(nutritionMatch);
+      formatNutritionInfoSpy = jest.spyOn(TextUtils.format, 'nutritionInfo').mockReturnValue(nutritionInfo);
+
+      outputVal = ClipUtils.clipNutritionInfo(config);
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getNutritionFromSchema()', () => {
+      expect(getNutritionFromSchemaSpy).toBeCalled();
+    });
+
+    it('does not call getNutritionFromMicrodata()', () => {
+      expect(getNutritionFromMicrodataSpy).not.toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls format.nutritionInfo()', () => {
+      expect(formatNutritionInfoSpy).toBeCalledWith(nutritionMatch);
+    });
+
+    it('returns formatted nutritionInfo', () => {
+      expect(outputVal).toEqual(nutritionInfo);
+    });
+  });
+
+  describe('when no schema match is found, but microdata match is found', () => {
+    beforeAll(() => {
+      getNutritionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getNutritionFromSchema').mockReturnValue('');
+      getNutritionFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getNutritionFromMicrodata').mockReturnValue(nutritionMatch);
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(nutritionMatch);
+      formatNutritionInfoSpy = jest.spyOn(TextUtils.format, 'nutritionInfo').mockReturnValue(nutritionInfo);
+
+      outputVal = ClipUtils.clipNutritionInfo(config);
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getNutritionFromSchema()', () => {
+      expect(getNutritionFromSchemaSpy).toBeCalled();
+    });
+
+    it('calls getNutritionFromMicrodata()', () => {
+      expect(getNutritionFromMicrodataSpy).toBeCalled();
+    });
+
+    it('does not call grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).not.toBeCalled();
+    });
+
+    it('calls format.nutritionInfo()', () => {
+      expect(formatNutritionInfoSpy).toBeCalledWith(nutritionMatch);
+    });
+
+    it('returns formatted nutritionInfo', () => {
+      expect(outputVal).toEqual(nutritionInfo);
+    });
+  });
+
+  describe('when no schema or microdata match is found', () => {
+    beforeAll(() => {
+      getNutritionFromSchemaSpy = jest.spyOn(SchemaUtils, 'getNutritionFromSchema').mockReturnValue('');
+      getNutritionFromMicrodataSpy = jest.spyOn(MicrodataUtils, 'getNutritionFromMicrodata').mockReturnValue('');
+      grabLongestMatchByClassesSpy = jest.spyOn(ElementUtils, 'grabLongestMatchByClasses').mockReturnValue(nutritionMatch);
+      formatNutritionInfoSpy = jest.spyOn(TextUtils.format, 'nutritionInfo').mockReturnValue(nutritionInfo);
+
+      outputVal = ClipUtils.clipNutritionInfo(config);
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('calls getNutritionFromSchema()', () => {
+      expect(getNutritionFromSchemaSpy).toBeCalled();
+    });
+
+    it('calls getNutritionFromMicrodata()', () => {
+      expect(getNutritionFromMicrodataSpy).toBeCalled();
+    });
+
+    it('calls grabLongestMatchByClasses()', () => {
+      expect(grabLongestMatchByClassesSpy).toBeCalled();
+    });
+
+    it('calls format.nutritionInfo()', () => {
+      expect(formatNutritionInfoSpy).toBeCalledWith(nutritionMatch);
+    });
+
+    it('returns formatted nutritionInfo', () => {
+      expect(outputVal).toEqual(nutritionInfo);
+    });
+  });
+});

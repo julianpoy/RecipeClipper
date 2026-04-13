@@ -120,6 +120,19 @@ exports[`classMatchers matches snapshot 1`] = `
       "recipe-footnotes",
     ],
   ],
+  "nutritionInfo": [
+    [
+      "wprm-recipe-nutrition",
+      "tasty-recipes-nutrition",
+      "recipe-nutrition",
+      "nutrition-info",
+      "nutrition-summary",
+    ],
+    [
+      "nutrition",
+      "nutrient",
+    ],
+  ],
   "title": [
     [
       "wprm-recipe-name",

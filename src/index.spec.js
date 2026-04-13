@@ -4,6 +4,7 @@ import * as ClipUtils from './utils/clip';
 describe('clip', () => {
   let clipImageURLSpy, clipTitleSpy, clipDescriptionSpy, clipSourceSpy, clipYieldSpy;
   let clipTotalTimeSpy, clipIngredientsSpy, clipInstructionsSpy, clipNotesSpy, clipActiveTimeSpy;
+  let clipNutritionInfoSpy;
   let outputVal;
 
   beforeAll(async () => {
@@ -17,6 +18,7 @@ describe('clip', () => {
     clipIngredientsSpy = jest.spyOn(ClipUtils, 'clipIngredients').mockResolvedValue('ingredients');
     clipInstructionsSpy = jest.spyOn(ClipUtils, 'clipInstructions').mockResolvedValue('instructions');
     clipNotesSpy = jest.spyOn(ClipUtils, 'clipNotes').mockReturnValue('notes');
+    clipNutritionInfoSpy = jest.spyOn(ClipUtils, 'clipNutritionInfo').mockReturnValue('nutritionInfo');
 
     outputVal = await clipRecipe();
   });
@@ -36,6 +38,7 @@ describe('clip', () => {
     expect(clipIngredientsSpy).toBeCalled();
     expect(clipInstructionsSpy).toBeCalled();
     expect(clipNotesSpy).toBeCalled();
+    expect(clipNutritionInfoSpy).toBeCalled();
   });
 
   it('returns result matching snapshot', () => {

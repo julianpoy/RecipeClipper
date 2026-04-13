@@ -15,5 +15,6 @@ export const clipRecipe = async (options) => {
     ingredients: await ClipUtils.clipIngredients(config),
     instructions: await ClipUtils.clipInstructions(config),
     notes: ClipUtils.clipNotes(config),
+    nutritionInfo: ClipUtils.clipNutritionInfo(config),
   };
 };

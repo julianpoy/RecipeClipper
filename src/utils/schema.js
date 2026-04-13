@@ -128,3 +128,27 @@ export const getIngredientsFromSchema = (window) => {
 
   return self.getTextFromSchema(ingredients);
 };
+
+const nutritionFields = [
+  ['calories', 'Calories'],
+  ['fatContent', 'Fat'],
+  ['saturatedFatContent', 'Saturated Fat'],
+  ['cholesterolContent', 'Cholesterol'],
+  ['sodiumContent', 'Sodium'],
+  ['carbohydrateContent', 'Carbohydrates'],
+  ['fiberContent', 'Fiber'],
+  ['sugarContent', 'Sugar'],
+  ['proteinContent', 'Protein'],
+  ['servingSize', 'Serving Size'],
+];
+
+export const getNutritionFromSchema = (window) => {
+  const nutrition = self.getPropertyFromSchema(window, 'nutrition');
+  if (!nutrition || typeof nutrition !== 'object') return '';
+
+  const parts = nutritionFields
+    .filter(([key]) => nutrition[key])
+    .map(([key, label]) => `${label}: ${nutrition[key]}`);
+
+  return parts.join('\n');
+};

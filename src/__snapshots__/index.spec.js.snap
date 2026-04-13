@@ -8,6 +8,7 @@ exports[`clip returns result matching snapshot 1`] = `
   "ingredients": "ingredients",
   "instructions": "instructions",
   "notes": "notes",
+  "nutritionInfo": "nutritionInfo",
   "source": "source",
   "title": "title",
   "totalTime": "totalTime",

@@ -51,3 +51,7 @@ export const getIngredientsFromMicrodata = (window) => self.getLongestGroupTextF
   '[itemProp=recipeIngredients]',
   '[itemProp=ingredients]',
 ]);
+
+export const getNutritionFromMicrodata = (window) => self.getLongestTextForQueries(window, [
+  '[itemProp=nutrition]',
+]);

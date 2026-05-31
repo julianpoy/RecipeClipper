@@ -29,6 +29,7 @@ const classMatchers = {
   title: [
     [
       'wprm-recipe-name', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
+      'tasty-recipes-title', // Tasty recipes embed tool - https://pinchofyum.com/ridiculously-good-air-fryer-chicken-breast
     ],
     [
       'recipename',
@@ -40,16 +41,25 @@ const classMatchers = {
   description: [
     [
       'wprm-recipe-summary', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
+      'tasty-recipes-description', // Tasty recipes embed tool - https://pinchofyum.com/ridiculously-good-air-fryer-chicken-breast
     ],
     [],
   ],
   yield: [
-    ['recipe-yield', 'recipe-servings', 'yield', 'servings'],
+    [
+      'tasty-recipes-yield', // Tasty recipes embed tool - https://sallysbakingaddiction.com/quiche-recipe/
+      'wprm-recipe-servings-with-unit', // Wordpress recipe embed tool - https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/
+      'recipe-yield',
+      'recipe-servings',
+      'yield',
+      'servings',
+    ],
     ['yield', 'servings'],
   ],
   activeTime: [
     [
       'wprm-recipe-prep_time', // Wordpress recipe embed tool - https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/
+      'tasty-recipes-prep-time', // Tasty recipes embed tool - https://myheartbeets.com/paleo-tortilla-chips/
       'activeTime',
       'active-time',
       'prep-time',
@@ -61,6 +71,7 @@ const classMatchers = {
   totalTime: [
     [
       'wprm-recipe-total_time', // Wordpress recipe embed tool - https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/
+      'tasty-recipes-total-time', // Tasty recipes embed tool - https://sallysbakingaddiction.com/quiche-recipe/
       'totalTime',
       'total-time',
       'time-total',
@@ -86,6 +97,7 @@ const classMatchers = {
   ],
   instructions: [
     [
+      'wprm-recipe-instructions-container', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
       'wprm-recipe-instructions', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
       'tasty-recipes-instructions', // Tasty recipes embed tool - https://myheartbeets.com/paleo-tortilla-chips/
       'recipe-directions__list', // AllRecipes - https://www.allrecipes.com/recipe/231244/asparagus-mushroom-bacon-crustless-quiche/
@@ -135,6 +147,7 @@ const classMatchers = {
       'recipe-footnotes', // Generic
       'recipe__tips', // King Arthur Flour - https://www.kingarthurflour.com/recipes/chocolate-cake-recipe
       'wprm-recipe-notes', // Wordpress recipe embed tool - https://panlasangpinoy.com/leche-flan/
+      'tasty-recipes-notes-body', // Tasty recipes embed tool - https://pinchofyum.com/ridiculously-good-air-fryer-chicken-breast
     ],
     [
       'recipenotes',
@@ -145,8 +158,8 @@ const classMatchers = {
   ],
   nutritionInfo: [
     [
-      'wprm-recipe-nutrition', // Wordpress recipe embed tool
-      'tasty-recipes-nutrition', // Tasty recipes embed tool
+      'wprm-nutrition-label-container', // Wordpress recipe embed tool
+      'tasty-recipes-nutrition', // Tasty recipes embed tool - https://pinchofyum.com/ridiculously-good-air-fryer-chicken-breast
       'recipe-nutrition', // Generic
       'nutrition-info', // Generic
       'nutrition-summary', // Generic
